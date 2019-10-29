@@ -1,0 +1,66 @@
+.ec-application-card {
+	display: flex;
+	flex-direction: column;
+	word-wrap: break-word;
+	background-color: #fff;
+	background-clip: border-box;
+	padding: 15px;
+	border-radius: .25rem;
+	box-shadow: 0 0 18px rgba(0, 0, 0, 0.06);
+	&__body {
+		display: flex;
+		align-items: center;
+		&__thumb {
+			display: flex;
+			flex-direction: column;
+			max-width: 100px;
+			width: 100%;
+			margin-right: 15px;
+			position: relative;
+			top: 5px;
+			img {
+				max-width: 100px;
+				width: 100%;
+				box-shadow: 1px 2px 14px 1px #0000000f;
+				border-radius: 5px;
+				height: auto;
+			}
+		}
+		&__content {
+			display: flex;
+			flex-direction: column;
+			width: 100%;
+			height: 100%;
+			&__title {
+				display: flex;
+				align-content: flex-start;
+				width: 100%;
+				h5 {
+					margin-top: 0;
+					margin-bottom: .5rem;
+					font-size: 18px !important;
+					font-weight: 400;
+					color: #323d47;
+					letter-spacing: 0.5px;
+					font-family: "Fira Sans", sans-serif;
+					line-height: 1.5;
+				}
+			}
+			&__description {
+				small {
+					font-size: 85%;
+					font-weight: 400;
+				}
+			}
+			&__link {
+				small {
+					a {
+						color: #ff015b;
+						text-decoration: none;
+						background-color: transparent;
+					}
+				}
+			}
+		}
+	}
+}
