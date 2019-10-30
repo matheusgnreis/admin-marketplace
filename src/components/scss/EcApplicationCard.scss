@@ -1,0 +1,48 @@
+.ec-application-card {
+  display: flex;
+  flex-direction: column;
+  word-wrap: break-word;
+  background-color: var(--body-bg);
+  background-clip: border-box;
+  padding: 15px;
+  border-radius: 0.25rem;
+  box-shadow: 0 0 18px rgba(0, 0, 0, 0.06);
+  &__body {
+    display: flex;
+    align-items: center;
+  }
+  &__thumb {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    max-width: 100px;
+    width: 100%;
+    margin-right: 15px;
+    position: relative;
+    padding: 5px;
+    box-shadow: 1px 2px 14px 1px #0000000f;
+    border-radius: 5px;
+    height: 100px;
+    img {
+      height: auto;
+    }
+  }
+  &__content {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+  }
+  &__title {
+    display: flex;
+    align-content: flex-start;
+    width: 100%;
+  }
+  &__category {
+    small {
+      span {
+        color: var(--primary);
+      }
+    }
+  }
+}
