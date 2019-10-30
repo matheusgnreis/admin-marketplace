@@ -1,15 +1,10 @@
 <template>
-  <div>
-    <b-container>
-      <b-row>
-        <b-col cols="6"
-          :key="application.id"
-          v-for="application in applications">
-          <ec-application-card
-            :application="application"/>
-        </b-col>
-    </b-row>
-    </b-container>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 col-lg-6 py-4" :key="application.id" v-for="application of applications">
+        <ec-application-card :application="application"/>
+      </div>
+    </div>
   </div>
 </template>
 
