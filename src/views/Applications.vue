@@ -1,8 +1,11 @@
 <template>
   <div class="container">
     <div class="row">
-      <div class="col-md-6 col-lg-6 py-4" :key="application.id" v-for="application of applications">
-        <ec-application-card :application="application"/>
+      <div
+        class="col-md-6 col-lg-6 py-4"
+        :key="application.id"
+        v-for="application of applications">
+          <ec-application-card :application="application"/>
       </div>
     </div>
   </div>
