@@ -21,45 +21,16 @@ export default {
   },
   data: () => {
     return {
-      applications: [
-        {
-          id: '1',
-          title: 'Melhor Envio',
-          description: 'Cote diversas modalidades de fretes com um clique, compre etiquetas e envie seus...',
-          category: 'Soluções de envio'
-        },
-        {
-          id: '2',
-          title: 'Melhor Envio',
-          description: 'Cote diversas modalidades de fretes com um clique, compre etiquetas e envie seus...',
-          category: 'Soluções de envio'
-        },
-        {
-          id: '3',
-          title: 'Melhor Envio',
-          description: 'Cote diversas modalidades de fretes com um clique, compre etiquetas e envie seus...',
-          category: 'Soluções de envio'
-        },
-        {
-          id: '4',
-          title: 'Melhor Envio',
-          description: 'Cote diversas modalidades de fretes com um clique, compre etiquetas e envie seus...',
-          category: 'Soluções de envio'
-        },
-        {
-          id: '5',
-          title: 'Melhor Envio',
-          description: 'Cote diversas modalidades de fretes com um clique, compre etiquetas e envie seus...',
-          category: 'Soluções de envio'
-        },
-        {
-          id: '6',
-          title: 'Melhor Envio',
-          description: 'Cote diversas modalidades de fretes com um clique, compre etiquetas e envie seus...',
-          category: 'Soluções de envio'
-        },
-      ]
+      applications: []
     }
+  },
+  created() {
+    fetch('https://market.e-com.plus/v1/applications/')
+      .then(response => {
+        response.json().then(result => {
+          this.applications = result.result
+        })
+      })
   }
 }
 </script>

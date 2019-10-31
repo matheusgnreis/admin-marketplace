@@ -1,7 +1,7 @@
 <div class="ec-application-card">
   <div class="ec-application-card__body">
     <div class="ec-application-card__thumb">
-      <img src="https://blog.melhorenvio.com.br/wp-content/uploads/2019/09/Melhor-Envio.png">
+      <img :src="getUrlIcon()">
     </div>
     <div class="ec-application-card__content">
       <div class="ec-application-card__title">
@@ -9,7 +9,7 @@
       </div>
       <div class="ec-application-card__description">
         <small>
-          {{application.description}}
+          {{application.short_description}}
         </small>
       </div>
       <div class="ec-application-card__category">
