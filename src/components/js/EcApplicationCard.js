@@ -6,8 +6,8 @@ export default {
       default: {}
     }
   },
-  methods: {
-    getUrlIcon () {
+  computed: {
+    appUrlIcon () {
       if (!this.application.icon.startsWith('https://')) {
         return `https://market.e-com.plus${this.application.icon}`
       }
