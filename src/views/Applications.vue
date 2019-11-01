@@ -36,7 +36,7 @@
 </template>
 
 <script>
-import EcApplicationCard from "../components/EcApplicationCard";
+import EcApplicationCard from "../components/EcApplicationCard"
 
 export default {
   name: "Applications",
@@ -48,10 +48,10 @@ export default {
       applications: [],
       categories: [],
       searchField: ""
-    };
+    }
   },
   created() {
-    this.loadApplications();
+    this.loadApplications()
   },
   watch: {
     $route: "loadApplications"
@@ -60,26 +60,26 @@ export default {
     loadApplications() {
       let query = this.$route.params.category
         ? `category=${this.$route.params.category}`
-        : "";
+        : ""
       query += this.$route.params.category
         ? `&title=${this.searchField}`
-        : `title=${this.searchField}`;
+        : `title=${this.searchField}`
       fetch(`https://market.e-com.plus/v1/applications/?${query}`).then(
         response => {
           response.json().then(result => {
-            this.applications = result.result;
+            this.applications = result.result
             if (!this.categories.length) {
-              this.loadCategories();
+              this.loadCategories()
             }
-          });
+          })
         }
-      );
+      )
     },
     loadCategories(applications) {
       this.categories = [
         ...new Set(this.applications.map(application => application.category))
-      ];
+      ]
     }
   }
-};
+}
 </script>
