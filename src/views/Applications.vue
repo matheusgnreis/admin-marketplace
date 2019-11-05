@@ -3,11 +3,11 @@
     <div class="row">
       <div class="col-md-3 d-flex flex-column align-items-center">
         <h4 class="py-4">Seus apps instalados</h4>
-        <ec-installed-application-card
-          :v-key="app._id"
+        <ec-installed-app-card
+          :key="app._id"
           v-for="app of installedApplications"
           :app="app">
-        </ec-installed-application-card>
+        </ec-installed-app-card>
       </div>
       <div class="col-md-9">
         <h4 class="py-4">Veja outros aplicativos disponíveis</h4>
@@ -33,7 +33,7 @@
           <div class="col-md-6 col-lg-6 py-4"
             :key="application.id"
             v-for="application of applications">
-            <ec-application-card :application="application" />
+            <ec-app-card :application="application" />
           </div>
         </div>
       </div>

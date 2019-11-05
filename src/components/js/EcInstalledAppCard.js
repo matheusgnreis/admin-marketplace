@@ -1,5 +1,5 @@
 export default {
-  name: 'EcInstalledApplicationCard',
+  name: 'EcInstalledAppCard',
   props: {
     app: {
       type: Object,

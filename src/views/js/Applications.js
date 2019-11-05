@@ -1,11 +1,11 @@
-import EcApplicationCard from '../../components/EcApplicationCard.vue'
-import EcInstalledApplicationCard from '../../components/EcInstalledApplicationCard.vue'
+import EcAppCard from '../../components/EcAppCard.vue'
+import EcInstalledAppCard from '../../components/EcInstalledAppCard.vue'
 
 export default {
   name: 'Applications',
   components: {
-    EcApplicationCard,
-    EcInstalledApplicationCard
+    EcAppCard,
+    EcInstalledAppCard
   },
   data: () => {
     return {
@@ -49,7 +49,11 @@ export default {
       })
     },
     loadCategories () {
-      this.categories = [...new Set(this.applications.map(application => application.category))]
+      for (let category of this.applications.map(application => application.category)) {
+        if (this.categories.indexOf(category) === -1) {
+          this.categories.push(category)
+        }
+      }
     }
   }
 }
