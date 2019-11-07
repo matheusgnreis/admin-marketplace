@@ -1,6 +1,6 @@
 import EcAppCard from '../../components/EcAppCard.vue'
 import EcInstalledAppCard from '../../components/EcInstalledAppCard.vue'
-
+import EcomApps from '@ecomplus/apps-manager'
 export default {
   name: 'Applications',
   components: {
@@ -15,6 +15,12 @@ export default {
       searchField: ''
     }
   },
+  props: {
+    ecomApps: {
+      type: Object,
+      default: () => new EcomApps()
+    }
+  },
   created () {
     this.loadApplications()
     this.loadInstalledApplications()
@@ -24,15 +30,23 @@ export default {
   },
   methods: {
     loadApplications () {
-      let query = this.$route.params.category ? `category=${this.$route.params.category}` : ''
-      query += this.$route.params.category ? `&title=${this.searchField}` : `title=${this.searchField}`
-      fetch(`https://market.e-com.plus/v1/applications/?${query}`).then(response => {
-        response.json().then(result => {
-          this.applications = result.result
-          if (!this.categories.length) {
-            this.loadCategories()
-          }
-        })
+      const meta = {}
+      const { category } = this.$route.params
+      meta.params = {}
+
+      if (category) {
+        meta.params.category = category
+      }
+
+      if (this.searchField) {
+        meta.params.title = this.searchField
+      }
+      // https://developers.e-com.plus/apps-manager/EcomApps.html#.fetchApps
+      this.ecomApps.fetchApps(meta).then(apps => {
+        this.applications = apps.result
+        if (!this.categories.length) {
+          this.loadCategories()
+        }
       })
     },
     loadInstalledApplications () {
