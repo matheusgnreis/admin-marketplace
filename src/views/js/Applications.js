@@ -31,16 +31,11 @@ export default {
   },
   methods: {
     loadApplications () {
-      const meta = {}
-      const { category } = this.$route.params
-      meta.params = {}
-
-      if (category) {
-        meta.params.category = category
-      }
-
-      if (this.searchField) {
-        meta.params.title = this.searchField
+      const meta = {
+        params: {
+          category: this.$route.params.category,
+          title: this.searchField
+        }
       }
       // https://developers.e-com.plus/apps-manager/EcomApps.html#.fetchApps
       this.ecomApps.fetchApps(meta).then(apps => {
