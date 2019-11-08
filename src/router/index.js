@@ -16,7 +16,7 @@ const routes = [
     component: Applications
   },
   {
-    path: '/apps/edit/:slug?',
+    path: '/apps/edit/:id?',
     name: 'application',
     component: Application
   }
