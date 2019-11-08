@@ -26,12 +26,10 @@
             </a-button>
           </a-dropdown>
           <div class="mr-20">
-            <form class="form-inline my-2 my-lg-0">
-              <input class="form-control mr-sm-2" type="search" placeholder="Pesquisar..." aria-label="Search"
-                v-model="searchField" />
-              <button class="btn btn-outline-success my-2 my-sm-0 btn-primary"
-                @click="loadApplications()">Buscar</button>
-            </form>
+            <a-input-search
+              placeholder="Pesquisar..."
+              v-model="searchField"
+              @search="loadApplications()" />
           </div>
         </div>
         <div class="row">
