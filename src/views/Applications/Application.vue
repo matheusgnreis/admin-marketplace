@@ -78,7 +78,7 @@ export default {
     applicationShortDesc () {
       return this.application.short_description
     },
-    applicationDescription () {
+    description () {
       return this.application.description
     }
   },
