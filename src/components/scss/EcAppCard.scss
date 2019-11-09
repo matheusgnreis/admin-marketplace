@@ -1,8 +1,6 @@
 .ec-app-card {
-  display: flex !important;
-  justify-content: center !important;
   &__img {
-    height: 200px;
+    height: 180px;
   }
   &__card-description {
     display: -webkit-box;
@@ -24,7 +22,7 @@
 
   .ant-card-actions {
     li {
-      padding-left: 10px;
+      padding-left: 20px;
       text-align: center;
       .anticon {
         position: absolute;

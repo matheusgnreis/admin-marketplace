@@ -1,50 +1,46 @@
 <template>
   <div class="container py-4">
-    <div class="row">
-      <div class="col-md-3 d-flex flex-column align-items-center">
+    <a-row>
+      <a-col :sm="5">
         <h4 class="py-4">Seus apps instalados</h4>
-        <!-- <ec-installed-app-card :key="app._id" v-for="app of installedApplications" :app="app">
-        </ec-installed-app-card> -->
-
-        <a-list itemLayout="vertical" :dataSource="installedApplications">
-          <a-list-item slot="renderItem" slot-scope="item, index">
-              <a slot="actions"><a-icon type="edit"/> Editar</a>
-            <a-list-item-meta
-              :description="item.version">
-
-              <a slot="title" href="https://vue.ant.design/">{{item.title}}</a>
-            </a-list-item-meta>
-          </a-list-item>
-        </a-list>
-      </div>
-      <div class="col-md-9">
-        <h4 class="py-4">Veja outros aplicativos disponíveis</h4>
-        <div class="d-flex justify-content-between align-items-center bg-white">
-          <a-dropdown>
-            <a-menu slot="overlay">
-              <a-menu-item>
-                <router-link to="/apps/">Todas</router-link>
-              </a-menu-item>
-              <a-menu-item :key="category" v-for="category of categories">
-                <router-link :to="`/apps/${category}`">{{category}}</router-link>
-              </a-menu-item>
-            </a-menu>
-            <a-button>
-              Categorias
-              <a-icon type="down" />
-            </a-button>
-          </a-dropdown>
-          <div class="mr-20">
-            <a-input-search placeholder="Pesquisar..." v-model="searchField" @search="loadApplications()" />
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-3  py-4" :key="application.id" v-for="application of applications">
-            <ec-app-card :application="application" :is-installed="isInstalled(application)" />
-          </div>
-        </div>
-      </div>
-    </div>
+        <ec-app-list :apps="installedApplications"></ec-app-list>
+      </a-col>
+      <a-col>
+        <a-row type="flex">
+          <a-col>
+            <h4 class="py-4 ml-30">Seus apps instalados</h4>
+          </a-col>
+          <a-col>
+            <a-row type="flex" justify="space-between" class="mb-4">
+              <a-col :span="10" :offset="1">
+                <a-dropdown>
+                  <a-menu slot="overlay">
+                    <a-menu-item>
+                      <router-link to="/apps/">Todas</router-link>
+                    </a-menu-item>
+                    <a-menu-item :key="category" v-for="category of categories">
+                      <router-link :to="`/apps/${category}`">{{category}}</router-link>
+                    </a-menu-item>
+                  </a-menu>
+                  <a-button>
+                    Categorias
+                    <a-icon type="down" />
+                  </a-button>
+                </a-dropdown>
+              </a-col>
+              <a-col :span="12">
+                <a-input-search placeholder="Pesquisar..." v-model="searchField" @search="loadApplications()" />
+              </a-col>
+            </a-row>
+            <a-row type="flex">
+              <a-col :offset="1" class="py-3" :key="application.id" v-for="application of applications">
+                <ec-app-card :application="application" :is-installed="isInstalled(application)" />
+              </a-col>
+            </a-row>
+          </a-col>
+        </a-row>
+      </a-col>
+    </a-row>
   </div>
 </template>
 <script src="./js/Applications.js"></script>

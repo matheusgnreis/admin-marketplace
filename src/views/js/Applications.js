@@ -1,12 +1,12 @@
+import EcAppList from '../../components/EcAppList.vue'
 import EcAppCard from '../../components/EcAppCard.vue'
-import EcInstalledAppCard from '../../components/EcInstalledAppCard.vue'
 import EcomApps from '@ecomplus/apps-manager'
 
 export default {
   name: 'Applications',
   components: {
-    EcAppCard,
-    EcInstalledAppCard
+    EcAppList,
+    EcAppCard
   },
   data: () => {
     return {

@@ -1,0 +1,19 @@
+<div class="ec-app-list">
+  <a-list itemLayout="vertical" :dataSource="apps">
+    <a-list-item slot="renderItem" slot-scope="app, index">
+      <div slot="footer">teste</div>
+      <a-list-item-meta>
+        <router-link :to="`/apps/edit/${app._id}`" slot="title">
+          <a-icon type='edit'></a-icon>{{app.title}}
+        </router-link>
+        <a-row slot="description">
+          <a-col :span="8">{{app.version}}</a-col>
+          <a-col :span="10" :offset="6">
+            <a-badge :text="app.state" status="success" v-if="app.state=='active'" />
+            <a-badge :text="app.state" status="default" v-else />
+          </a-col>
+        </a-row>
+      </a-list-item-meta>
+    </a-list-item>
+  </a-list>
+</div>
