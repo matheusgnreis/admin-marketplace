@@ -1,22 +1,21 @@
 <div class="ec-app-card">
-  <div class="ec-app-card__body">
-    <div class="ec-app-card__thumb">
-      <img :src="appUrlIcon">
+  <a-card hoverable size="small">
+    <img alt="example" :src="appUrlIcon" slot="cover" class="ec-app-card__img" />
+    <template slot="actions">
+      <div class="act">
+        <div v-if="isInstalled">
+          <a-icon type="edit" />
+          <router-link :to="`/apps/edit/${application.slug}`"> Editar </router-link>
+        </div>
+        <div v-else>
+          <a-icon type="download" />
+          <router-link :to="`/apps/edit/${application.slug}`"> Instalar </router-link>
+        </div>
+      </div>
+    </template>
+    <br />
+    <div class="ec-app-card__card-description">
+      <p>{{application.short_description}}</p>
     </div>
-    <div class="ec-app-card__content">
-      <div class="ec-app-card__title">
-        <h5>{{application.title}}</h5>
-      </div>
-      <div class="ec-app-card__description">
-        <small>
-          {{application.short_description}}
-        </small>
-      </div>
-      <div class="ec-app-card__category">
-        <small>
-          <span>{{application.category}}</span> | Free
-        </small>
-      </div>
-    </div>
-  </div>
+  </a-card>
 </div>

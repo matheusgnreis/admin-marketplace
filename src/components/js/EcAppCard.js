@@ -4,6 +4,9 @@ export default {
     application: {
       type: Object,
       default: {}
+    },
+    isInstalled: {
+      type: Boolean
     }
   },
   computed: {

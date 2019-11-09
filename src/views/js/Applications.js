@@ -12,6 +12,7 @@ export default {
     return {
       applications: [],
       installedApplications: [],
+      installedAppIds: [],
       categories: [],
       searchField: ''
     }
@@ -43,6 +44,13 @@ export default {
         if (!this.categories.length) {
           this.loadCategories()
         }
+        for (let app of this.applications) {
+          if (Math.floor(Math.random() * 100) % 2) {
+            app.installed = true
+          } else {
+            app.installed = false
+          }
+        }
       })
     },
     loadInstalledApplications () {
@@ -55,8 +63,12 @@ export default {
       }).then(response => {
         response.json().then(result => {
           this.installedApplications = result.result
+          this.loadInstalledAppIds()
         })
       })
+    },
+    loadInstalledAppIds () {
+      this.installedAppIds = this.installedApplications.map(app => app.app_id)
     },
     loadCategories () {
       for (let category of this.applications.map(application => application.category)) {
@@ -64,6 +76,9 @@ export default {
           this.categories.push(category)
         }
       }
+    },
+    isInstalled (application) {
+      return this.installedAppIds.includes(application.app_id)
     }
   }
 }

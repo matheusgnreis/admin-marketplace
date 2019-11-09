@@ -3,11 +3,19 @@
     <div class="row">
       <div class="col-md-3 d-flex flex-column align-items-center">
         <h4 class="py-4">Seus apps instalados</h4>
-        <ec-installed-app-card
-          :key="app._id"
-          v-for="app of installedApplications"
-          :app="app">
-        </ec-installed-app-card>
+        <!-- <ec-installed-app-card :key="app._id" v-for="app of installedApplications" :app="app">
+        </ec-installed-app-card> -->
+
+        <a-list itemLayout="vertical" :dataSource="installedApplications">
+          <a-list-item slot="renderItem" slot-scope="item, index">
+              <a slot="actions"><a-icon type="edit"/> Editar</a>
+            <a-list-item-meta
+              :description="item.version">
+
+              <a slot="title" href="https://vue.ant.design/">{{item.title}}</a>
+            </a-list-item-meta>
+          </a-list-item>
+        </a-list>
       </div>
       <div class="col-md-9">
         <h4 class="py-4">Veja outros aplicativos disponíveis</h4>
@@ -22,21 +30,17 @@
               </a-menu-item>
             </a-menu>
             <a-button>
-              Categorias <a-icon type="down" />
+              Categorias
+              <a-icon type="down" />
             </a-button>
           </a-dropdown>
           <div class="mr-20">
-            <a-input-search
-              placeholder="Pesquisar..."
-              v-model="searchField"
-              @search="loadApplications()" />
+            <a-input-search placeholder="Pesquisar..." v-model="searchField" @search="loadApplications()" />
           </div>
         </div>
         <div class="row">
-          <div class="col-md-6 col-lg-6 py-4"
-            :key="application.id"
-            v-for="application of applications">
-            <ec-app-card :application="application" />
+          <div class="col-md-3  py-4" :key="application.id" v-for="application of applications">
+            <ec-app-card :application="application" :is-installed="isInstalled(application)" />
           </div>
         </div>
       </div>
