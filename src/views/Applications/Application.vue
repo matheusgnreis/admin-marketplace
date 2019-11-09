@@ -30,7 +30,7 @@
 import VueMarkdown from 'vue-markdown'
 import EcomApps from '@ecomplus/apps-manager'
 export default {
-  name: "Application",
+  name: 'Application',
   components: {
     VueMarkdown
   },
