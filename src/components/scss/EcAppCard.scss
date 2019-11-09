@@ -1,6 +1,6 @@
 .ec-app-card {
   &__img {
-    height: 180px;
+    height: 11.25rem;
   }
   &__card-description {
     display: -webkit-box;
@@ -12,22 +12,22 @@
     text-overflow: ellipsis;
   }
 	&__status-icon.anticon {
-		margin-right: -10px;
-		font-size: 20px;
+		margin-right: -0.625rem;
+		font-size: 1.25rem;
   }
 	&__action-icon.anticon {
-    font-size: 18px;
+    font-size: 1.125rem;
     margin-top: 0;
   }
 
   .ant-card-actions {
     li {
-      padding-left: 20px;
+      padding-left: 1.25rem;
       text-align: center;
       .anticon {
         position: absolute;
         left: 0;
-        font-size: 18px;
+        font-size: 1.125rem;
       }
       span {
         width: 100%;
