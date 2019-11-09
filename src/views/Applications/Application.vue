@@ -2,25 +2,25 @@
   <div class="container py-4">
     <div class="row">
       <div class="col">
-        <a-card>
-          <div class="d-flex">
-            <img :src="applicationIcon" class="card__icon">
-            <div class="card__title d-flex flex-column">
-              <span><strong>{{applicationTitle}}</strong></span>
-              <span><small>Categoria</small> {{applicationCategory}}</span>
-              <span><small>Por</small> {{applicationAuthor}}</span>
-              <span>
-                <a-button type="primary" size="small" @click="installApp">Instalar Agora</a-button>
-              </span>
-            </div>
-          </div>
+        <a-card hoverable style="width: 100%">
+          <template class="ant-card-actions" slot="actions">
+            <a-icon type="api" title="Instalar agora" @click="installApp" v-if="!isInstalled"/>
+            <a-icon type="setting" title="Configurar aplicativo" v-if="isInstalled"/>
+            <a-icon type="delete" title="Excluir aplicativo" v-if="isInstalled"/>
+          </template>
+          <a-card-meta :title="title" :description="shortDescription">
+            <a-avatar
+              slot="avatar"
+              :src="icon"
+            />
+          </a-card-meta>
         </a-card>
       </div>
     </div>
     <div class="row py-4">
       <div class="col">
         <a-card :loading="loading">
-          <vue-markdown>{{applicationDescription}}</vue-markdown>
+          <vue-markdown>{{description}}</vue-markdown>
         </a-card>
       </div>
     </div>
@@ -37,7 +37,8 @@ export default {
   data () {
     return {
       application: {},
-      loading: true
+      loading: true,
+      isInstalled: false
     }
   },
   props: {
@@ -54,31 +55,36 @@ export default {
       })
     },
     installApp () {
-      this.ecomApps.installApp(this.appId, true).then(install => {
-        console.log(install)
-      })
+      this.$message.loading('Instalando aplicativo ' + this.title, 1)
+      this.ecomApps.installApp(this.appId, true)
+        .then(install => {
+          this.$message.success(this.title + ' instalado', 2)
+        })
+        .catch(e => {
+          this.$message.error('Não foi possível instalar o aplicativo', 3)
+        })
     }
   },
   computed: {
     appId () {
       return this.$route.params.id
     },
-    applicationIcon () {
+    icon () {
       return this.application.icon
     },
-    applicationTitle () {
+    title () {
       return this.application.title
     },
-    applicationCategory () {
+    category () {
       return this.application.category
     },
-    applicationAuthor () {
+    author () {
       return this.application.partner.name
     },
-    applicationShortDesc () {
+    shortDescription () {
       return this.application.short_description
     },
-    applicationDescription () {
+    description () {
       return this.application.description
     }
   },
@@ -87,23 +93,3 @@ export default {
   }
 }
 </script>
-<style lang="scss">
-.card__icon {
-  max-width: 90px;
-  width: 100%;
-  border: 1px solid #eee;
-  border-radius: 4px;
-  margin-right: 1.5rem;
-}
-
-.card__title {
-  font-size: 13px;
-  line-height: 20px;
-}
-
-.card__title span:first-child {
-  font-size: 16px;
-  text-transform: uppercase;
-  font-weight: 400;
-}
-</style>
