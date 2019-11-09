@@ -44,13 +44,6 @@ export default {
         if (!this.categories.length) {
           this.loadCategories()
         }
-        for (let app of this.applications) {
-          if (Math.floor(Math.random() * 100) % 2) {
-            app.installed = true
-          } else {
-            app.installed = false
-          }
-        }
       })
     },
     loadInstalledApplications () {
