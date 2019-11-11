@@ -70,6 +70,8 @@ export default {
       this.ecomApps.fetchStoreApplications(this.appId).then(app => {
         if (app && Array.isArray(app) && app.length) {
           this.isInstalled = true
+          Object.assign(this.data, app[0].data)
+          Object.assign(this.hidden_data, app[0].hidden_data)
         }
       })
     }
