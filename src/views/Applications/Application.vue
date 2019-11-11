@@ -38,7 +38,9 @@ export default {
     return {
       application: {},
       loading: true,
-      isInstalled: false
+      isInstalled: false,
+      data: null,
+      hidden_data: null
     }
   },
   props: {
@@ -63,6 +65,13 @@ export default {
         .catch(e => {
           this.$message.error('Não foi possível instalar o aplicativo', 3)
         })
+    },
+    isInstalled () {
+      this.ecomApps.fetchStoreApplications(this.appId).then(app => {
+        if (app && Array.isArray(app) && app.length) {
+          this.isInstalled = true
+        }
+      })
     }
   },
   computed: {
