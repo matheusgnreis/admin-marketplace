@@ -61,7 +61,9 @@ export default {
       })
     },
     loadInstalledAppIds () {
-      this.installedAppIds = this.installedApplications.map(app => app.app_id)
+      if (this.installedApplications) {
+        this.installedAppIds = this.installedApplications.map(app => app.app_id)
+      }
     },
     loadCategories () {
       for (let category of this.applications.map(application => application.category)) {

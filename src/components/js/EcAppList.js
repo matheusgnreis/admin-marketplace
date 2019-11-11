@@ -3,7 +3,7 @@ export default {
   props: {
     apps: {
       type: Array,
-      default: []
+      default: () => []
     }
   }
 }

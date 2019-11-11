@@ -4,16 +4,16 @@
     <div class="act">
       <div v-if="isInstalled">
         <a-icon type="edit" />
-        <router-link :to="`/apps/edit/${application.slug}`"> Editar </router-link>
+        <router-link :to="`/apps/edit/${app.slug}`"> Editar </router-link>
       </div>
       <div v-else>
         <a-icon type="download" />
-        <router-link :to="`/apps/edit/${application.slug}`"> Instalar </router-link>
+        <router-link :to="`/apps/edit/${app.slug}`"> Instalar </router-link>
       </div>
     </div>
   </template>
   <br />
   <div class="ec-app-card__card-description">
-    <p>{{application.short_description}}</p>
+    <p>{{formattedDescription}}</p>
   </div>
 </a-card>

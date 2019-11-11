@@ -5,13 +5,9 @@
     height: 11.25rem;
   }
   &__card-description {
-    display: -webkit-box;
-    -webkit-line-clamp: 4;
-    -webkit-box-orient: vertical;
-    max-width: 100%;
+    width: 100%;
     height: 5.125rem;
     overflow: hidden;
-    text-overflow: ellipsis;
   }
   &__status-icon.anticon {
     margin-right: -0.625rem;

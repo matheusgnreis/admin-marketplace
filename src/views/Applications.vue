@@ -7,12 +7,12 @@
       </a-col>
       <a-col>
         <a-row type="flex">
-          <a-col>
+          <a-col :span="24">
             <h4 class="py-4 ml-30">Seus apps instalados</h4>
           </a-col>
-          <a-col>
+          <a-col :span="24">
             <a-row type="flex" justify="space-between" class="mb-4">
-              <a-col :span="10" :offset="1">
+              <a-col :span="15" :offset="1">
                 <a-dropdown>
                   <a-menu slot="overlay">
                     <a-menu-item>
@@ -28,13 +28,13 @@
                   </a-button>
                 </a-dropdown>
               </a-col>
-              <a-col :span="12">
+              <a-col :span="8">
                 <a-input-search placeholder="Pesquisar..." v-model="searchField" @search="loadApplications()" />
               </a-col>
             </a-row>
             <a-row type="flex">
               <a-col :offset="1" class="py-3" :key="application.id" v-for="application of applications">
-                <ec-app-card :application="application" :is-installed="isInstalled(application)" />
+                <ec-app-card :app="application" :is-installed="isInstalled(application)" />
               </a-col>
             </a-row>
           </a-col>
