@@ -1,17 +1,18 @@
+import EcAppList from '../../components/EcAppList.vue'
 import EcAppCard from '../../components/EcAppCard.vue'
-import EcInstalledAppCard from '../../components/EcInstalledAppCard.vue'
 import EcomApps from '@ecomplus/apps-manager'
 
 export default {
   name: 'Applications',
   components: {
-    EcAppCard,
-    EcInstalledAppCard
+    EcAppList,
+    EcAppCard
   },
   data: () => {
     return {
       applications: [],
       installedApplications: [],
+      installedAppIds: [],
       categories: [],
       searchField: ''
     }
@@ -55,8 +56,14 @@ export default {
       }).then(response => {
         response.json().then(result => {
           this.installedApplications = result.result
+          this.loadInstalledAppIds()
         })
       })
+    },
+    loadInstalledAppIds () {
+      if (this.installedApplications) {
+        this.installedAppIds = this.installedApplications.map(app => app.app_id)
+      }
     },
     loadCategories () {
       for (let category of this.applications.map(application => application.category)) {
@@ -64,6 +71,9 @@ export default {
           this.categories.push(category)
         }
       }
+    },
+    isInstalled (application) {
+      return this.installedAppIds.includes(application.app_id)
     }
   }
 }
