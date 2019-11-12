@@ -1,7 +1,16 @@
+import { i18n } from '@ecomplus/utils'
+import { Install, Edit } from '@ecomplus/i18n'
+
 const MAX_LENGHT_DESCRIPTION = 100
 
 export default {
   name: 'EcAppCard',
+  data: () => {
+    return {
+      Install,
+      Edit
+    }
+  },
   props: {
     app: {
       type: Object,
@@ -10,6 +19,9 @@ export default {
     isInstalled: {
       type: Boolean
     }
+  },
+  methods: {
+    i18n
   },
   computed: {
     appUrlIcon () {
