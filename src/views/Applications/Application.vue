@@ -4,9 +4,17 @@
       <div class="col">
         <a-card hoverable style="width: 100%">
           <template class="ant-card-actions" slot="actions">
-            <a-icon type="api" title="Instalar agora" @click="installApp" v-if="!isInstalled"/>
-            <a-icon type="setting" title="Configurar aplicativo" v-if="isInstalled"/>
-            <a-icon type="delete" title="Excluir aplicativo" v-if="isInstalled"/>
+            <a-icon type="api" title="Instalar agora" @click="installApp" v-if="!installed"/>
+            <a-icon type="setting" title="Configurar aplicativo" v-if="installed"/>
+            <a-popconfirm
+              title="Tem certeza que deseja excluir o aplicativo?"
+              @confirm="deleteApp"
+              okText="Sim"
+              cancelText="Não"
+              v-if="installed"
+            >
+              <a-icon type="delete" title="Excluir aplicativo"/>
+            </a-popconfirm>
           </template>
           <a-card-meta :title="title" :description="shortDescription">
             <a-avatar
@@ -37,8 +45,9 @@ export default {
   data () {
     return {
       application: {},
+      applicationObjId: null,
       loading: true,
-      isInstalled: false,
+      installed: false,
       data: null,
       hidden_data: null
     }
@@ -61,17 +70,24 @@ export default {
       this.ecomApps.installApp(this.appId, true)
         .then(install => {
           this.$message.success(this.title + ' instalado', 2)
+          this.isInstalled()
         })
         .catch(e => {
           this.$message.error('Não foi possível instalar o aplicativo', 3)
         })
     },
+    deleteApp () {
+      this.ecomApps.removeApplication(this.applicationObjId).then(() => this.isInstalled())
+    },
     isInstalled () {
       this.ecomApps.fetchStoreApplications(this.appId).then(app => {
         if (app && Array.isArray(app) && app.length) {
-          this.isInstalled = true
+          this.installed = true
+          this.applicationObjId = app[0]._id
           Object.assign(this.data, app[0].data)
           Object.assign(this.hidden_data, app[0].hidden_data)
+        } else {
+          this.installed = false
         }
       })
     }
@@ -101,6 +117,7 @@ export default {
   },
   created () {
     this.fetchApplication()
+    this.isInstalled()
   }
 }
 </script>
