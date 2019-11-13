@@ -4,8 +4,8 @@
       <div class="col">
         <a-card hoverable style="width: 100%">
           <template class="ant-card-actions" slot="actions">
-            <a-icon type="api" title="Instalar agora" @click="installApp" v-if="!installed"/>
-            <a-icon type="setting" title="Configurar aplicativo" @click="tongleSettings" v-if="installed"/>
+            <a-icon type="api" title="Instalar agora" @click="installApp" v-if="!installed" :style="{ fontSize: '22px' }" />
+            <a-icon type="setting" title="Configurar aplicativo" @click="tongleSettings" v-if="installed" :style="{ fontSize: '22px' }" />
             <a-popconfirm
               title="Tem certeza que deseja excluir o aplicativo?"
               @confirm="deleteApp"
@@ -13,7 +13,7 @@
               cancelText="Não"
               v-if="installed"
             >
-              <a-icon type="delete" title="Excluir aplicativo"/>
+              <a-icon type="delete" title="Excluir aplicativo" :style="{ fontSize: '22px' }" />
             </a-popconfirm>
           </template>
           <a-card-meta :title="title" :description="shortDescription">
