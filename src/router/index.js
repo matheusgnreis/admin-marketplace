@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Applications from '../views/Applications.vue'
-import Application from '../views/Applications/Application.vue'
+import Application from '../views/Application.vue'
 
 Vue.use(VueRouter)
 
@@ -16,7 +16,7 @@ const routes = [
     component: Applications
   },
   {
-    path: '/apps/edit/:slug?',
+    path: '/apps/edit/:id?',
     name: 'application',
     component: Application
   }

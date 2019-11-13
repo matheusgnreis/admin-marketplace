@@ -12,21 +12,24 @@
       <div class="col-md-9">
         <h4 class="py-4">Veja outros aplicativos disponíveis</h4>
         <div class="d-flex justify-content-between align-items-center bg-white">
-          <b-dropdown text="Selecione uma categoria" class="m-md-2" variant="light">
-            <b-dropdown-item to="/apps/">Todas</b-dropdown-item>
-            <b-dropdown-item
-              :to="`/apps/${category}`"
-              :key="category"
-              v-for="category of categories">{{category}}
-            </b-dropdown-item>
-          </b-dropdown>
+          <a-dropdown>
+            <a-menu slot="overlay">
+              <a-menu-item>
+                <router-link to="/apps/">Todas</router-link>
+              </a-menu-item>
+              <a-menu-item :key="category" v-for="category of categories">
+                <router-link :to="`/apps/${category}`">{{category}}</router-link>
+              </a-menu-item>
+            </a-menu>
+            <a-button>
+              Categorias <a-icon type="down" />
+            </a-button>
+          </a-dropdown>
           <div class="mr-20">
-            <form class="form-inline my-2 my-lg-0">
-              <input class="form-control mr-sm-2" type="search" placeholder="Pesquisar..." aria-label="Search"
-                v-model="searchField" />
-              <button class="btn btn-outline-success my-2 my-sm-0 btn-primary"
-                @click="loadApplications()">Buscar</button>
-            </form>
+            <a-input-search
+              placeholder="Pesquisar..."
+              v-model="searchField"
+              @search="loadApplications()" />
           </div>
         </div>
         <div class="row">
