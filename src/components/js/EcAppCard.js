@@ -1,5 +1,5 @@
 import { i18n } from '@ecomplus/utils'
-import { Install, Edit } from '@ecomplus/i18n'
+import { i19install, i19edit } from '@ecomplus/i18n'
 
 const MAX_LENGHT_DESCRIPTION = 100
 
@@ -7,8 +7,8 @@ export default {
   name: 'EcAppCard',
   data: () => {
     return {
-      Install,
-      Edit
+      i19install,
+      i19edit
     }
   },
   props: {

@@ -1,7 +1,7 @@
 <div class="ec-app-list">
   <a-list itemLayout="vertical" :dataSource="apps">
     <a-list-item slot="renderItem" slot-scope="app, index">
-      <div slot="footer">teste</div>
+      <div slot="footer"></div>
       <a-list-item-meta>
         <router-link :to="`/apps/edit/${app._id}`" slot="title">
           <a-icon type='edit'></a-icon>{{app.title}}
@@ -9,8 +9,8 @@
         <a-row slot="description">
           <a-col :span="8">{{app.version}}</a-col>
           <a-col :span="10" :offset="6">
-            <a-badge :text="i18n(Active)" status="success" v-if="app.state=='active'" />
-            <a-badge :text="i18n(Inactive)" status="default" v-else />
+            <a-badge :text="i18n(i19active)" status="success" v-if="app.state=='active'" />
+            <a-badge :text="i18n(i19inactive)" status="default" v-else />
           </a-col>
         </a-row>
       </a-list-item-meta>

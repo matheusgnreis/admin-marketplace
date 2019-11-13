@@ -1,12 +1,12 @@
 import { i18n } from '@ecomplus/utils'
-import { Active, Inactive } from '@ecomplus/i18n'
+import { i19active, i19inactive } from '@ecomplus/i18n'
 
 export default {
   name: 'EcAppList',
   data: () => {
     return {
-      Active,
-      Inactive
+      i19active,
+      i19inactive
     }
   },
   props: {

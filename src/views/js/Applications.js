@@ -2,7 +2,7 @@ import EcAppList from '../../components/EcAppList.vue'
 import EcAppCard from '../../components/EcAppCard.vue'
 import EcomApps from '@ecomplus/apps-manager'
 import { i18n } from '@ecomplus/utils'
-import { AllCategories, Category, YourInstalledApps, AvailableApps, Search } from '@ecomplus/i18n'
+import { i19allCategories, i19category, i19yourInstalledApps, i19availableApps, i19search } from '@ecomplus/i18n'
 
 export default {
   name: 'Applications',
@@ -17,11 +17,11 @@ export default {
       installedAppIds: [],
       categories: [],
       searchField: '',
-      AllCategories,
-      Category,
-      YourInstalledApps,
-      AvailableApps,
-      Search
+      i19allCategories,
+      i19category,
+      i19yourInstalledApps,
+      i19availableApps,
+      i19search
     }
   },
   props: {
