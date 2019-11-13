@@ -57,7 +57,7 @@ export default {
         }
       })
     },
-    tongleSettings () {
+    toggleSettings () {
       this.showSettings = (!this.showSettings)
     }
   },
