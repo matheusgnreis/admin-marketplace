@@ -5,7 +5,7 @@
         <a-card hoverable style="width: 100%">
           <template class="ant-card-actions" slot="actions">
             <a-icon type="api" title="Instalar agora" @click="installApp" v-if="!installed"/>
-            <a-icon type="setting" title="Configurar aplicativo" v-if="installed"/>
+            <a-icon type="setting" title="Configurar aplicativo" @click="tongleSettings" v-if="installed"/>
             <a-popconfirm
               title="Tem certeza que deseja excluir o aplicativo?"
               @confirm="deleteApp"
@@ -25,6 +25,16 @@
         </a-card>
       </div>
     </div>
+    <div class="row pt-4" v-if="showSettings">
+      <div class="col">
+        <a-card hoverable style="width: 100%">
+          <a-collapse :bordered="false" v-for="(setting, index) in application.json_body" :key="index">
+            <a-collapse-panel :header="setting.schema.title" :key="index">
+            </a-collapse-panel>
+          </a-collapse>
+        </a-card>
+      </div>
+    </div>
     <div class="row py-4">
       <div class="col">
         <a-card :loading="loading">
@@ -37,6 +47,7 @@
 <script>
 import VueMarkdown from 'vue-markdown'
 import EcomApps from '@ecomplus/apps-manager'
+
 export default {
   name: 'Application',
   components: {
@@ -46,10 +57,11 @@ export default {
     return {
       application: {},
       applicationObjId: null,
+      showSettings: false,
       loading: true,
       installed: false,
       data: null,
-      hidden_data: null
+      hidden_data: null,
     }
   },
   props: {
@@ -61,6 +73,7 @@ export default {
   methods: {
     fetchApplication() {
       this.ecomApps.findApp(this.appId).then(app => {
+        console.log(app)
         this.application = app
         this.loading = false
       })
@@ -90,6 +103,9 @@ export default {
           this.installed = false
         }
       })
+    },
+    tongleSettings () {
+      this.showSettings = (!this.showSettings)
     }
   },
   computed: {
