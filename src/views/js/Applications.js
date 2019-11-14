@@ -39,7 +39,7 @@ export default {
         }
       }
       // https://developers.e-com.plus/apps-manager/EcomApps.html#.fetchApps
-      this.ecomApps.fetchApps(meta).then(apps => {
+      this.ecomApps.fetchMarketApps(meta).then(apps => {
         this.applications = apps.result
         if (!this.categories.length) {
           this.loadCategories()
