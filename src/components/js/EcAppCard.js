@@ -14,9 +14,6 @@ export default {
       type: Boolean
     }
   },
-  methods: {
-    i18n
-  },
   computed: {
     i19edit () {
       return i18n(i19edit)

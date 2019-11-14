@@ -50,7 +50,6 @@ export default {
     }
   },
   methods: {
-    i18n,
     loadApplications () {
       const meta = {
         params: {

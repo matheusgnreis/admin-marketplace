@@ -16,8 +16,5 @@ export default {
     i19inactive () {
       return i18n(i19inactive)
     }
-  },
-  methods: {
-    i18n
   }
 }
