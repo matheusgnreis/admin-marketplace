@@ -28,7 +28,7 @@
     <div class="row pt-4" v-if="showSettings">
       <div class="col">
         <a-card hoverable style="width: 100%">
-          <a-collapse :bordered="false" v-for="(setting, index) in application.json_body" :key="index">
+          <a-collapse :bordered="false" v-for="(setting, index) in adminSettings" :key="index">
             <a-collapse-panel :header="setting.schema.title" :key="index">
             </a-collapse-panel>
           </a-collapse>

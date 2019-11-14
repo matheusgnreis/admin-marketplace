@@ -9,6 +9,7 @@ export default {
   data () {
     return {
       application: {},
+      adminSettings: {},
       applicationObjId: null,
       showSettings: false,
       loading: true,
@@ -46,10 +47,12 @@ export default {
       this.ecomApps.removeApplication(this.applicationObjId).then(() => this.isInstalled())
     },
     isInstalled () {
-      this.ecomApps.fetchStoreApplications(this.appId).then(app => {
+      this.ecomApps.fetchStoreApplications(this.appId, ['_id', 'admin_settings', 'data', 'hidden_data']).then(app => {
         if (app && Array.isArray(app) && app.length) {
+          console.log(app)
           this.installed = true
           this.applicationObjId = app[0]._id
+          this.adminSettings = app[0].admin_settings
           Object.assign(this.data, app[0].data)
           Object.assign(this.hidden_data, app[0].hidden_data)
         } else {
@@ -85,6 +88,7 @@ export default {
     }
   },
   created () {
+    this.ecomApps.ecomAuth.login('talisson', 'a26031995').then(r => console.log('login', r))
     this.fetchApplication()
     this.isInstalled()
   }
