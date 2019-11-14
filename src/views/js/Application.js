@@ -88,7 +88,6 @@ export default {
     }
   },
   created () {
-    this.ecomApps.ecomAuth.login('talisson', 'a26031995').then(r => console.log('login', r))
     this.fetchApplication()
     this.isInstalled()
   }
