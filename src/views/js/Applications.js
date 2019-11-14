@@ -16,12 +16,7 @@ export default {
       installedApplications: [],
       installedAppIds: [],
       categories: [],
-      searchField: '',
-      i19allCategories,
-      i19category,
-      i19yourInstalledApps,
-      i19availableApps,
-      i19search
+      searchField: ''
     }
   },
   props: {
@@ -36,6 +31,23 @@ export default {
   },
   watch: {
     $route: 'loadApplications'
+  },
+  computed: {
+    i19category () {
+      return i18n(i19category)
+    },
+    i19allCategories () {
+      return i18n(i19allCategories)
+    },
+    i19yourInstalledApps () {
+      return i18n(i19yourInstalledApps)
+    },
+    i19availableApps () {
+      return i18n(i19availableApps)
+    },
+    i19search () {
+      return i18n(i19search)
+    }
   },
   methods: {
     i18n,

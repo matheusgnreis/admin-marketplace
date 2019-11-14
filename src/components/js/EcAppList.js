@@ -3,16 +3,18 @@ import { i19active, i19inactive } from '@ecomplus/i18n'
 
 export default {
   name: 'EcAppList',
-  data: () => {
-    return {
-      i19active,
-      i19inactive
-    }
-  },
   props: {
     apps: {
       type: Array,
       default: () => []
+    }
+  },
+  computed: {
+    i19active () {
+      return i18n(i19active)
+    },
+    i19inactive () {
+      return i18n(i19inactive)
     }
   },
   methods: {

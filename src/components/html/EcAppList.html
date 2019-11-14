@@ -9,8 +9,8 @@
         <a-row slot="description">
           <a-col :span="8">{{app.version}}</a-col>
           <a-col :span="10" :offset="6">
-            <a-badge :text="i18n(i19active)" status="success" v-if="app.state=='active'" />
-            <a-badge :text="i18n(i19inactive)" status="default" v-else />
+            <a-badge :text="i19active" status="success" v-if="app.state=='active'" />
+            <a-badge :text="i19inactive" status="default" v-else />
           </a-col>
         </a-row>
       </a-list-item-meta>

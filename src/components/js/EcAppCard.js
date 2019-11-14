@@ -5,12 +5,6 @@ const MAX_LENGHT_DESCRIPTION = 100
 
 export default {
   name: 'EcAppCard',
-  data: () => {
-    return {
-      i19install,
-      i19edit
-    }
-  },
   props: {
     app: {
       type: Object,
@@ -24,6 +18,12 @@ export default {
     i18n
   },
   computed: {
+    i19edit () {
+      return i18n(i19edit)
+    },
+    i19install () {
+      return i18n(i19install)
+    },
     appUrlIcon () {
       if (!this.app.icon.startsWith('https://')) {
         return `https://market.e-com.plus${this.app.icon}`
