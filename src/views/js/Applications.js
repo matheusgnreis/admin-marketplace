@@ -1,6 +1,8 @@
 import EcAppList from '../../components/EcAppList.vue'
 import EcAppCard from '../../components/EcAppCard.vue'
 import EcomApps from '@ecomplus/apps-manager'
+import { i18n } from '@ecomplus/utils'
+import { i19allCategories, i19category, i19yourInstalledApps, i19availableApps, i19search } from '@ecomplus/i18n'
 
 export default {
   name: 'Applications',
@@ -29,6 +31,23 @@ export default {
   },
   watch: {
     $route: 'loadApplications'
+  },
+  computed: {
+    i19category () {
+      return i18n(i19category)
+    },
+    i19allCategories () {
+      return i18n(i19allCategories)
+    },
+    i19yourInstalledApps () {
+      return i18n(i19yourInstalledApps)
+    },
+    i19availableApps () {
+      return i18n(i19availableApps)
+    },
+    i19search () {
+      return i18n(i19search)
+    }
   },
   methods: {
     loadApplications () {
