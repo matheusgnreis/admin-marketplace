@@ -1,3 +1,38 @@
+const devMode = process.env.NODE_ENV !== 'production'
+
 module.exports = {
-  lintOnSave: false
+  lintOnSave: false,
+  devServer: {
+    port: 9330,
+    open: true
+  },
+
+  css: {
+    extract: false
+  },
+  configureWebpack: {
+    optimization: {
+      splitChunks: false
+    },
+    output: {
+      library: '__ecomplus_marketplace',
+      libraryTarget: 'umd'
+    }
+  },
+
+  publicPath: devMode ? '/apps/' : '/assets/vendor/ecomplus-marketplace/',
+  outputDir: devMode ? 'test' : 'dist',
+  filenameHashing: false,
+
+  chainWebpack: config => {
+    config.externals([
+      {
+        '@ecomplus/auth': {
+          commonjs: '@ecomplus/auth',
+          commonjs2: '@ecomplus/auth',
+          root: 'EcomAuth'
+        }
+      }
+    ])
+  }
 }
