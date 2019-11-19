@@ -9,8 +9,8 @@ export default {
   data () {
     return {
       application: {},
-      applicationObjId: null,
-      loading: false
+      loading: false,
+      localApplication: {}
     }
   },
   props: {
@@ -20,39 +20,35 @@ export default {
     }
   },
   methods: {
-    fetchApplication () {
+    fetchApp () {
       this.ecomApps.findApp(this.appId).then(app => {
-        console.log(app)
         this.application = app
         this.loading = false
       })
+    },
+    fetchApplication (applicationId) {
+      this.ecomApps.findStoreApplication(applicationId).then(application => {
+        this.$emit('update:localApplication', application)
+      })
+    }
+  },
+  watch: {
+    $route: function () {
+      const applicationId = this.$route.params.applicationId
+      if (applicationId !== null && applicationId !== undefined) {
+        this.fetchApplication(applicationId)
+      }
     }
   },
   computed: {
     appId () {
       return this.$route.params.id
     },
-    icon () {
-      return this.application.icon
-    },
-    title () {
-      return this.application.title
-    },
-    category () {
-      return this.application.category
-    },
-    author () {
-      return this.application.partner.name
-    },
-    shortDescription () {
-      return this.application.short_description
-    },
-    description () {
-      return this.application.description
+    applicationObjId () {
+      return this.$route.params.applicationId
     }
   },
   created () {
-    this.ecomApps.ecomAuth.login('talisson', 'a26031995').then(r => console.log('login', r))
-    this.fetchApplication()
+    this.fetchApp()
   }
 }
