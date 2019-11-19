@@ -9,11 +9,10 @@ export default {
   data () {
     return {
       adminSettings: {},
-      applicationObjId: null,
       showSettings: false,
       loading: false,
       data: null,
-      hidden_data: null
+      hiddenData: null
     }
   },
   props: {
@@ -22,6 +21,10 @@ export default {
       default: () => new EcomApps()
     },
     application: {
+      type: Object,
+      default: () => { }
+    },
+    localApplication: {
       type: Object,
       default: () => { }
     },
@@ -34,17 +37,23 @@ export default {
     installApp () {
       this.$message.loading('Instalando aplicativo ' + this.title, 1)
       this.ecomApps.installApp(this.appId, true)
-        .then(install => {
+        .then(installed => {
           this.$message.success(this.title + ' instalado', 2)
-          this.isInstalled = true
+          this.$emit('update:isInstalled', true)
+          this.fetchApplication(installed._id)
         })
         .catch(e => {
           this.$message.error('Não foi possível instalar o aplicativo', 3)
         })
     },
     deleteApp () {
-      this.ecomApps.removeApplication(this.applicationObjId).then(() => {
-        this.isInstalled = false
+      this.ecomApps.removeApplication(this.localApplication._id).then(() => {
+        this.$emit('update:isInstalled', false)
+      })
+    },
+    fetchApplication (applicationId) {
+      this.ecomApps.findStoreApplication(applicationId).then(application => {
+        this.$emit('update:localApplication', application)
       })
     },
     toggleSettings () {
@@ -53,7 +62,7 @@ export default {
   },
   computed: {
     appId () {
-      return this.$route.params.id
+      return this.application.app_id
     },
     icon () {
       return this.application.icon
