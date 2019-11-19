@@ -1,9 +1,7 @@
 <template>
   <ec-application 
     :ecomApps="ecomApps"
-    :application="application"
-    :localApplication="localApplication"
-    :isInstalled="true"
+    :marketApplication="marketApplication"
   >
   </ec-application>
 </template>

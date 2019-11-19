@@ -8,9 +8,8 @@ export default {
   },
   data () {
     return {
-      application: {},
-      loading: false,
-      localApplication: {}
+      marketApplication: {},
+      loading: true
     }
   },
   props: {
@@ -22,30 +21,14 @@ export default {
   methods: {
     fetchApp () {
       this.ecomApps.findApp(this.appId).then(app => {
-        this.application = app
+        this.marketApplication = app
         this.loading = false
       })
-    },
-    fetchApplication (applicationId) {
-      this.ecomApps.findStoreApplication(applicationId).then(application => {
-        this.$emit('update:localApplication', application)
-      })
-    }
-  },
-  watch: {
-    $route: function () {
-      const applicationId = this.$route.params.applicationId
-      if (applicationId !== null && applicationId !== undefined) {
-        this.fetchApplication(applicationId)
-      }
     }
   },
   computed: {
     appId () {
       return this.$route.params.id
-    },
-    applicationObjId () {
-      return this.$route.params.applicationId
     }
   },
   created () {
