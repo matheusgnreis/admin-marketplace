@@ -12,7 +12,9 @@ export default {
       showSettings: false,
       loading: false,
       data: null,
-      hiddenData: null
+      hiddenData: null,
+      storeApplication: null,
+      isInstalled: false
     }
   },
   props: {
@@ -20,17 +22,9 @@ export default {
       type: Object,
       default: () => new EcomApps()
     },
-    application: {
+    marketApplication: {
       type: Object,
-      default: () => { }
-    },
-    localApplication: {
-      type: Object,
-      default: () => { }
-    },
-    isInstalled: {
-      type: Boolean,
-      default: false
+      default: () => ({})
     }
   },
   methods: {
@@ -39,7 +33,7 @@ export default {
       this.ecomApps.installApp(this.appId, true)
         .then(installed => {
           this.$message.success(this.title + ' instalado', 2)
-          this.$emit('update:isInstalled', true)
+          this.installed = true
           this.fetchApplication(installed._id)
         })
         .catch(e => {
@@ -48,12 +42,14 @@ export default {
     },
     deleteApp () {
       this.ecomApps.removeApplication(this.localApplication._id).then(() => {
-        this.$emit('update:isInstalled', false)
+        this.installed = false
       })
     },
     fetchApplication (applicationId) {
-      this.ecomApps.findStoreApplication(applicationId).then(application => {
-        this.$emit('update:localApplication', application)
+      return this.ecomApps.findStoreApplication(applicationId).then(({ data }) => {
+        const { application } = data
+        this.localStoreApplication = application
+        console.log(this.localStoreApplication)
       })
     },
     toggleSettings () {
@@ -62,25 +58,47 @@ export default {
   },
   computed: {
     appId () {
-      return this.application.app_id
+      return this.marketApplication.app_id
     },
     icon () {
-      return this.application.icon
+      return this.marketApplication.icon
     },
     title () {
-      return this.application.title
+      return this.marketApplication.title
     },
     category () {
-      return this.application.category
+      return this.marketApplication.category
     },
     author () {
-      return this.application.partner.name
+      return this.marketApplication.partner.name
     },
     shortDescription () {
-      return this.application.short_description
+      return this.marketApplication.short_description
     },
     description () {
-      return this.application.description
+      return this.marketApplication.description
+    },
+    installed: {
+      get () {
+        return this.isInstalled
+      },
+      set (is) {
+        this.isInstalled = is
+      }
+    },
+    localStoreApplication: {
+      get () {
+        return this.storeApplication
+      },
+      set (value) {
+        this.storeApplication = value
+      }
+    }
+  },
+  created () {
+    const applicationId = this.$route.params.applicationId
+    if (applicationId !== null && applicationId !== undefined) {
+      this.fetchApplication(applicationId)
     }
   }
 }
