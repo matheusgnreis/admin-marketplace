@@ -8,7 +8,6 @@ export default {
   },
   data () {
     return {
-      adminSettings: {},
       showSettings: false,
       isInstalled: false,
       applicationBody: this.application
@@ -41,7 +40,6 @@ export default {
     },
     fetchStoreApplication (applicationId) {
       this.ecomApps.findStoreApplication(applicationId).then(({ data }) => {
-        console.log(data)
         this.localApplication = {
           ...this.applicationBody,
           ...data
@@ -102,8 +100,11 @@ export default {
     }
   },
   created () {
-    this.fetchMarketApplication()
     const { applicationBody } = this
+    if (applicationBody.app_id && !applicationBody.partner) {
+      this.fetchMarketApplication()
+    }
+
     if (applicationBody._id !== undefined && !applicationBody.admin_settings) {
       this.fetchStoreApplication(applicationBody._id)
     }
