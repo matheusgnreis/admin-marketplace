@@ -1,7 +1,7 @@
 <template>
   <ec-application 
     :ecomApps="ecomApps"
-    :marketApplication="marketApplication"
+    :application="application"
   >
   </ec-application>
 </template>

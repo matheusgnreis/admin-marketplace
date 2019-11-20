@@ -8,8 +8,10 @@ export default {
   },
   data () {
     return {
-      marketApplication: {},
-      loading: true
+      application: {
+        app_id: '',
+        _id: ''
+      }
     }
   },
   props: {
@@ -18,20 +20,9 @@ export default {
       default: () => new EcomApps()
     }
   },
-  methods: {
-    fetchApp () {
-      this.ecomApps.findApp(this.appId).then(app => {
-        this.marketApplication = app
-        this.loading = false
-      })
-    }
-  },
-  computed: {
-    appId () {
-      return this.$route.params.id
-    }
-  },
   created () {
-    this.fetchApp()
+    const { appId, appObjectId } = this.$route.params
+    this.application.app_id = appId
+    this.application._id = appObjectId
   }
 }
