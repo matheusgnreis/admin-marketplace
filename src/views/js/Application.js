@@ -1,5 +1,4 @@
 import EcApplication from './../../components/EcApplication.vue'
-import EcomApps from '@ecomplus/apps-manager'
 
 export default {
   name: 'Application',
@@ -9,20 +8,9 @@ export default {
   data () {
     return {
       application: {
-        app_id: '',
-        _id: ''
+        app_id: this.$route.params.appId,
+        _id: this.$route.params.appObjectId
       }
     }
-  },
-  props: {
-    ecomApps: {
-      type: Object,
-      default: () => new EcomApps()
-    }
-  },
-  created () {
-    const { appId, appObjectId } = this.$route.params
-    this.application.app_id = appId
-    this.application._id = appObjectId
   }
 }
