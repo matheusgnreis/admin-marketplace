@@ -6,6 +6,9 @@
     <h3>Input Number</h3>
     <input-number v-bind="optionsNumber"></input-number>
     <hr />
+    <h3>Input Enum</h3>
+    <input-enum v-bind="optionsEnum"></input-enum>
+    <hr />
     <h3>Upload</h3>
     <upload v-bind="optionsUpload" />
   </div>
@@ -14,12 +17,14 @@
 <script>
   import InputText from '../components/_inputs/InputText.vue'
   import InputNumber from '../components/_inputs/InputNumber.vue'
+  import InputEnum from '../components/_inputs/InputEnum.vue'
   import Upload from '../components/_inputs/Upload.vue'
   export default {
     name: 'MockCustomFields',
     components: {
       InputText,
       InputNumber,
+      InputEnum,
       Upload
     },
     data: () => {
@@ -36,6 +41,14 @@
           minimum: 1,
           maximum: 999999999,
           default: 10
+        },
+        optionsEnum: {
+          name: 'type',
+          defaultValue: 'percentage',
+          items: [
+            'percentage',
+            'fixed'
+          ]
         },
         optionsUpload: {
           name: 'icon',
