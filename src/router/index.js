@@ -16,7 +16,7 @@ const routes = [
     component: Applications
   },
   {
-    path: '/apps/edit/:id/:applicationId?',
+    path: '/edit/:appId/:appObjectId?',
     name: 'application',
     component: Application
   }
