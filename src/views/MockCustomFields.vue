@@ -9,6 +9,9 @@
     <h3>Input Enum</h3>
     <input-enum v-bind="optionsEnum"></input-enum>
     <hr />
+    <h3>Input ZipCode</h3>
+    <input-zip-code></input-zip-code>
+    <hr />
     <h3>Upload</h3>
     <upload v-bind="optionsUpload" />
   </div>
@@ -18,6 +21,7 @@
   import InputText from '../components/_inputs/InputText.vue'
   import InputNumber from '../components/_inputs/InputNumber.vue'
   import InputEnum from '../components/_inputs/InputEnum.vue'
+  import InputZipCode from '../components/_inputs/InputZipCode.vue'
   import Upload from '../components/_inputs/Upload.vue'
   export default {
     name: 'MockCustomFields',
@@ -25,6 +29,7 @@
       InputText,
       InputNumber,
       InputEnum,
+      InputZipCode,
       Upload
     },
     data: () => {
