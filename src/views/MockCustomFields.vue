@@ -1,75 +1,188 @@
 <template>
-  <div class="container">
-    <h3>Input Text</h3>
-    <input-text v-bind="optionsInputText" />
+  <div class='container'>
+    <h3>Formulário costumizado</h3>
+    <ec-dynamic-form :schema="schema"></ec-dynamic-form>
     <hr />
-    <h3>Input Number</h3>
-    <input-number v-bind="optionsNumber"></input-number>
-    <hr />
-    <h3>Input Enum</h3>
-    <input-enum v-bind="optionsEnum"></input-enum>
-    <hr />
-    <h3>Input ZipCode</h3>
-    <input-zip-code></input-zip-code>
-    <hr />
-    <h3>Input Phone</h3>
-    <input-phone></input-phone>
-    <hr />
-    <h3>Input Password</h3>
-    <input-password></input-password>
-    <hr />
-    <h3>Upload</h3>
-    <upload v-bind="optionsUpload" />
   </div>
 </template>
 
 <script>
-  import InputText from '../components/_inputs/InputText.vue'
-  import InputNumber from '../components/_inputs/InputNumber.vue'
-  import InputEnum from '../components/_inputs/InputEnum.vue'
-  import InputZipCode from '../components/_inputs/InputZipCode.vue'
-  import InputPhone from '../components/_inputs/InputPhone.vue'
-  import InputPassword from '../components/_inputs/InputPassword.vue'
-
-  import Upload from '../components/_inputs/Upload.vue'
+  import EcDynamicForm from '../components/EcDynamicForm.vue'
   export default {
     name: 'MockCustomFields',
     components: {
-      InputText,
-      InputNumber,
-      InputEnum,
-      InputZipCode,
-      InputPhone,
-      InputPassword,
-      Upload
+      EcDynamicForm
     },
     data: () => {
       return {
-        optionsInputText: {
-          name: 'label',
-          title: 'Rótulo',
-          description: 'Nome da forma de pagamento exibido para os clientes',
-          maxLength: 50,
-          default: 'Cartão de crédito'
-        },
-        optionsNumber: {
-          name: 'value',
-          minimum: 1,
-          maximum: 999999999,
-          default: 10
-        },
-        optionsEnum: {
-          name: 'type',
-          defaultValue: 'percentage',
-          items: [
-            'percentage',
-            'fixed'
-          ]
-        },
-        optionsUpload: {
-          name: 'icon',
-          multiple: false,
-          action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76',
+        schema: {
+          'admin_settings': {
+            'label': {
+              'schema': {
+                'type': 'string',
+                'maxLength': 50,
+                'title': 'Rótulo',
+                'description': 'Nome da forma de pagamento exibido para os clientes',
+                'default': 'Cartão de crédito'
+              },
+              'hide': false
+            },
+            'text': {
+              'schema': {
+                'type': 'string',
+                'maxLength': 1000,
+                'title': 'Descrição',
+                'description': 'Texto auxiliar sobre a forma de pagamento, pode conter tags HTML'
+              },
+              'hide': false
+            },
+            'icon': {
+              'schema': {
+                'type': 'string',
+                'maxLength': 255,
+                'format': 'uri',
+                'title': 'Ícone',
+                'description': 'Ícone customizado para a forma de pagamento, URL da imagem'
+              },
+              'hide': false
+            },
+            'discount': {
+              'schema': {
+                'type': 'object',
+                'required': [
+                  'value'
+                ],
+                'additionalProperties': false,
+                'properties': {
+                  'apply_at': {
+                    'type': 'string',
+                    'enum': [
+                      'total',
+                      'subtotal',
+                      'freight'
+                    ],
+                    'default': 'subtotal',
+                    'title': 'Aplicar desconto em',
+                    'description': 'Em qual valor o desconto deverá ser aplicado no checkout'
+                  },
+                  'min_amount': {
+                    'type': 'integer',
+                    'minimum': 1,
+                    'maximum': 999999999,
+                    'description': 'Montante mínimo para aplicar o desconto'
+                  },
+                  'type': {
+                    'type': 'string',
+                    'enum': [
+                      'percentage',
+                      'fixed'
+                    ],
+                    'default': 'percentage',
+                    'title': 'Tipo de desconto',
+                    'description': 'Desconto com valor percentual ou fixo'
+                  },
+                  'value': {
+                    'type': 'number',
+                    'minimum': -99999999,
+                    'maximum': 99999999,
+                    'title': 'Valor do desconto',
+                    'description': 'Valor percentual ou fixo a ser descontado, dependendo to tipo configurado'
+                  }
+                },
+                'title': 'Desconto',
+                'description': 'Desconto a ser aplicado para pagamentos via PayPal'
+              },
+              'hide': false
+            },
+            'discount_payment_method': {
+              'schema': {
+                'type': 'string',
+                'enum': [
+                  'balance_on_intermediary',
+                  'credit_card'
+                ],
+                'title': 'Desconto disponível para',
+                'description': 'Restringir desconto por método de pagamento (PayPal ou cartão de crédito)'
+              },
+              'hide': false
+            },
+            'installments_option': {
+              'schema': {
+                'type': 'object',
+                'required': [
+                  'max_number'
+                ],
+                'additionalProperties': false,
+                'properties': {
+                  'min_installment': {
+                    'type': 'number',
+                    'minimum': 1,
+                    'maximum': 99999999,
+                    'default': 5,
+                    'description': 'Valor mínimo da parcela'
+                  },
+                  'max_number': {
+                    'type': 'integer',
+                    'minimum': 2,
+                    'maximum': 999,
+                    'description': 'Número máximo de parcelas sem júros via PayPal'
+                  }
+                },
+                'title': 'Parcelamento',
+                'description': 'Parcelamento opcional configurado em sua conta PayPal'
+              },
+              'hide': false
+            },
+            'paypal_client_id': {
+              'schema': {
+                'type': 'string',
+                'maxLength': 255,
+                'title': 'PayPal App Client ID',
+                'description': 'Client ID disponível em https://developer.paypal.com/developer/applications/'
+              },
+              'hide': true
+            },
+            'paypal_secret': {
+              'schema': {
+                'type': 'string',
+                'maxLength': 255,
+                'title': 'PayPal App Secret',
+                'description': 'Secret disponível em https://developer.paypal.com/developer/applications/'
+              },
+              'hide': true
+            },
+            'paypal_debug': {
+              'schema': {
+                'type': 'boolean',
+                'title': 'Debug PayPal SDK',
+                'description': 'PayPal Checkout SDK dev mode'
+              },
+              'hide': false
+            },
+            'paypal_sandbox': {
+              'schema': {
+                'type': 'boolean',
+                'title': 'PayPal Sandbox',
+                'description': 'PayPal REST API sandbox env'
+              },
+              'hide': false
+            },
+            'enable_standard_card_fiels': {
+              'schema': {
+                'type': 'boolean',
+                'title': 'Habilitar Standard Card Fields',
+                'description': 'https://developer.paypal.com/docs/checkout/integration-features/standard-card-fields/'
+              },
+              'hide': false
+            },
+            'enable_paypal_plus': {
+              'schema': {
+                'type': 'boolean',
+                'title': 'Habilitar PayPal Plus',
+                'description': 'Checkout transaparente via PayPal (necessário aprovação da conta)'
+              }
+            }
+          }
         }
       }
     }
