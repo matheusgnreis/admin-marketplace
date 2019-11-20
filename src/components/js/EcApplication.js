@@ -10,11 +10,8 @@ export default {
     return {
       adminSettings: {},
       showSettings: false,
-      loading: false,
-      data: null,
-      hiddenData: null,
-      storeApplication: null,
-      isInstalled: false
+      isInstalled: false,
+      applicationBody: this.application
     }
   },
   props: {
@@ -22,19 +19,42 @@ export default {
       type: Object,
       default: () => new EcomApps()
     },
-    marketApplication: {
+    application: {
       type: Object,
       default: () => ({})
     }
   },
   methods: {
+    fetchMarketApplication () {
+      this.ecomApps.findApp(this.appId).then(app => {
+        // remove null
+        for (const key in app) {
+          if (app[key] === null || app[key] === '') {
+            delete app[key]
+          }
+        }
+        this.localApplication = {
+          ...this.applicationBody,
+          ...app
+        }
+      })
+    },
+    fetchStoreApplication (applicationId) {
+      this.ecomApps.findStoreApplication(applicationId).then(({ data }) => {
+        console.log(data)
+        this.localApplication = {
+          ...this.applicationBody,
+          ...data
+        }
+        this.isInstalled = true
+      })
+    },
     installApp () {
       this.$message.loading('Instalando aplicativo ' + this.title, 1)
       this.ecomApps.installApp(this.appId, true)
         .then(installed => {
           this.$message.success(this.title + ' instalado', 2)
-          this.installed = true
-          this.fetchApplication(installed._id)
+          this.fetchStoreApplication(installed._id)
         })
         .catch(e => {
           this.$message.error('Não foi possível instalar o aplicativo', 3)
@@ -42,14 +62,7 @@ export default {
     },
     deleteApp () {
       this.ecomApps.removeApplication(this.localApplication._id).then(() => {
-        this.installed = false
-      })
-    },
-    fetchApplication (applicationId) {
-      return this.ecomApps.findStoreApplication(applicationId).then(({ data }) => {
-        const { application } = data
-        this.localStoreApplication = application
-        console.log(this.localStoreApplication)
+        this.isInstalled = false
       })
     },
     toggleSettings () {
@@ -58,47 +71,41 @@ export default {
   },
   computed: {
     appId () {
-      return this.marketApplication.app_id
+      return this.applicationBody.app_id
     },
     icon () {
-      return this.marketApplication.icon
+      return this.applicationBody.icon
     },
     title () {
-      return this.marketApplication.title
+      return this.applicationBody.title
     },
     category () {
-      return this.marketApplication.category
+      return this.applicationBody.category
     },
     author () {
-      return this.marketApplication.partner.name
+      return this.applicationBody.partner.name
     },
     shortDescription () {
-      return this.marketApplication.short_description
+      return this.applicationBody.short_description
     },
     description () {
-      return this.marketApplication.description
+      return this.applicationBody.description
     },
-    installed: {
+    localApplication: {
       get () {
-        return this.isInstalled
+        return this.applicationBody
       },
-      set (is) {
-        this.isInstalled = is
-      }
-    },
-    localStoreApplication: {
-      get () {
-        return this.storeApplication
-      },
-      set (value) {
-        this.storeApplication = value
+      set (data) {
+        this.applicationBody = data
+        this.$emit('update:application', data)
       }
     }
   },
   created () {
-    const applicationId = this.$route.params.applicationId
-    if (applicationId !== null && applicationId !== undefined) {
-      this.fetchApplication(applicationId)
+    this.fetchMarketApplication()
+    const { applicationBody } = this
+    if (applicationBody._id !== undefined && !applicationBody.admin_settings) {
+      this.fetchStoreApplication(applicationBody._id)
     }
   }
 }
