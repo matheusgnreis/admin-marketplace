@@ -15,6 +15,9 @@
     <h3>Input Phone</h3>
     <input-phone></input-phone>
     <hr />
+    <h3>Input Password</h3>
+    <input-password></input-password>
+    <hr />
     <h3>Upload</h3>
     <upload v-bind="optionsUpload" />
   </div>
@@ -26,6 +29,8 @@
   import InputEnum from '../components/_inputs/InputEnum.vue'
   import InputZipCode from '../components/_inputs/InputZipCode.vue'
   import InputPhone from '../components/_inputs/InputPhone.vue'
+  import InputPassword from '../components/_inputs/InputPassword.vue'
+
   import Upload from '../components/_inputs/Upload.vue'
   export default {
     name: 'MockCustomFields',
@@ -35,6 +40,7 @@
       InputEnum,
       InputZipCode,
       InputPhone,
+      InputPassword,
       Upload
     },
     data: () => {
