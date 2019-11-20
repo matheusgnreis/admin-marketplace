@@ -104,7 +104,7 @@ export default {
     if (applicationBody.app_id && !applicationBody.partner) {
       this.fetchMarketApplication()
     }
-    if (applicationBody._id !== undefined && !applicationBody.admin_settings) {
+    if (applicationBody._id && !applicationBody.admin_settings) {
       this.fetchStoreApplication(applicationBody._id)
     }
   }
