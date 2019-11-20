@@ -1,30 +1,28 @@
 export default {
   name: 'InputText',
   props: {
-    options: {
-      name: {
-        type: String,
-        required: true
-      },
-      maxLength: {
-        type: Number,
-        default: null
-      },
-      title: {
-        type: String,
-        default: ''
-      },
-      description: {
-        type: String,
-        default: ''
-      },
-      required: {
-        type: Boolean,
-        default: false
-      },
-      default: {
-        type: String
-      }
+    name: {
+      type: String,
+      required: true
+    },
+    maxLength: {
+      type: Number,
+      default: null
+    },
+    title: {
+      type: String,
+      default: ''
+    },
+    description: {
+      type: String,
+      default: ''
+    },
+    required: {
+      type: Boolean,
+      default: false
+    },
+    default: {
+      type: String
     }
   },
   data: () => {
@@ -33,6 +31,6 @@ export default {
     }
   },
   created () {
-    this.value = this.options.default
+    this.value = this.default
   }
 }
