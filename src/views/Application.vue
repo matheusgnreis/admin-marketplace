@@ -1,6 +1,5 @@
 <template>
   <ec-application 
-    :ecomApps="ecomApps"
     :application="application"
   >
   </ec-application>
