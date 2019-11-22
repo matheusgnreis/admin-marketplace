@@ -1,3 +1,8 @@
 <div>
-  <component :is="dynamicField" :data="data" v-if="dynamicField"></component>
+  <component
+    v-for="dynamicField in dynamicFields"
+    :is="dynamicField"
+    :data="schema"
+    v-if="dynamicField">
+  </component>
 </div>

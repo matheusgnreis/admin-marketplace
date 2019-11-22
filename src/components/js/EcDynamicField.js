@@ -11,7 +11,7 @@ export default {
     }
   },
   computed: {
-    dynamicField () {
+    dynamicFields () {
       return discover(this.field, this.schema)
     }
   }
