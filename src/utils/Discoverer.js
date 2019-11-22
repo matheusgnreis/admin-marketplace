@@ -1,3 +1,7 @@
+const isMoney = (field, schema) => {
+  return ((field.includes('amount') || field.includes('price')) && schema.type === 'number')
+}
+
 const isZipCode = (field, schema) => {
   return field.includes('zip') && schema.pattern === '^[0-9]{5}-?[0-9]{3}$'
 }
@@ -15,6 +19,7 @@ const isText = (field, schema) => {
 }
 
 const INPUTS = [
+  { match: isMoney, component: () => import(`../components/_inputs/InputMoney.vue`) },
   { match: isZipCode, component: () => import(`../components/_inputs/InputZipCode.vue`) },
   { match: isUpload, component: () => import(`../components/_inputs/Upload.vue`) },
   { match: isText, component: () => import(`../components/_inputs/InputText.vue`) },
