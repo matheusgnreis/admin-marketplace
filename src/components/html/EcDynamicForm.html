@@ -6,8 +6,8 @@
             :label="schema.admin_settings[field].schema.title"
             v-for="field in Object.keys(schema.admin_settings)">
             <ec-dynamic-field
-              :type="schema.admin_settings[field].schema.type"
-              :data=schema.admin_settings[field].schema>
+              :field="field"
+              :schema=schema.admin_settings[field].schema>
             </ec-dynamic-field>
           </a-form-item>
 
