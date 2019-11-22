@@ -1,21 +1,18 @@
 <div>
   <a-row>
     <a-col :span="12">
-        <a-form :layout="inline">
-          <a-form-item
-            :label="schema.admin_settings[field].schema.title"
-            v-for="field in Object.keys(schema.admin_settings)">
-            <ec-dynamic-field
-              :field="field"
-              :schema=schema.admin_settings[field].schema>
-            </ec-dynamic-field>
-          </a-form-item>
+      <a-form :layout="inline">
+        <a-form-item
+          :label="schema.admin_settings[field].schema.title"
+          v-for="field in Object.keys(schema.admin_settings)">
+            <ec-dynamic-field :field="field" :schema=schema.admin_settings[field].schema></ec-dynamic-field>
+        </a-form-item>
 
-        </a-form>
+      </a-form>
 
     </a-col>
     <a-col :span="12">
-        <pre>{{schema}}</pre>
+      <pre>{{schema}}</pre>
     </a-col>
   </a-row>
 </div>
