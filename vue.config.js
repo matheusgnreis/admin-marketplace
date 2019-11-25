@@ -20,7 +20,7 @@ module.exports = {
     }
   },
 
-  publicPath: devMode ? '/apps/' : '/assets/vendor/ecomplus-marketplace/',
+  publicPath: devMode ? '/' : '/assets/vendor/ecomplus-marketplace/',
   outputDir: devMode ? 'test' : 'dist',
   filenameHashing: false,
 
