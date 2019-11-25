@@ -16,11 +16,10 @@ const routes = [
     component: Applications
   },
   {
-    path: '/apps/edit/:id?',
+    path: '/apps/edit/:appId/:appObjectId?',
     name: 'application',
     component: Application
   }
-
 ]
 
 const router = new VueRouter({
