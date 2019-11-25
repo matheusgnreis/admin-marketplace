@@ -1,3 +1,10 @@
+const isDiscount = (field, schema) => {
+  if (field.includes('discount') && schema.type === 'object') {
+    return Object.keys(schema.properties).includes('value')
+  }
+  return false
+}
+
 const isMoney = (field, schema) => {
   return (field.includes('amount') || field.includes('price')) && schema.type === 'number'
 }
@@ -11,7 +18,7 @@ const isUpload = (field, schema) => {
 }
 
 const isObject = (field, schema) => {
-  return schema.type === 'object'
+  return schema.type === 'object' && !isDiscount(field, schema)
 }
 
 const isEnum = (field, schema) => {
@@ -35,6 +42,7 @@ const getFieldsByObject = (field, schema) => {
 }
 
 const INPUTS = [
+  { match: isDiscount, component: () => import(`../components/_inputs/InputDiscount.vue`) },
   { match: isMoney, component: () => import(`../components/_inputs/InputMoney.vue`) },
   { match: isZipCode, component: () => import(`../components/_inputs/InputZipCode.vue`) },
   { match: isUpload, component: () => import(`../components/_inputs/Upload.vue`) },
