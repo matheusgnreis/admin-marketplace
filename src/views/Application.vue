@@ -1,7 +1,5 @@
 <template>
-  <ec-application 
-    :application="application"
-  >
-  </ec-application>
+  <ec-application :application="application"/>
 </template>
+
 <script src="./js/Application.js"></script>
