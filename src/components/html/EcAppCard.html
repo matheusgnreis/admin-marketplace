@@ -1,19 +1,28 @@
-<a-card hoverable class="ec-app-card">
-  <img alt="example" :src="appUrlIcon" slot="cover" class="ec-app-card__img" />
-  <template slot="actions">
-    <div class="act">
-      <div v-if="isInstalled">
-        <a-icon type="edit" />
-        <router-link :to="`/apps/edit/${app.slug}`"> {{i19edit}} </router-link>
-      </div>
-      <div v-else>
-        <a-icon type="download" />
-        <router-link :to="`/apps/edit/${app.slug}`"> {{i19install}} </router-link>
-      </div>
-    </div>
-  </template>
-  <br />
-  <div class="ec-app-card__card-description">
-    <p>{{formattedDescription}}</p>
+<a-card class="ec-app-card" @click="$emit('click')" hoverable>
+  <div slot="cover" class="text-center">
+    <img
+      v-if="iconUrl"
+      class="img-fluid"
+      :src="iconUrl"
+      :alt="app.title"
+    />
+    <a-icon v-else type="picture"/>
   </div>
+
+  <a-card-meta
+    :title="app.title"
+    class="overflow-hidden"
+    style="height: 9.25rem"
+  >
+    <template slot="description">
+      {{ formattedDescription }}
+    </template>
+  </a-card-meta>
+
+  <span class="text-success" v-if="!app.paid">
+    {{ i19free }}
+  </span>
+  <span class="text-info" v-else>
+    {{ i19paid }}
+  </span>
 </a-card>
