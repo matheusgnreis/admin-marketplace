@@ -5,16 +5,8 @@ export default {
       type: String,
       required: true
     },
-    minimum: {
-      type: Number,
-      default: -99999999
-    },
-    maximum: {
-      type: Number,
-      default: 99999999
-    },
-    default: {
-      type: Number
+    schema: {
+      type: Object
     }
   },
   data: () => {

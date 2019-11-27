@@ -1,6 +1,8 @@
 const isDiscount = (field, schema) => {
   if (field.includes('discount') && schema.type === 'object') {
-    return Object.keys(schema.properties).includes('value')
+    if (schema.properties.hasOwnProperty('value') && schema.properties.hasOwnProperty('type')) {
+      return isNumber('value', schema.properties.value) && isEnum('type', schema.properties.type)
+    }
   }
   return false
 }
@@ -26,7 +28,7 @@ const isEnum = (field, schema) => {
 }
 
 const isNumber = (field, schema) => {
-  return schema.type === 'number'
+  return ['integer', 'number'].includes(schema.type)
 }
 
 const isText = (field, schema) => {

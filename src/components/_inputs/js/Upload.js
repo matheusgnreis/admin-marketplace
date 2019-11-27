@@ -5,16 +5,19 @@ export default {
       type: String,
       required: true
     },
-    multiple: {
-      type: Boolean,
+    schema: {
+      type: Object,
       default: false
     },
     action: {
-      type: String,
-      required: true
+      type: String
     },
     headers: {
       type: Object
+    },
+    multiple: {
+      type: Boolean,
+      default: false
     },
     buttonText: {
       type: String,

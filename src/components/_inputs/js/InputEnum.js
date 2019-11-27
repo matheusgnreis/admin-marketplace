@@ -1,12 +1,12 @@
 export default {
   name: 'InputEnum',
   props: {
-    items: {
-      type: Array,
-      default: []
+    name: {
+      type: String,
+      required: true
     },
-    defaultValue: {
-      type: String
+    schema: {
+      type: Object
     }
   }
 }

@@ -1,21 +1,35 @@
 <template>
-  <a-input-group size="large">
-    <a-row :gutter="8">
-      <a-col :span="5">
-        <a-radio-group v-model="type">
-          <a-radio :style="radioStyle" :value="1">Option A</a-radio>
-          <a-radio :style="radioStyle" :value="2">Option B</a-radio>
-          <a-radio :style="radioStyle" :value="3">Option C</a-radio>
-          <a-radio :style="radioStyle" :value="4">
-            More...
-            <a-input v-if="type === 4" :style="{ width: 100, marginLeft: 10 }" />
-          </a-radio>
-        </a-radio-group>      </a-col>
-      <a-col :span="8">
-        <a-input defaultValue="26888888" />
-      </a-col>
-    </a-row>
-  </a-input-group></template>
+  <fieldset>
+    <legend>{{schema.title}}</legend>
+    <a-input-group size="large">
+      <a-form-item :label="type.title">
+        <a-select v-model="data.type">
+          <a-select-option v-for="item in type.enum" :value="item">
+            {{item}}
+          </a-select-option>
+        </a-select>
+      </a-form-item>
+      <a-form-item :label="value.title" v-if="data.type==='percentage'">
+        <a-input-number
+          v-model="data.value"
+          :min="0"
+          :max="100"
+          :formatter="value => `${value}%`"
+          :parser="value => value.replace('%', '')">
+        </a-input-number>
+      </a-form-item>
+      <input-money
+      :name="value.title"
+      v-model="data.value"
+      v-else />
+      <ec-dynamic-field
+        v-for="field in Object.keys(others)"
+        :field="field"
+        :schema="others[field]" />
+    </a-input-group>
+  </fieldset>
+
+</template>
 
 
 <script src="./js/InputDiscount.js"></script>

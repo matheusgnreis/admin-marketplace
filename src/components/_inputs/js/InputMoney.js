@@ -8,12 +8,27 @@ export default {
   components: {
     CleaveInput
   },
-  data: () => {
-    return {
-      localValue: null
+  props: {
+    value: {
+      type: Number
+    },
+    name: {
+      type: String,
+      required: true
+    },
+    schema: {
+      type: Object
     }
   },
   computed: {
+    localValue: {
+      get () {
+        return Number(this.value)
+      },
+      set (value) {
+        this.$emit('input', Number(value))
+      }
+    },
     cleaveOptions () {
       return {
         prefix: countryCode === 'BR' ? 'R$' : '$',
@@ -21,7 +36,8 @@ export default {
         numeralThousandsGroupStyle: 'thousand',
         numeralDecimalMark: ',',
         numeralDecimalScale: 2,
-        delimiter: '.'
+        delimiter: '.',
+        rawValueTrimPrefix: true
       }
     }
   }
