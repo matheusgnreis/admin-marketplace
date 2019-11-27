@@ -45,9 +45,8 @@ export default {
           return `${this.app.short_description.slice(0, descriptionMaxLength)}...`
         }
         return this.app.short_description
-      } else {
-        return ''
       }
+      return ''
     }
   }
 }

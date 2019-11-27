@@ -23,7 +23,7 @@ export default {
 
   data () {
     return {
-      loading: true,
+      loading: false,
       loadError: false,
       errorMessage: '',
       activeTabKey: 'market',
