@@ -26,7 +26,7 @@
                 'default': 'Cartão de crédito'
               },
               'hide': false
-            },
+            },/*
             'text': {
               'schema': {
                 'type': 'string',
@@ -181,7 +181,7 @@
                 'title': 'Habilitar PayPal Plus',
                 'description': 'Checkout transaparente via PayPal (necessário aprovação da conta)'
               }
-            }
+            } */
           }
         }
       }

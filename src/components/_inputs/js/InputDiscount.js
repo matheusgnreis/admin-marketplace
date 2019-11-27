@@ -1,3 +1,8 @@
 export default {
-  name: 'InputDiscount'
+  name: 'InputDiscount',
+  data: () => {
+    return {
+      type: ''
+    }
+  }
 }

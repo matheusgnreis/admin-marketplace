@@ -13,6 +13,6 @@ export default {
   computed: {
     dynamicFields () {
       return discover(this.field, this.schema)
-    }
+    },
   }
 }

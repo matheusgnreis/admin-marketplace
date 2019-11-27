@@ -2,7 +2,7 @@
   <component
     v-for="dynamicField in dynamicFields"
     :is="dynamicField"
-    :data="schema"
+    v-bind="{name: field, schema: schema}"
     v-if="dynamicField">
   </component>
 </div>
