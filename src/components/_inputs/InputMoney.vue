@@ -1,9 +1,10 @@
 <template>
-  <a-form-item :label="name">
+  <a-form-item :label="schema.title">
     <cleave-input
-    class="ant-input"
-    :options="cleaveOptions"
-    v-model="localValue" />
+      class="ant-input"
+      :options="cleaveOptions"
+      v-model="localValue"
+    />
   </a-form-item>
 </template>
 

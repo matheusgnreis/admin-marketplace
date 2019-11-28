@@ -4,8 +4,10 @@
       <a-form>
         <ec-dynamic-field
           v-for="field in Object.keys(schema.admin_settings)"
+          :key="field"
           :field="field"
-          :schema=schema.admin_settings[field].schema />
+          :schema=schema.admin_settings[field].schema
+        />
       </a-form>
     </a-col>
     <a-col :span="12">

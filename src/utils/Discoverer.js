@@ -56,9 +56,9 @@ const INPUTS = [
 
 export const discover = (field, schema) => {
   for (let input of INPUTS) {
-    if (input['match'](field, schema)) {
+    if (input.match(field, schema)) {
       if (isObject(field, schema)) {
-        return input['component'](field, schema)
+        return input.component(field, schema)
       }
       return [input.component]
     }

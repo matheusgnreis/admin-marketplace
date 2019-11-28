@@ -4,7 +4,8 @@
       v-model="value"
       :name="name"
       :placeholder="schema.description"
-      :maxlength="schema.maxLength" />
+      :maxlength="schema.maxLength"
+    />
   </a-form-item>
 </template>
 

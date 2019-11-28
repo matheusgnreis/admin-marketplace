@@ -1,6 +1,11 @@
 <template>
   <a-form-item :label="schema.title">
-    <a-input-number :name="name" :min="schema.minimum" :max="schema.maximum" v-model="value" />
+    <a-input-number
+      :name="name"
+      :min="schema.minimum"
+      :max="schema.maximum"
+      v-model="value"
+    />
   </a-form-item>
 </template>
 

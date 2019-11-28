@@ -9,27 +9,29 @@
           </a-select-option>
         </a-select>
       </a-form-item>
-      <a-form-item :label="value.title" v-if="data.type==='percentage'">
-        <a-input-number
-          v-model="data.value"
-          :min="0"
-          :max="100"
-          :formatter="value => `${value}%`"
-          :parser="value => value.replace('%', '')">
-        </a-input-number>
+      <a-form-item
+        :label="value.title"
+        v-if="data.type==='percentage'">
+          <a-input-number
+            v-model="data.value"
+            :min="0"
+            :max="100"
+            :formatter="value => `${value}%`"
+            :parser="value => value.replace('%', '')"
+          />
       </a-form-item>
       <input-money
-      :name="value.title"
-      v-model="data.value"
-      v-else />
+        :name="value.title"
+        v-model="data.value"
+        v-else
+      />
       <ec-dynamic-field
         v-for="field in Object.keys(others)"
         :field="field"
-        :schema="others[field]" />
+        :schema="others[field]"
+      />
     </a-input-group>
   </fieldset>
-
 </template>
-
 
 <script src="./js/InputDiscount.js"></script>
