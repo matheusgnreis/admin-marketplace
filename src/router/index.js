@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Applications from '../views/Applications.vue'
-import Application from '../views/Application.vue'
+import Marketplace from './../views/Marketplace.vue'
+import Application from './../views/Application.vue'
 
 Vue.use(VueRouter)
 
@@ -11,9 +11,9 @@ const routes = [
     redirect: '/apps'
   },
   {
-    path: '/apps/:category?',
-    name: 'applications',
-    component: Applications
+    path: '/apps',
+    name: 'marketplace',
+    component: Marketplace
   },
   {
     path: '/apps/edit/:appId/:objectId?',
