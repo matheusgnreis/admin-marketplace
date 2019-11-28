@@ -1,17 +1,17 @@
 <template>
   <fieldset>
-    <legend>{{schema.title}}</legend>
+    <legend>{{ schema.title }}</legend>
     <a-input-group size="large">
       <a-form-item :label="type.title">
         <a-select v-model="data.type">
           <a-select-option v-for="item in type.enum" :value="item">
-            {{item}}
+            {{ item }}
           </a-select-option>
         </a-select>
       </a-form-item>
       <a-form-item
         :label="value.title"
-        v-if="data.type==='percentage'">
+        v-if="data.type === 'percentage'">
           <a-input-number
             v-model="data.value"
             :min="0"
