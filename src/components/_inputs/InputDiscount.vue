@@ -33,5 +33,4 @@
     </a-input-group>
   </fieldset>
 </template>
-
 <script src="./js/InputDiscount.js"></script>
