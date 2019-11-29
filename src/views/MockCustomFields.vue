@@ -1,7 +1,7 @@
 <template>
   <div class='container'>
     <h3>Formulário costumizado</h3>
-    <ec-dynamic-form :schema="schema"></ec-dynamic-form>
+    <ec-dynamic-form :application="schema"></ec-dynamic-form>
     <hr />
   </div>
 </template>

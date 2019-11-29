@@ -28,6 +28,7 @@
     <div class="col">
       <a-card hoverable style="width: 100%">
         <slot name="application-settings"></slot>
+        <ec-dynamic-form :application="applicationBody" v-if="applicationBody.admin_settings" />
       </a-card>
     </div>
   </div>

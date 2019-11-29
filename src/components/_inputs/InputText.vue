@@ -1,10 +1,11 @@
 <template>
   <a-form-item :label="schema.title">
     <a-input
-      v-model="value"
       :name="name"
       :placeholder="schema.description"
       :maxlength="schema.maxLength"
+      :value="value"
+      v-on:input="localValue = $event.target.value"
     />
   </a-form-item>
 </template>

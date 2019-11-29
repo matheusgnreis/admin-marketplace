@@ -6,7 +6,7 @@ export default {
     EcDynamicField
   },
   props: {
-    schema: {
+    application: {
       type: Object,
       default: {}
     }

@@ -3,15 +3,12 @@
     <a-col :span="12">
       <a-form>
         <ec-dynamic-field
-          v-for="field in Object.keys(schema.admin_settings)"
+          v-for="field in Object.keys(application.admin_settings)"
           :key="field"
           :field="field"
-          :schema=schema.admin_settings[field].schema
+          :schema=application.admin_settings[field].schema
         />
       </a-form>
-    </a-col>
-    <a-col :span="12">
-      <pre>{{schema}}</pre>
     </a-col>
   </a-row>
 </div>

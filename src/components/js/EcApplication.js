@@ -1,10 +1,12 @@
 import VueMarkdown from 'vue-markdown'
 import EcomApps from '@ecomplus/apps-manager'
+import EcDynamicForm from './../EcDynamicForm.vue'
 
 export default {
   name: 'EcApplication',
   components: {
-    VueMarkdown
+    VueMarkdown,
+    EcDynamicForm
   },
   data () {
     return {
