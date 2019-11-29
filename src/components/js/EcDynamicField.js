@@ -8,9 +8,20 @@ export default {
     },
     schema: {
       type: Object
+    },
+    value: {
+      type: String
     }
   },
   computed: {
+    localValue: {
+      get () {
+        return this.value
+      },
+      set (val) {
+        this.$emit('input', val)
+      }
+    },
     dynamicFields () {
       return discover(this.field, this.schema)
     },
