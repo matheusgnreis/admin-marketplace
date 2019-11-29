@@ -3,7 +3,6 @@
     v-for="dynamicField in dynamicFields"
     v-bind="{name: field, schema: schema}"
     v-if="dynamicField"
-    :key="dynamicField"
     :is="dynamicField"
   />
 </div>

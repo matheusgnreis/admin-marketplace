@@ -5,23 +5,40 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <link rel="icon" href="<%= BASE_URL %>favicon.ico">
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ecomplus/storefront-twbs@3/dist/storefront-twbs.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ant-design-vue@1/dist/antd.min.css">
     <script src="https://kit.fontawesome.com/a3730efcb8.js" crossorigin="anonymous"></script>
+
     <title>@ecomplus/admin-marketplace</title>
+
+    <style>
+      body {
+        background: var(--light);
+      }
+      #admin-marketplace {
+        max-width: 900px;
+        margin: 0 auto;
+      }
+    </style>
   </head>
+
   <body>
     <noscript>
       <strong>We're sorry but @ecomplus/admin-marketplace doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
     </noscript>
-    <div id="app"></div>
+    <div class="container p-4">
+      <div id="admin-marketplace"></div>
+    </div>
     <!-- built files will be auto injected -->
+
     <script src="https://unpkg.com/axios@0/dist/axios.min.js"></script>
     <script src="https://unpkg.com/eventemitter3@4/umd/eventemitter3.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/blueimp-md5@2/js/md5.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@ecomplus/utils@1/dist/ecom-utils.polyfill.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@ecomplus/client@1/dist/ecom-client.polyfill.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@ecomplus/auth@0.3.2/dist/ecom-auth.root.min.js"></script>
+
     <script>
       const ecomAuth = new EcomAuth()
       ecomAuth.login(localStorage.getItem('username'), localStorage.getItem('password'), 1011)

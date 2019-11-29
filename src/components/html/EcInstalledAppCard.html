@@ -1,0 +1,49 @@
+<a-card
+  class="ec-installed-app-card"
+  @click="$emit('click')"
+  hoverable
+>
+  <a-card-meta :title="app.title" class="mb-3">
+    <template slot="description">
+      <samp>#{{ app.app_id }}</samp>
+
+      <br>
+      <a-badge
+        :text="isActive ? i19active : i19inactive"
+        :status="isActive ? 'success' : 'default'"
+      />
+      /
+      <span class="text-success" v-if="!app.paid">
+        {{ i19free }}
+      </span>
+      <span class="text-info" v-else>
+        {{ i19paid }}
+      </span>
+    </template>
+  </a-card-meta>
+
+  <a-statistic :title="i19version" :value="app.version">
+    <template #prefix>
+      <small>v</small>
+    </template>
+    <template #suffix>
+      <small>{{ formatDate(app.version_date) }}</small>
+    </template>
+  </a-statistic>
+
+  <template slot="actions">
+    <template v-if="!loading">
+      <a-tooltip :title="i19edit">
+        <i class="fas px-2 fa-edit"></i>
+      </a-tooltip>
+      <a-tooltip v-if="isActive" :title="i19disable" key="disable">
+        <i @click.stop="toggleState" class="fas px-2 fa-toggle-on"></i>
+      </a-tooltip>
+      <a-tooltip v-else :title="i19activate" key="activate">
+        <i @click.stop="toggleState" class="fas px-2 fa-toggle-off"></i>
+      </a-tooltip>
+    </template>
+
+    <a-spin v-else size="small"/>
+  </template>
+</a-card>

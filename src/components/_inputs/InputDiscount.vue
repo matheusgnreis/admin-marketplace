@@ -21,7 +21,8 @@
           />
       </a-form-item>
       <input-money
-        :name="value.title"
+        name="value"
+        :schema="value"
         v-model="data.value"
         v-else
       />
