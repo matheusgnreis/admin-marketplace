@@ -145,7 +145,11 @@ export default {
 
     findRelateds () {
       this.ecomApps.fetchMarketApps({ params: { category: this.category } })
-        .then(resp => (this.appsRelated = resp.result))
+        .then(resp => {
+          const { result } = resp
+          const filter = result.filter(app => app.app_id !== this.appId)
+          this.appsRelated = filter || []
+        })
     },
 
     installApp () {
