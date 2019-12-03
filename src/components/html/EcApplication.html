@@ -1,42 +1,72 @@
-<div class="container py-4">
-  <div class="row">
-    <div class="col">
-      <a-card hoverable style="width: 100%">
-        <template class="ant-card-actions" slot="actions">
-          <a-icon type="api" title="Instalar agora" @click="installApp" v-if="!isInstalled" class="ec-application__actions"/>
-          <a-icon type="setting" title="Configurar aplicativo" @click="toggleSettings" v-if="isInstalled" class="ec-application__actions"/>
-          <a-popconfirm
-            title="Tem certeza que deseja excluir o aplicativo?"
-            @confirm="deleteApp"
-            okText="Sim"
-            cancelText="Não"
-            v-if="isInstalled"
-          >
-            <a-icon type="delete" title="Excluir aplicativo" class="ec-application__actions"/>
-          </a-popconfirm>
-        </template>
-        <a-card-meta :title="title" :description="shortDescription">
-          <a-avatar
-            slot="avatar"
-            :src="icon"
-          />
-        </a-card-meta>
-      </a-card>
+<div class="ec-application">
+  <a-row :gutter="24">
+    <div v-if="isLoaded">
+      <a-col :md="24" :lg="7">
+        <a-card :bordered="false" >
+          <div class="text-center">
+            <a-avatar :src="icon" :size="104" class="mb-3"/>
+            <div style="margin-bottom: 5px">{{ title }}</div>
+            <div>{{ shortDescription }}</div>
+          </div>
+
+          <div class="text-center mb-1 mt-4">
+            <span>
+              <a-button type="primary" shape="round" @click="installApp" v-if="!isInstalled">
+                <a-icon type="download" />{{ i19install }}</a-button>
+              <a-button type="danger" shape="round" @click="uninstallApp" v-else>
+                <a-icon type="delete" />{{ i19uninstall }}</a-button>
+            </span>
+          </div>
+
+          <div class="text-center mb-1">
+            <p>{{ price }}</p>
+          </div>
+
+          <div>
+            <p class="d-flex align-items-center">
+              <a-icon type="user" class="mr-3" />
+              {{ i19author }} : {{ author }}
+            </p>
+            <p class="d-flex align-items-center">
+              <a-icon type="interation" class="mr-3" />
+              {{ i19version }} : {{ version }}
+            </p>
+            <p class="d-flex align-items-center">
+              <a-icon type="global" class="mr-3" />
+              <a :href="website">Website</a>
+            </p>
+          </div>
+        </a-card>
+      </a-col>
+
+      <a-col :md="24" :lg="17">
+        <a-card class="w-100" :bordered="false" :tabList="tabListNoTitle" :activeTabKey="activeTabKey"
+          @tabChange="key => handleTabChange(key, 'activeTabKey')" >
+
+          <a-card :bordered="false" v-if="activeTabKey === 'description'" key="app-description">
+            <vue-markdown>{{description}}</vue-markdown>
+          </a-card>
+
+          <article v-else-if="activeTabKey === 'settings'" key="app-settings">
+            <div class="row">
+              <div class="col-md-12">
+                <ec-dynamic-form :application="applicationBody" v-if="applicationBody.admin_settings" />
+              </div>
+            </div>
+          </article>
+
+          <article v-else-if="activeTabKey === 'related'" key="app-related">
+            <div class="row">
+              <div class="col-6 col-md-4" v-for="(app, i) in appsRelated" :key="`app-${i}`">
+                <ec-app-card :app.sync="appsRelated[i]" :ecomApps="ecomApps" @click="$emit('click:app', app)"
+                  class="mb-4" />
+              </div>
+            </div>
+          </article>
+        </a-card>
+      </a-col>
     </div>
-  </div>
-  <div class="row pt-4" v-if="showSettings">
-    <div class="col">
-      <a-card hoverable style="width: 100%">
-        <slot name="application-settings"></slot>
-        <ec-dynamic-form :application="applicationBody" v-if="applicationBody.admin_settings" />
-      </a-card>
-    </div>
-  </div>
-  <div class="row py-4">
-    <div class="col">
-      <a-card>
-        <vue-markdown>{{description}}</vue-markdown>
-      </a-card>
-    </div>
-  </div>
+
+    <a-skeleton v-else active />
+  </a-row>
 </div>
