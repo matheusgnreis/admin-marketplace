@@ -40,7 +40,7 @@
       </a-col>
 
       <a-col :md="24" :lg="17">
-        <a-card style="width:100%" :bordered="false" :tabList="tabListNoTitle" :activeTabKey="activeTabKey"
+        <a-card class="w-100" :bordered="false" :tabList="tabListNoTitle" :activeTabKey="activeTabKey"
           @tabChange="key => handleTabChange(key, 'activeTabKey')">
 
           <a-card :bordered="false" v-if="activeTabKey === 'description'" key="app-description">
