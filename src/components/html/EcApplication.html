@@ -2,19 +2,34 @@
   <a-row :gutter="24">
     <div v-if="isLoaded">
       <a-col :md="24" :lg="7">
-        <a-card :bordered="false" >
+        <a-card :bordered="true" >
           <div class="text-center">
-            <a-avatar :src="icon" :size="104" class="mb-3"/>
-            <div style="margin-bottom: 5px">{{ title }}</div>
+            <a-avatar :src="icon" :size="170"  class="mb-3 img-fluid"/>
+            <div style="color: rgba(0, 0, 0, 0.85); font-size: 20px; line-height: 28px; font-weight: 500; margin-bottom: 1rem;">{{ title }}</div>
             <div>{{ shortDescription }}</div>
           </div>
 
           <div class="text-center mb-1 mt-4">
             <span>
-              <a-button type="primary" shape="round" @click="installApp" v-if="!isInstalled">
-                <a-icon type="download" />{{ i19install }}</a-button>
-              <a-button type="danger" shape="round" @click="uninstallApp" v-else>
-                <a-icon type="delete" />{{ i19uninstall }}</a-button>
+              <a-button type="primary" size="large" shape="round" @click="installApp" v-if="!isInstalled">
+                <i class="fas fa-plus mr-2"></i> {{ i19install }} </a-button>
+                <a-popconfirm
+                  :title="i19areYouWantToDeleteAppMsg"
+                  @confirm="uninstallApp"
+                  :okText="i19yes"
+                  :cancelText="i19no"
+                  v-if="isInstalled"
+                >
+
+                  <a-button
+                    type="danger"
+                    shape="round"
+                    size="large"
+                  >
+
+                    <i class="fas fa-trash mr-2"></i> {{ i19uninstall }}
+                  </a-button>
+                </a-popconfirm>
             </span>
           </div>
 
@@ -24,15 +39,15 @@
 
           <div>
             <p class="d-flex align-items-center">
-              <a-icon type="user" class="mr-3" />
+              <i class="fas fa-user mr-3"></i>
               {{ i19author }} : {{ author }}
             </p>
             <p class="d-flex align-items-center">
-              <a-icon type="interation" class="mr-3" />
+              <i class="fas fa-sync-alt mr-3"></i>
               {{ i19version }} : {{ version }}
             </p>
             <p class="d-flex align-items-center">
-              <a-icon type="global" class="mr-3" />
+              <i class="fa fa-globe mr-3"></i>
               <a :href="website">Website</a>
             </p>
           </div>
@@ -40,7 +55,7 @@
       </a-col>
 
       <a-col :md="24" :lg="17">
-        <a-card class="w-100" :bordered="false" :tabList="tabListNoTitle" :activeTabKey="activeTabKey"
+        <a-card class="w-100" :bordered="true" :tabList="tabListNoTitle" :activeTabKey="activeTabKey"
           @tabChange="key => handleTabChange(key, 'activeTabKey')" >
 
           <a-card :bordered="false" v-if="activeTabKey === 'description'" key="app-description">
@@ -58,6 +73,17 @@
             </div>
           </article>
         </a-card>
+        <a-button
+          @click="$emit('click')"
+          type="link"
+          size="large"
+          class="mt-4 float-right"
+          style="border: 1px solid #e8e8e8"
+          href="/apps"
+        >
+        <i class="fas fa-undo mr-3"></i>
+          {{ i19back }}
+        </a-button>
       </a-col>
     </div>
 

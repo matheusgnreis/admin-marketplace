@@ -1,6 +1,27 @@
 import VueMarkdown from 'vue-markdown'
 import EcomApps from '@ecomplus/apps-manager'
 import EcAppCard from './../EcAppCard.vue'
+import { _config, i18n } from '@ecomplus/utils'
+
+import {
+  i19install,
+  i19version,
+  i19description,
+  i19relatedApps,
+  i19configuration,
+  i19free,
+  i19author,
+  i19uninstall,
+  i19yes,
+  i19no,
+  i19areYouWantToDeleteAppMsg,
+  i19back,
+  i19unavailable,
+  i19paid,
+  i19installed,
+  i19unableToInstallAppMsg,
+  i19installingApp
+} from '@ecomplus/i18n'
 
 export default {
   name: 'EcApplication',
@@ -8,29 +29,6 @@ export default {
   components: {
     VueMarkdown,
     EcAppCard
-  },
-
-  data () {
-    return {
-      isLoaded: false,
-      applicationBody: this.application,
-      appsRelated: [],
-      tabListNoTitle: [
-        {
-          key: 'description',
-          tab: 'Descrição'
-        },
-        {
-          key: 'settings',
-          tab: 'Configuração'
-        },
-        {
-          key: 'related',
-          tab: 'Aplicativos relacionados'
-        }
-      ],
-      activeTabKey: 'description'
-    }
   },
 
   props: {
@@ -42,6 +40,34 @@ export default {
     application: {
       type: Object,
       default: () => ({})
+    },
+
+    lang: {
+      type: String,
+      default: _config.get('lang')
+    }
+  },
+
+  data () {
+    return {
+      isLoaded: false,
+      applicationBody: this.application,
+      appsRelated: [],
+      tabListNoTitle: [
+        {
+          key: 'description',
+          tab: ''
+        },
+        {
+          key: 'settings',
+          tab: ''
+        },
+        {
+          key: 'related',
+          tab: ''
+        }
+      ],
+      activeTabKey: 'settings'
     }
   },
 
@@ -74,6 +100,22 @@ export default {
       return this.applicationBody.description
     },
 
+    i19description () {
+      return i18n(i19description)
+    },
+
+    i19configuration () {
+      return i18n(i19configuration)
+    },
+
+    i19relatedApps () {
+      return i18n(i19relatedApps)
+    },
+
+    i19unableToInstallAppMsg () {
+      return i18n(i19unableToInstallAppMsg)
+    },
+
     version () {
       return this.applicationBody.version
     },
@@ -83,23 +125,56 @@ export default {
     },
 
     price () {
-      return 'Grátis'
+      if (this.applicationBody) {
+        if (!this.applicationBody.paid) {
+          return i18n(i19free)
+        } else {
+          return i18n(i19paid)
+        }
+
+      } else {
+        return i18n(i19unavailable)
+      }
     },
 
     i19author () {
-      return 'Autor'
+      return i18n(i19author)
     },
 
     i19version () {
-      return 'Versão'
+      return i18n(i19version)
     },
 
     i19install () {
-      return 'Instalar'
+      return i18n(i19install)
     },
 
     i19uninstall () {
-      return 'Desinstalar'
+      return i18n(i19uninstall)
+    },
+
+    i19yes () {
+      return i18n(i19yes)
+    },
+
+    i19no () {
+      return i18n(i19no)
+    },
+
+    i19back () {
+      return i18n(i19back)
+    },
+
+    i19areYouWantToDeleteAppMsg () {
+      return i18n(i19areYouWantToDeleteAppMsg)
+    },
+
+    i19installingApp () {
+      return i18n(i19installingApp)
+    },
+
+    i19installed () {
+      return i18n(i19installed)
     },
 
     isInstalled () {
@@ -153,14 +228,14 @@ export default {
     },
 
     installApp () {
-      this.$message.loading('Instalando aplicativo ' + this.title, 1)
+      this.$message.loading(this.i19installingApp + ' ' + this.title, 1)
       this.ecomApps.installApp(this.appId, true)
         .then(installed => {
-          this.$message.success(this.title + ' instalado', 2)
+          this.$message.success(this.title + ' ' + this.i19installed , 2)
           this.fetchStoreApplication(installed._id)
         })
         .catch(e => {
-          this.$message.error('Não foi possível instalar o aplicativo', 3)
+          this.$message.error(this.i19unableToInstallAppMsg, 3)
         })
     },
 
@@ -193,6 +268,20 @@ export default {
         }
       },
       immediate: true
+    }
+  },
+
+  created () {
+    for (var i = 0; i < this.tabListNoTitle.length; i++) {
+      if (this.tabListNoTitle[i].key === 'description') {
+        this.tabListNoTitle[i].tab = this.i19description
+      }
+      if (this.tabListNoTitle[i].key === 'settings') {
+        this.tabListNoTitle[i].tab = this.i19configuration
+      }
+      if (this.tabListNoTitle[i].key === 'related') {
+        this.tabListNoTitle[i].tab = this.i19relatedApps
+      }
     }
   }
 }

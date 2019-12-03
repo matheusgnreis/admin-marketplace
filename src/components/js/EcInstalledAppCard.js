@@ -1,15 +1,15 @@
-import { i18n, formatDate } from '@ecomplus/utils'
+import { i18n, formatDate, _config } from '@ecomplus/utils'
 import EcomApps from '@ecomplus/apps-manager'
 
 import {
   i19active,
-  // i19activate,
-  // i19disable,
+  i19activate,
+  i19disable,
   i19edit,
   i19free,
   i19inactive,
-  i19version
-  // i19paid
+  i19version,
+  i19paid
 } from '@ecomplus/i18n'
 
 export default {
@@ -20,9 +20,15 @@ export default {
       type: Object,
       default: () => new EcomApps()
     },
+
     app: {
       type: Object,
       default: {}
+    },
+
+    lang: {
+      type: String,
+      default: _config.get('lang')
     }
   },
 
@@ -38,11 +44,11 @@ export default {
     },
 
     i19activate () {
-      return 'Ativar'
+      return i18n(i19activate)
     },
 
     i19disable () {
-      return 'Desativar'
+      return i18n(i19disable)
     },
 
     i19edit () {
@@ -58,7 +64,7 @@ export default {
     },
 
     i19paid () {
-      return 'Pago'
+      return i18n(i19paid)
     },
 
     i19version () {

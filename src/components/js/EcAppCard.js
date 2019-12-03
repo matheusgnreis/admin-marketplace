@@ -1,8 +1,8 @@
-import { i18n } from '@ecomplus/utils'
+import { _config, i18n } from '@ecomplus/utils'
 
 import {
-  i19free
-  // i19paid
+  i19free,
+  i19paid
 } from '@ecomplus/i18n'
 
 export default {
@@ -13,9 +13,15 @@ export default {
       type: Object,
       default: {}
     },
+
     descriptionMaxLength: {
       type: Number,
       default: 95
+    },
+
+    lang: {
+      type: String,
+      default: _config.get('lang')
     }
   },
 
@@ -25,7 +31,11 @@ export default {
     },
 
     i19paid () {
-      return 'Pago'
+      return i18n(i19paid)
+    },
+
+    download () {
+      return this.app.downloads
     },
 
     iconUrl () {
