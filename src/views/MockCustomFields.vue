@@ -1,20 +1,37 @@
 <template>
   <div class='container'>
     <h3>Formulário costumizado</h3>
-    <ec-dynamic-form :application="schema"></ec-dynamic-form>
+    <input-text name="teste" :schema="{}" v-model="otherData.inputText"/>
+    <input-enum name="teste" value="teste" :schema="{enum: ['item1', 'item2']}" v-model="otherData.inputEnum"/>
+    <input-money name="teste" :schema="{}" v-model="otherData.inputMoney"/>
+    <input-number name="teste" :schema="{}" v-model="otherData.inputNumber"/>
+    <input-phone name="teste" :schema="{}" v-model="otherData.inputPhone"/>
+    <!-- <ec-dynamic-form :application="schema"></ec-dynamic-form> -->
     <hr />
+    {{otherData}}
   </div>
 </template>
 
 <script>
   import EcDynamicForm from '../components/EcDynamicForm.vue'
+  import InputText from '../components/_inputs/InputText.vue'
+  import InputEnum from '../components/_inputs/InputEnum.vue'
+  import InputMoney from '../components/_inputs/InputMoney.vue'
+  import InputNumber from '../components/_inputs/InputNumber.vue'
+  import InputPhone from '../components/_inputs/InputPhone.vue'
   export default {
     name: 'MockCustomFields',
     components: {
-      EcDynamicForm
+      EcDynamicForm,
+      InputText,
+      InputEnum,
+      InputMoney,
+      InputNumber,
+      InputPhone
     },
     data: () => {
       return {
+        otherData: {},
         schema: {
           'admin_settings': {
             'label': {

@@ -4,7 +4,7 @@
       :name="name"
       :min="schema.minimum"
       :max="schema.maximum"
-      v-model="value"
+      v-model="localValue"
     />
   </a-form-item>
 </template>

@@ -7,14 +7,19 @@ export default {
     },
     schema: {
       type: Object
+    },
+    value: {
+      type: Number
     }
   },
-  data: () => {
-    return {
-      value: null
+  computed: {
+    localValue: {
+      get () {
+        return this.value
+      },
+      set (val) {
+        this.$emit('input', val)
+      }
     }
-  },
-  created () {
-    this.value = this.default
   }
 }
