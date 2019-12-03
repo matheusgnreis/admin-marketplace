@@ -12,7 +12,7 @@ export default {
 
   data () {
     return {
-      loading: false,
+      isLoaded: false,
       applicationBody: this.application,
       appsRelated: [],
       tabListNoTitle: [
@@ -112,6 +112,7 @@ export default {
       },
       set (data) {
         this.applicationBody = data
+        this.isLoaded = true
         this.$emit('update:application', data)
       }
     }
@@ -121,7 +122,6 @@ export default {
     fetchMarketApplication () {
       this.ecomApps.findApp(this.appId).then(app => {
         // remove null
-        this.loading = true
         for (const key in app) {
           if (app[key] === null || app[key] === '') {
             delete app[key]
@@ -136,7 +136,6 @@ export default {
 
     fetchStoreApplication (applicationId) {
       this.ecomApps.findStoreApplication(applicationId).then(({ data }) => {
-        this.loading = true
         this.localApplication = {
           ...this.applicationBody,
           ...data
