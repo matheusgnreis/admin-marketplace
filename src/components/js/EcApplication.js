@@ -121,6 +121,7 @@ export default {
     fetchMarketApplication () {
       this.ecomApps.findApp(this.appId).then(app => {
         // remove null
+        this.loading = true
         for (const key in app) {
           if (app[key] === null || app[key] === '') {
             delete app[key]
@@ -135,6 +136,7 @@ export default {
 
     fetchStoreApplication (applicationId) {
       this.ecomApps.findStoreApplication(applicationId).then(({ data }) => {
+        this.loading = true
         this.localApplication = {
           ...this.applicationBody,
           ...data
@@ -188,9 +190,6 @@ export default {
         }
       },
       immediate: true
-    },
-    localApplication () {
-      this.loading = true
     }
   }
 }

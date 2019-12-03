@@ -4,9 +4,7 @@
       <a-col :md="24" :lg="7">
         <a-card :bordered="false">
           <div class="text-center">
-            <div>
-              <img :src="icon" style="margin: 0 auto;width: 104px;height: 104px;margin-bottom: 20px;border-radius: 50%;overflow: hidden;">
-            </div>
+            <a-avatar :src="icon" :size="104" class="mb-3"/>
             <div style="margin-bottom: 5px">{{ title }}</div>
             <div>{{ shortDescription }}</div>
           </div>
@@ -26,15 +24,15 @@
 
           <div>
             <p class="d-flex align-items-center">
-              <a-icon type="user" class="mr-3"/>
+              <a-icon type="user" class="mr-3" />
               {{ i19author }} : {{ author }}
             </p>
             <p class="d-flex align-items-center">
-              <a-icon type="interation" class="mr-3"/>
+              <a-icon type="interation" class="mr-3" />
               {{ i19version }} : {{ version }}
             </p>
             <p class="d-flex align-items-center">
-              <a-icon type="global" class="mr-3"/>
+              <a-icon type="global" class="mr-3" />
               <a :href="website">Website</a>
             </p>
           </div>
@@ -42,19 +40,10 @@
       </a-col>
 
       <a-col :md="24" :lg="17">
-        <a-card 
-          style="width:100%" 
-          :bordered="false" 
-          :tabList="tabListNoTitle" 
-          :activeTabKey="activeTabKey"
-          @tabChange="key => handleTabChange(key, 'activeTabKey')"
-        >
+        <a-card style="width:100%" :bordered="false" :tabList="tabListNoTitle" :activeTabKey="activeTabKey"
+          @tabChange="key => handleTabChange(key, 'activeTabKey')">
 
-          <a-card 
-            :bordered="false" 
-            v-if="activeTabKey === 'description'"
-            key="app-description"
-          >
+          <a-card :bordered="false" v-if="activeTabKey === 'description'" key="app-description">
             <vue-markdown>{{description}}</vue-markdown>
           </a-card>
 
@@ -62,15 +51,8 @@
 
           <article v-else-if="activeTabKey === 'related'" key="app-related">
             <div class="row">
-              <div 
-                class="col-6 col-md-4" 
-                v-for="(app, i) in appsRelated" 
-                :key="`app-${i}`"
-              >
-                <ec-app-card 
-                  :app.sync="appsRelated[i]" 
-                  :ecomApps="ecomApps" 
-                  @click="$emit('click:app', app)"
+              <div class="col-6 col-md-4" v-for="(app, i) in appsRelated" :key="`app-${i}`">
+                <ec-app-card :app.sync="appsRelated[i]" :ecomApps="ecomApps" @click="$emit('click:app', app)"
                   class="mb-4" />
               </div>
             </div>
