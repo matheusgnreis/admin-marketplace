@@ -1,18 +1,11 @@
 <div>
-  <a-row>
-    <a-col :span="12">
-      <pre>
-        {{form}}
-      </pre>
-      <a-form>
-        <ec-dynamic-field
-          v-for="field in Object.keys(application.admin_settings)"
-          v-model="form[field]"
-          :key="field"
-          :field="field"
-          :schema=application.admin_settings[field].schema
-        />
-      </a-form>
-    </a-col>
-  </a-row>
+  <a-form>
+    <ec-dynamic-field
+      v-for="field in Object.keys(application.admin_settings)"
+      v-model="form[field]"
+      :key="field"
+      :field="field"
+      :schema=application.admin_settings[field].schema
+    />
+    </a-form>
 </div>
