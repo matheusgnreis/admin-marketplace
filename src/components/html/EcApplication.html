@@ -2,11 +2,17 @@
   <a-row :gutter="24">
     <div v-if="isLoaded">
       <a-col :md="24" :lg="7">
-        <a-card :bordered="true" >
+        <a-card :bordered="false" >
           <div class="text-center">
             <a-avatar :src="icon" :size="170"  class="mb-3 img-fluid"/>
-            <div style="color: rgba(0, 0, 0, 0.85); font-size: 20px; line-height: 28px; font-weight: 500; margin-bottom: 1rem;">{{ title }}</div>
-            <div>{{ shortDescription }}</div>
+            <a-card-meta
+              :title="title"
+              class="overflow-hidden"
+            >
+              <template slot="description">
+                {{ shortDescription }}
+              </template>
+            </a-card-meta>
           </div>
 
           <div class="text-center mb-1 mt-4">
@@ -20,13 +26,11 @@
                   :cancelText="i19no"
                   v-if="isInstalled"
                 >
-
                   <a-button
                     type="danger"
                     shape="round"
                     size="large"
                   >
-
                     <i class="fas fa-trash mr-2"></i> {{ i19uninstall }}
                   </a-button>
                 </a-popconfirm>
@@ -55,7 +59,7 @@
       </a-col>
 
       <a-col :md="24" :lg="17">
-        <a-card class="w-100" :bordered="true" :tabList="tabListNoTitle" :activeTabKey="activeTabKey"
+        <a-card class="w-100" :bordered="false" :tabList="tabListNoTitle" :activeTabKey="activeTabKey"
           @tabChange="key => handleTabChange(key, 'activeTabKey')" >
 
           <a-card :bordered="false" v-if="activeTabKey === 'description'" key="app-description">
@@ -74,7 +78,8 @@
           </article>
         </a-card>
         <a-button
-          @click="$emit('click')"
+          hoverable
+          @click="$emit('click:back')"
           type="link"
           size="large"
           class="mt-4 float-right"

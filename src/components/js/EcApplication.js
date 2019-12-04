@@ -1,7 +1,7 @@
 import VueMarkdown from 'vue-markdown'
 import EcomApps from '@ecomplus/apps-manager'
 import EcAppCard from './../EcAppCard.vue'
-import { _config, i18n } from '@ecomplus/utils'
+import { i18n } from '@ecomplus/utils'
 
 import {
   i19install,
@@ -40,11 +40,6 @@ export default {
     application: {
       type: Object,
       default: () => ({})
-    },
-
-    lang: {
-      type: String,
-      default: _config.get('lang')
     }
   },
 
@@ -273,14 +268,16 @@ export default {
 
   created () {
     for (var i = 0; i < this.tabListNoTitle.length; i++) {
-      if (this.tabListNoTitle[i].key === 'description') {
-        this.tabListNoTitle[i].tab = this.i19description
-      }
-      if (this.tabListNoTitle[i].key === 'settings') {
-        this.tabListNoTitle[i].tab = this.i19configuration
-      }
-      if (this.tabListNoTitle[i].key === 'related') {
-        this.tabListNoTitle[i].tab = this.i19relatedApps
+      switch (this.tabListNoTitle[i].key) {
+        case 'description':
+          this.tabListNoTitle[0].tab = this.i19description
+          break;
+        case 'settings':
+          this.tabListNoTitle[1].tab = this.i19configuration
+          break;
+        case 'related':
+          this.tabListNoTitle[2].tab = this.i19relatedApps
+          break;
       }
     }
   }

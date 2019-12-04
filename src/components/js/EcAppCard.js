@@ -1,4 +1,4 @@
-import { _config, i18n } from '@ecomplus/utils'
+import { i18n } from '@ecomplus/utils'
 
 import {
   i19free,
@@ -17,11 +17,6 @@ export default {
     descriptionMaxLength: {
       type: Number,
       default: 95
-    },
-
-    lang: {
-      type: String,
-      default: _config.get('lang')
     }
   },
 
@@ -34,7 +29,7 @@ export default {
       return i18n(i19paid)
     },
 
-    download () {
+    downloadCount () {
       return this.app.downloads
     },
 

@@ -1,4 +1,4 @@
-import { i18n, formatDate, _config } from '@ecomplus/utils'
+import { i18n, formatDate } from '@ecomplus/utils'
 import EcomApps from '@ecomplus/apps-manager'
 
 import {
@@ -24,11 +24,6 @@ export default {
     app: {
       type: Object,
       default: {}
-    },
-
-    lang: {
-      type: String,
-      default: _config.get('lang')
     }
   },
 

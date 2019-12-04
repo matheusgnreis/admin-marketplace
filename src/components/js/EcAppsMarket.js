@@ -1,4 +1,4 @@
-import { i18n, _config } from '@ecomplus/utils'
+import { i18n } from '@ecomplus/utils'
 import EcomApps from '@ecomplus/apps-manager'
 import EcAppCard from './../EcAppCard.vue'
 import EcInstalledAppCard from './../EcInstalledAppCard.vue'
@@ -25,11 +25,6 @@ export default {
     ecomApps: {
       type: Object,
       default: () => new EcomApps()
-    },
-
-    lang: {
-      type: String,
-      default: _config.get('lang')
     }
   },
 
