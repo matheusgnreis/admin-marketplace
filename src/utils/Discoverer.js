@@ -35,20 +35,12 @@ const isText = (field, schema) => {
   return schema.type === 'string'
 }
 
-const getFieldsByObject = (field, schema) => {
-  let fields = []
-  for (let property of Object.keys(schema.properties)) {
-    fields = fields.concat(discover(property, schema.properties[property]))
-  }
-  return fields
-}
-
 const INPUTS = [
   { match: isDiscount, component: () => import(`../components/_inputs/InputDiscount.vue`) },
+  { match: isObject, component: () => import(`../components/_inputs/InputObject.vue`) },
   { match: isMoney, component: () => import(`../components/_inputs/InputMoney.vue`) },
   { match: isZipCode, component: () => import(`../components/_inputs/InputZipCode.vue`) },
   { match: isUpload, component: () => import(`../components/_inputs/Upload.vue`) },
-  { match: isObject, component: getFieldsByObject }, // Todo: check this is the best local to object field
   { match: isEnum, component: () => import(`../components/_inputs/InputEnum.vue`) },
   { match: isText, component: () => import(`../components/_inputs/InputText.vue`) },
   { match: isNumber, component: () => import(`../components/_inputs/InputNumber.vue`) }
@@ -57,9 +49,6 @@ const INPUTS = [
 export const discover = (field, schema) => {
   for (let input of INPUTS) {
     if (input.match(field, schema)) {
-      if (isObject(field, schema)) {
-        return input.component(field, schema)
-      }
       return [input.component]
     }
   }

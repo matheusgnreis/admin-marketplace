@@ -10,7 +10,7 @@ export default {
       type: Object
     },
     value: {
-      type: String
+      type: [String, Number, Boolean, Object]
     }
   },
   computed: {
@@ -24,6 +24,6 @@ export default {
     },
     dynamicFields () {
       return discover(this.field, this.schema)
-    },
+    }
   }
 }

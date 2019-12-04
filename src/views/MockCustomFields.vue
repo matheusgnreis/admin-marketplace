@@ -1,12 +1,12 @@
 <template>
   <div class='container'>
     <h3>Formulário costumizado</h3>
-    <input-text name="teste" :schema="{}" v-model="otherData.inputText"/>
-    <input-enum name="teste" value="teste" :schema="{enum: ['item1', 'item2']}" v-model="otherData.inputEnum"/>
+    <!-- <input-text name="teste" :schema="{}" v-model="otherData.inputText"/> -->
+    <!-- <input-enum name="teste" value="teste" :schema="{enum: ['item1', 'item2']}" v-model="otherData.inputEnum"/>
     <input-money name="teste" :schema="{}" v-model="otherData.inputMoney"/>
     <input-number name="teste" :schema="{}" v-model="otherData.inputNumber"/>
-    <input-phone name="teste" :schema="{}" v-model="otherData.inputPhone"/>
-    <!-- <ec-dynamic-form :application="schema"></ec-dynamic-form> -->
+    <input-phone name="teste" :schema="{}" v-model="otherData.inputPhone"/> -->
+    <ec-dynamic-form :application="schema"></ec-dynamic-form>
     <hr />
     {{otherData}}
   </div>
