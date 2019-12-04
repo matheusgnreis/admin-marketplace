@@ -18,7 +18,9 @@
           <div class="text-center mb-1 mt-4">
             <span>
               <a-button type="primary" size="large" shape="round" @click="installApp" v-if="!isInstalled">
-                <i class="fas fa-plus mr-2"></i> {{ i19install }} </a-button>
+                <i class="fas fa-plus mr-2"></i>
+                {{ i19install }}
+              </a-button>
                 <a-popconfirm
                   :title="i19areYouWantToDeleteAppMsg"
                   @confirm="uninstallApp"
@@ -31,7 +33,8 @@
                     shape="round"
                     size="large"
                   >
-                    <i class="fas fa-trash mr-2"></i> {{ i19uninstall }}
+                    <i class="fas fa-trash mr-2"></i>
+                    {{ i19uninstall }}
                   </a-button>
                 </a-popconfirm>
             </span>
@@ -69,11 +72,14 @@
           <article v-else-if="activeTabKey === 'settings'" key="app-settings"></article>
 
           <article v-else-if="activeTabKey === 'related'" key="app-related">
-            <div class="row">
+            <div v-if="quantityOfRelatedApps" class="row">
               <div class="col-6 col-md-4" v-for="(app, i) in appsRelated" :key="`app-${i}`">
-                <ec-app-card :app.sync="appsRelated[i]" :ecomApps="ecomApps" @click="$emit('click:app', app)"
+                <ec-app-card v-if="quantityOfRelatedApps" :app.sync="appsRelated[i]" :ecomApps="ecomApps" @click="$emit('click:app', app)"
                   class="mb-4" />
               </div>
+            </div>
+            <div v-else class="row">
+              {{ noRelatedApps }}
             </div>
           </article>
         </a-card>
@@ -84,7 +90,6 @@
           size="large"
           class="mt-4 float-right"
           style="border: 1px solid #e8e8e8"
-          href="/apps"
         >
         <i class="fas fa-undo mr-3"></i>
           {{ i19back }}

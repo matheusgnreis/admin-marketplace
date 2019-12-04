@@ -20,7 +20,9 @@ import {
   i19paid,
   i19installed,
   i19unableToInstallAppMsg,
-  i19installingApp
+  i19installingApp,
+  i19tryAgain,
+  i19loadDataErrorMsg
 } from '@ecomplus/i18n'
 
 export default {
@@ -46,6 +48,7 @@ export default {
   data () {
     return {
       isLoaded: false,
+      loadError: false,
       applicationBody: this.application,
       appsRelated: [],
       tabListNoTitle: [
@@ -62,7 +65,7 @@ export default {
           tab: ''
         }
       ],
-      activeTabKey: 'settings'
+      activeTabKey: 'description'
     }
   },
 
@@ -99,6 +102,10 @@ export default {
       return i18n(i19description)
     },
 
+    i19tryAgain () {
+      return i18n(i19tryAgain)
+    },
+
     i19configuration () {
       return i18n(i19configuration)
     },
@@ -111,8 +118,32 @@ export default {
       return i18n(i19unableToInstallAppMsg)
     },
 
+    i19unableToUninstallAppMsg () {
+      return 'Não foi possível desinstalar o aplicativo'
+    },
+
+    i19noAppsAvailable () {
+      return 'Não há aplicativos disponíveis'
+    },
+
     version () {
       return this.applicationBody.version
+    },
+
+    noRelatedApps () {
+      if (this.appsRelated) {
+        if (this.appsRelated.length === 0 ) {
+          return this.i19noAppsAvailable
+        }
+      }
+    },
+
+    quantityOfRelatedApps () {
+      if (this.appsRelated.length === 0) {
+        return false
+      } else {
+        return true
+      }
     },
 
     website () {
@@ -148,6 +179,14 @@ export default {
       return i18n(i19uninstall)
     },
 
+    i19uninstallingApp () {
+      return 'Desinstalando aplicativo'
+    },
+
+    i19uninstallingAppWithSuccessMsg () {
+      return 'Desinstalando aplicativo com sucesso'
+    },
+
     i19yes () {
       return i18n(i19yes)
     },
@@ -166,6 +205,10 @@ export default {
 
     i19installingApp () {
       return i18n(i19installingApp)
+    },
+
+    i19loadDataErrorMsg () {
+      return i18n(i19loadDataErrorMsg)
     },
 
     i19installed () {
@@ -219,6 +262,11 @@ export default {
           const { result } = resp
           const filter = result.filter(app => app.app_id !== this.appId)
           this.appsRelated = filter || []
+
+        })
+        .catch(e => {
+          console.log(e)
+          this.$message.error(this.i19loadDataErrorMsg, 3)
         })
     },
 
@@ -227,15 +275,27 @@ export default {
       this.ecomApps.installApp(this.appId, true)
         .then(installed => {
           this.$message.success(this.title + ' ' + this.i19installed , 2)
-          this.fetchStoreApplication(installed._id)
+          this.fetchStoreApplication(installed.result._id)
+          this.$emit('click:install', installed.result, installed.app)
         })
         .catch(e => {
+          console.log(e)
           this.$message.error(this.i19unableToInstallAppMsg, 3)
         })
     },
 
     uninstallApp () {
       this.ecomApps.removeApplication(this.localApplication._id)
+      this.$message.loading(this.i19uninstallingApp + ' ' + this.title, 1)
+        .then(result => {
+          this.$message.success(this.i19uninstallingAppWithSuccessMsg , 2)
+          this.$emit('click:uninstall')
+          console.log(result)
+        })
+        .catch(e => {
+          this.$message.error(this.i19unableToUninstallAppMsg, 3)
+          console.log(e)
+        })
     },
 
     handleTabChange (key, type) {
@@ -270,13 +330,13 @@ export default {
     for (var i = 0; i < this.tabListNoTitle.length; i++) {
       switch (this.tabListNoTitle[i].key) {
         case 'description':
-          this.tabListNoTitle[0].tab = this.i19description
+          this.tabListNoTitle[i].tab = this.i19description
           break;
         case 'settings':
-          this.tabListNoTitle[1].tab = this.i19configuration
+          this.tabListNoTitle[i].tab = this.i19configuration
           break;
         case 'related':
-          this.tabListNoTitle[2].tab = this.i19relatedApps
+          this.tabListNoTitle[i].tab = this.i19relatedApps
           break;
       }
     }
