@@ -100,6 +100,34 @@ export default {
       return this.applicationBody.description
     },
 
+    version () {
+      return this.applicationBody.version
+    },
+
+    noRelatedApps () {
+      if (this.appsRelated) {
+        if (!this.quantityOfRelatedApps) {
+          return this.i19noAppsAvailable
+        }
+      }
+    },
+
+    website () {
+      return this.applicationBody.website
+    },
+
+    price () {
+      if (this.applicationBody) {
+        if (!this.applicationBody.paid) {
+          return i18n(i19free)
+        } else {
+          return i18n(i19paid)
+        }
+      } else {
+        return i18n(i19unavailable)
+        }
+    },
+
     i19description () {
       return i18n(i19description)
     },
@@ -126,35 +154,6 @@ export default {
 
     i19noAppsAvailable () {
       return 'Não há aplicativos disponíveis'
-    },
-
-    version () {
-      return this.applicationBody.version
-    },
-
-    noRelatedApps () {
-      if (this.appsRelated) {
-        if (!this.quantityOfRelatedApps) {
-          return this.i19noAppsAvailable
-        }
-      }
-    },
-
-    website () {
-      return this.applicationBody.website
-    },
-
-    price () {
-      if (this.applicationBody) {
-        if (!this.applicationBody.paid) {
-          return i18n(i19free)
-        } else {
-          return i18n(i19paid)
-        }
-
-      } else {
-        return i18n(i19unavailable)
-      }
     },
 
     i19author () {
