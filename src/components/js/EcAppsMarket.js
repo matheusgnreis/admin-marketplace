@@ -5,10 +5,10 @@ import EcInstalledAppCard from './../EcInstalledAppCard.vue'
 import { FadeTransition } from 'vue2-transitions'
 
 import {
-  // i19applications,
+  i19applications,
   i19availableApps,
-  // i19loadDataErrorMsg,
-  // i19tryAgain,
+  i19loadDataErrorMsg,
+  i19tryAgain,
   i19yourInstalledApps
 } from '@ecomplus/i18n'
 
@@ -21,6 +21,13 @@ export default {
     EcInstalledAppCard
   },
 
+  props: {
+    ecomApps: {
+      type: Object,
+      default: () => new EcomApps()
+    }
+  },
+
   data () {
     return {
       loading: false,
@@ -31,16 +38,9 @@ export default {
     }
   },
 
-  props: {
-    ecomApps: {
-      type: Object,
-      default: () => new EcomApps()
-    }
-  },
-
   computed: {
     i19applications () {
-      return 'Aplicativos'
+      return i18n(i19applications)
     },
 
     i19availableApps () {
@@ -48,11 +48,11 @@ export default {
     },
 
     i19loadDataErrorMsg () {
-      return 'Não foi possível carregar os dados da API, por favor verifique sua conexão'
+      return i18n(i19loadDataErrorMsg)
     },
 
     i19tryAgain () {
-      return 'Tentar novamente'
+      return i18n(i19tryAgain)
     },
 
     i19yourInstalledApps () {

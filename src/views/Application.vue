@@ -1,6 +1,6 @@
 <template>
   <div id="application">
-    <ec-application :application="application"/>
+    <ec-application :application="application" @click:install="goToApp" @click:back="goToMarket" @click:uninstall="goToMarket"/>
   </div>
 </template>
 

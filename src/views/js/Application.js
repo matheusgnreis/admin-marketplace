@@ -14,5 +14,23 @@ export default {
         _id: this.$route.params.objectId
       }
     }
+  },
+
+  methods: {
+    goToApp (app, object) {
+      this.$router.push({
+        name: 'application',
+        params: {
+          appId: object.app_id,
+          objectId: app._id
+        }
+      })
+    },
+
+    goToMarket () {
+      this.$router.push({
+        name: 'marketplace'
+      })
+    }
   }
 }

@@ -1,8 +1,8 @@
 import { i18n } from '@ecomplus/utils'
 
 import {
-  i19free
-  // i19paid
+  i19free,
+  i19paid
 } from '@ecomplus/i18n'
 
 export default {
@@ -13,9 +13,10 @@ export default {
       type: Object,
       default: {}
     },
+
     descriptionMaxLength: {
       type: Number,
-      default: 95
+      default: 75
     }
   },
 
@@ -25,7 +26,11 @@ export default {
     },
 
     i19paid () {
-      return 'Pago'
+      return i18n(i19paid)
+    },
+
+    downloadCount () {
+      return this.app.downloads
     },
 
     iconUrl () {

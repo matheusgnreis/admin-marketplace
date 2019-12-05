@@ -4,17 +4,39 @@
       <a-col :md="24" :lg="7">
         <a-card :bordered="false" >
           <div class="text-center">
-            <a-avatar :src="icon" :size="104" class="mb-3"/>
-            <div style="margin-bottom: 5px">{{ title }}</div>
-            <div>{{ shortDescription }}</div>
+            <a-avatar :src="icon" :size="170"  class="mb-3 img-fluid"/>
+            <a-card-meta
+              :title="title"
+              class="overflow-hidden"
+            >
+              <template slot="description">
+                {{ shortDescription }}
+              </template>
+            </a-card-meta>
           </div>
 
           <div class="text-center mb-1 mt-4">
             <span>
-              <a-button type="primary" shape="round" @click="installApp" v-if="!isInstalled">
-                <a-icon type="download" />{{ i19install }}</a-button>
-              <a-button type="danger" shape="round" @click="uninstallApp" v-else>
-                <a-icon type="delete" />{{ i19uninstall }}</a-button>
+              <a-button type="primary" size="large" shape="round" @click="installApp" v-if="!isInstalled">
+                <i class="fas fa-plus mr-2"></i>
+                {{ i19install }}
+              </a-button>
+                <a-popconfirm
+                  :title="i19areYouWantToDeleteAppMsg"
+                  @confirm="uninstallApp"
+                  :okText="i19yes"
+                  :cancelText="i19no"
+                  v-if="isInstalled"
+                >
+                  <a-button
+                    type="danger"
+                    shape="round"
+                    size="large"
+                  >
+                    <i class="fas fa-trash mr-2"></i>
+                    {{ i19uninstall }}
+                  </a-button>
+                </a-popconfirm>
             </span>
           </div>
 
@@ -24,15 +46,15 @@
 
           <div>
             <p class="d-flex align-items-center">
-              <a-icon type="user" class="mr-3" />
+              <i class="fas fa-user mr-3"></i>
               {{ i19author }} : {{ author }}
             </p>
             <p class="d-flex align-items-center">
-              <a-icon type="interation" class="mr-3" />
+              <i class="fas fa-sync-alt mr-3"></i>
               {{ i19version }} : {{ version }}
             </p>
             <p class="d-flex align-items-center">
-              <a-icon type="global" class="mr-3" />
+              <i class="fa fa-globe mr-3"></i>
               <a :href="website">Website</a>
             </p>
           </div>
@@ -47,23 +69,31 @@
             <vue-markdown>{{description}}</vue-markdown>
           </a-card>
 
-          <article v-else-if="activeTabKey === 'settings'" key="app-settings">
-            <div class="row">
-              <div class="col-md-12">
-                <ec-dynamic-form :application="applicationBody" v-if="applicationBody.admin_settings" />
-              </div>
-            </div>
-          </article>
+          <article v-else-if="activeTabKey === 'configuration'" key="app-settings"></article>
 
-          <article v-else-if="activeTabKey === 'related'" key="app-related">
-            <div class="row">
+          <article v-else-if="activeTabKey === 'relatedApps'" key="app-related">
+            <div v-if="quantityOfRelatedApps" class="row">
               <div class="col-6 col-md-4" v-for="(app, i) in appsRelated" :key="`app-${i}`">
-                <ec-app-card :app.sync="appsRelated[i]" :ecomApps="ecomApps" @click="$emit('click:app', app)"
+                <ec-app-card v-if="quantityOfRelatedApps" :app.sync="appsRelated[i]" :ecomApps="ecomApps" @click="$emit('click:app', app)"
                   class="mb-4" />
               </div>
             </div>
+            <div v-else class="row">
+              {{ noRelatedApps }}
+            </div>
           </article>
         </a-card>
+        <a-button
+          hoverable
+          @click="$emit('click:back')"
+          type="link"
+          size="large"
+          class="mt-4 float-right"
+          style="border: 1px solid #e8e8e8"
+        >
+        <i class="fas fa-undo mr-3"></i>
+          {{ i19back }}
+        </a-button>
       </a-col>
     </div>
 
