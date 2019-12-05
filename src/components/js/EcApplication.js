@@ -31,8 +31,7 @@ export default {
 
   components: {
     VueMarkdown,
-    EcAppCard,
-    EcDynamicForm
+    EcAppCard
   },
 
   props: {
