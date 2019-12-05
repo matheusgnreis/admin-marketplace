@@ -22,7 +22,8 @@ import {
   i19unableToInstallAppMsg,
   i19installingApp,
   i19tryAgain,
-  i19loadDataErrorMsg
+  i19loadDataErrorMsg,
+  i19appAlreadyInstalledMsg
 } from '@ecomplus/i18n'
 
 export default {
@@ -208,6 +209,10 @@ export default {
       return i18n(i19installed)
     },
 
+    i19appAlreadyInstalledMsg () {
+      return 'Desculpe, o aplicativo já foi instalado.'
+    },
+
     isInstalled () {
       return (this.applicationBody._id)
     },
@@ -269,16 +274,31 @@ export default {
     },
 
     installApp () {
-      this.$message.loading(this.i19installingApp + ' ' + this.title, 1)
-      this.ecomApps.installApp(this.appId, true)
-        .then(installed => {
-          this.$message.success(this.title + ' ' + this.i19installed , 2)
-          this.fetchStoreApplication(installed.result._id)
-          this.$emit('click:install', installed.result, installed.app)
+      if (!this.searchForApps) {
+        this.$message.loading(this.i19installingApp + ' ' + this.title, 1)
+        this.ecomApps.installApp(this.appId, true)
+          .then(installed => {
+            this.$message.success(this.title + ' ' + this.i19installed , 2)
+            this.fetchStoreApplication(installed.result._id)
+            this.$emit('click:install', installed.result, installed.app)
+          })
+          .catch(e => {
+            console.log(e)
+            this.$message.error(this.i19unableToInstallAppMsg, 3)
+          })
+      } else {
+        this.$message.error(this.i19appAlreadyInstalledMsg, 5)
+      }
+    },
+
+    searchForApps () {
+      this.ecomApps.fetchStoreApplications(this.appId)
+        .then(result => {
+          console.log(result)
+          return result.filter(idFind => idFind === this.appId)
         })
         .catch(e => {
           console.log(e)
-          this.$message.error(this.i19unableToInstallAppMsg, 3)
         })
     },
 
