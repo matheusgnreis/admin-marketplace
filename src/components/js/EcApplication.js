@@ -51,17 +51,18 @@ export default {
       loadError: false,
       applicationBody: this.application,
       appsRelated: [],
+      quantityOfRelatedApps: true,
       tabListNoTitle: [
         {
           key: 'description',
           tab: ''
         },
         {
-          key: 'settings',
+          key: 'configuration',
           tab: ''
         },
         {
-          key: 'related',
+          key: 'relatedApps',
           tab: ''
         }
       ],
@@ -132,17 +133,9 @@ export default {
 
     noRelatedApps () {
       if (this.appsRelated) {
-        if (this.appsRelated.length === 0 ) {
+        if (!this.quantityOfRelatedApps) {
           return this.i19noAppsAvailable
         }
-      }
-    },
-
-    quantityOfRelatedApps () {
-      if (this.appsRelated.length === 0) {
-        return false
-      } else {
-        return true
       }
     },
 
@@ -262,6 +255,11 @@ export default {
           const { result } = resp
           const filter = result.filter(app => app.app_id !== this.appId)
           this.appsRelated = filter || []
+          if (this.appsRelated.length === 0) {
+            return this.quantityOfRelatedApps = false
+          } else {
+            return this.quantityOfRelatedApps = true
+          }
 
         })
         .catch(e => {
@@ -316,7 +314,7 @@ export default {
   watch: {
     activeTabKey: {
       handler () {
-        if (this.activeTabKey === 'related') {
+        if (this.activeTabKey === 'relatedApps') {
           this.findRelateds()
         } else {
           this.updateTabContent()
@@ -327,18 +325,8 @@ export default {
   },
 
   created () {
-    for (var i = 0; i < this.tabListNoTitle.length; i++) {
-      switch (this.tabListNoTitle[i].key) {
-        case 'description':
-          this.tabListNoTitle[i].tab = this.i19description
-          break;
-        case 'settings':
-          this.tabListNoTitle[i].tab = this.i19configuration
-          break;
-        case 'related':
-          this.tabListNoTitle[i].tab = this.i19relatedApps
-          break;
-      }
-    }
+    this.tabListNoTitle.forEach((tab, index) => {
+      this.tabListNoTitle[index].tab = this[`i19${tab.key}`]
+    })
   }
 }

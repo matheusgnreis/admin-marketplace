@@ -16,7 +16,7 @@ export default {
 
     descriptionMaxLength: {
       type: Number,
-      default: 95
+      default: 75
     }
   },
 
