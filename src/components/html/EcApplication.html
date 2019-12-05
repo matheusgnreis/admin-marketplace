@@ -47,7 +47,13 @@
             <vue-markdown>{{description}}</vue-markdown>
           </a-card>
 
-          <article v-else-if="activeTabKey === 'settings'" key="app-settings"></article>
+          <article v-else-if="activeTabKey === 'settings'" key="app-settings">
+            <div class="row">
+              <div class="col-md-12">
+                <ec-dynamic-form :application="applicationBody" v-if="applicationBody.admin_settings" />
+              </div>
+            </div>
+          </article>
 
           <article v-else-if="activeTabKey === 'related'" key="app-related">
             <div class="row">
