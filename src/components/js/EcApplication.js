@@ -232,6 +232,7 @@ export default {
       this.ecomApps.editApplication(this.applicationBody._id, obj)
         .then(() => {
           this.$message.success(this.title + ' ' + this.i19saved, 2)
+          this.applicationBody = Object.assign({}, this.applicationBody, obj)
         })
         .catch(e => {
           this.$message.error(this.i19errorMsg, 3)
