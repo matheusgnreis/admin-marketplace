@@ -295,7 +295,7 @@ export default {
           if (Array.isArray(resp) && resp.length) {
             this.$confirm({
               title: this.i19appAlreadyInstalledMsg,
-              onOk: () => this.requestInstall()
+              onOk: this.requestInstall
             })
           } else {
             this.requestInstall()
