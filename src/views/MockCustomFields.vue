@@ -1,207 +1,253 @@
 <template>
-  <div class='container'>
+  <div class="container">
     <h3>Formulário costumizado</h3>
     <!-- <input-text name="teste" :schema="{}" v-model="otherData.inputText"/> -->
     <!-- <input-enum name="teste" value="teste" :schema="{enum: ['item1', 'item2']}" v-model="otherData.inputEnum"/>
     <input-money name="teste" :schema="{}" v-model="otherData.inputMoney"/>
     <input-number name="teste" :schema="{}" v-model="otherData.inputNumber"/>
-    <input-phone name="teste" :schema="{}" v-model="otherData.inputPhone"/> -->
+    <input-phone name="teste" :schema="{}" v-model="otherData.inputPhone"/>-->
     <ec-dynamic-form :application="schema"></ec-dynamic-form>
     <hr />
-    {{otherData}}
+    {{schema}}
   </div>
 </template>
 
 <script>
-  import EcDynamicForm from '../components/EcDynamicForm.vue'
-  import InputText from '../components/_inputs/InputText.vue'
-  import InputEnum from '../components/_inputs/InputEnum.vue'
-  import InputMoney from '../components/_inputs/InputMoney.vue'
-  import InputNumber from '../components/_inputs/InputNumber.vue'
-  import InputPhone from '../components/_inputs/InputPhone.vue'
-  export default {
-    name: 'MockCustomFields',
-    components: {
-      EcDynamicForm,
-      InputText,
-      InputEnum,
-      InputMoney,
-      InputNumber,
-      InputPhone
-    },
-    data: () => {
-      return {
-        otherData: {},
-        schema: {
-          'admin_settings': {
-            'label': {
-              'schema': {
-                'type': 'string',
-                'maxLength': 50,
-                'title': 'Rótulo',
-                'description': 'Nome da forma de pagamento exibido para os clientes',
-                'default': 'Cartão de crédito'
-              },
-              'hide': false
+import EcDynamicForm from "../components/EcDynamicForm.vue";
+import InputText from "../components/_inputs/InputText.vue";
+import InputEnum from "../components/_inputs/InputEnum.vue";
+import InputMoney from "../components/_inputs/InputMoney.vue";
+import InputNumber from "../components/_inputs/InputNumber.vue";
+import InputPhone from "../components/_inputs/InputPhone.vue";
+export default {
+  name: "MockCustomFields",
+  components: {
+    EcDynamicForm,
+    InputText,
+    InputEnum,
+    InputMoney,
+    InputNumber,
+    InputPhone
+  },
+  data: () => {
+    return {
+      otherData: {},
+      schema: {
+        admin_settings: {
+          receipt: {
+            schema: {
+              title: "Aviso de Recebimento",
+              type: "boolean",
+              default: false,
+              description:
+                "Aviso de Recebimento está disponível para os Correios e para as transportadoras privadas. Marcando esta opção, o entregador deve obter as informações de quem receber a encomenda no destino, permitindo ao remetente comprovar o recebimento do volume. Esse é um serviço adicional e pode, ou não, alterar o valor do envio."
             },
-            'text': {
-              'schema': {
-                'type': 'string',
-                'maxLength': 1000,
-                'title': 'Descrição',
-                'description': 'Texto auxiliar sobre a forma de pagamento, pode conter tags HTML'
-              },
-              'hide': false
+            hide: false
+          },
+          own_hand: {
+            schema: {
+              title: "Mão própria",
+              type: "boolean",
+              default: false,
+              description:
+                "Marcando esta opção, você garante que apenas o destinatário possa receber a encomenda. Esse é um serviço adicional e deve alterar o valor do envio. No momento, a modalidade Mini não possui a possibilidade de contratação do serviço de Mão Própria."
             },
-            'icon': {
-              'schema': {
-                'type': 'string',
-                'maxLength': 255,
-                'format': 'uri',
-                'title': 'Ícone',
-                'description': 'Ícone customizado para a forma de pagamento, URL da imagem'
-              },
-              'hide': false
+            hide: false
+          },
+          jadlog_agency: {
+            schema: {
+              title: "Agência Jadlog",
+              type: "interge",
+              description:
+                "Agência da transportadora jadlog que fará a coleta das encomendas"
             },
-            'discount': {
-              'schema': {
-                'type': 'object',
-                'required': [
-                  'value'
-                ],
-                'additionalProperties': false,
-                'properties': {
-                  'apply_at': {
-                    'type': 'string',
-                    'enum': [
-                      'total',
-                      'subtotal',
-                      'freight'
-                    ],
-                    'default': 'subtotal',
-                    'title': 'Aplicar desconto em',
-                    'description': 'Em qual valor o desconto deverá ser aplicado no checkout'
-                  },
-                  'min_amount': {
-                    'type': 'integer',
-                    'minimum': 1,
-                    'maximum': 999999999,
-                    'description': 'Montante mínimo para aplicar o desconto'
-                  },
-                  'type': {
-                    'type': 'string',
-                    'enum': [
-                      'percentage',
-                      'fixed'
-                    ],
-                    'default': 'percentage',
-                    'title': 'Tipo de desconto',
-                    'description': 'Desconto com valor percentual ou fixo'
-                  },
-                  'value': {
-                    'type': 'number',
-                    'minimum': -99999999,
-                    'maximum': 99999999,
-                    'title': 'Valor do desconto',
-                    'description': 'Valor percentual ou fixo a ser descontado, dependendo to tipo configurado'
-                  }
+            hide: false
+          },
+          sort_services: {
+            schema: {
+              title: "Ordem dos serviços",
+              type: "string",
+              description:
+                "Para ordernar o resultado dos serviços do menor prazo de envio para o maior selecione `-delivery` caso contrário selecione a opção `delivery`. Se preferir ordernar o resultado do cálculo do frete do menor preço para maior use `-price`, do contrário selecione `price`.",
+              enum: ["-price", "price", "-delivery", "delivery"]
+            },
+            hide: false
+          },
+          posting_deadline: {
+            schema: {
+              title: "Prazo de postagem",
+              type: "object",
+              required: ["days"],
+              additionalProperties: false,
+              properties: {
+                days: {
+                  type: "integer",
+                  minimum: 0,
+                  maximum: 999999,
+                  title: "Número de dias",
+                  description:
+                    "Dias de prazo para postar os produtos após a compra"
                 },
-                'title': 'Desconto',
-                'description': 'Desconto a ser aplicado para pagamentos via PayPal'
-              },
-              'hide': false
-            },
-            'discount_payment_method': {
-              'schema': {
-                'type': 'string',
-                'enum': [
-                  'balance_on_intermediary',
-                  'credit_card'
-                ],
-                'title': 'Desconto disponível para',
-                'description': 'Restringir desconto por método de pagamento (PayPal ou cartão de crédito)'
-              },
-              'hide': false
-            },
-            'installments_option': {
-              'schema': {
-                'type': 'object',
-                'required': [
-                  'max_number'
-                ],
-                'additionalProperties': false,
-                'properties': {
-                  'min_installment': {
-                    'type': 'number',
-                    'minimum': 1,
-                    'maximum': 99999999,
-                    'default': 5,
-                    'description': 'Valor mínimo da parcela'
-                  },
-                  'max_number': {
-                    'type': 'integer',
-                    'minimum': 2,
-                    'maximum': 999,
-                    'description': 'Número máximo de parcelas sem júros via PayPal'
-                  }
+                working_days: {
+                  type: "boolean",
+                  default: true,
+                  title: "Dias úteis"
                 },
-                'title': 'Parcelamento',
-                'description': 'Parcelamento opcional configurado em sua conta PayPal'
-              },
-              'hide': false
-            },
-            'paypal_client_id': {
-              'schema': {
-                'type': 'string',
-                'maxLength': 255,
-                'title': 'PayPal App Client ID',
-                'description': 'Client ID disponível em https://developer.paypal.com/developer/applications/'
-              },
-              'hide': true
-            },
-            'paypal_secret': {
-              'schema': {
-                'type': 'string',
-                'maxLength': 255,
-                'title': 'PayPal App Secret',
-                'description': 'Secret disponível em https://developer.paypal.com/developer/applications/'
-              },
-              'hide': true
-            },
-            'paypal_debug': {
-              'schema': {
-                'type': 'boolean',
-                'title': 'Debug PayPal SDK',
-                'description': 'PayPal Checkout SDK dev mode'
-              },
-              'hide': false
-            },
-            'paypal_sandbox': {
-              'schema': {
-                'type': 'boolean',
-                'title': 'PayPal Sandbox',
-                'description': 'PayPal REST API sandbox env'
-              },
-              'hide': false
-            },
-            'enable_standard_card_fiels': {
-              'schema': {
-                'type': 'boolean',
-                'title': 'Habilitar Standard Card Fields',
-                'description': 'https://developer.paypal.com/docs/checkout/integration-features/standard-card-fields/'
-              },
-              'hide': false
-            },
-            'enable_paypal_plus': {
-              'schema': {
-                'type': 'boolean',
-                'title': 'Habilitar PayPal Plus',
-                'description': 'Checkout transaparente via PayPal (necessário aprovação da conta)'
+                after_approval: {
+                  type: "boolean",
+                  default: true,
+                  title: "Após aprovação do pagamento"
+                }
               }
-            }
+            },
+            hide: false
+          },
+          additional_price: {
+            schema: {
+              type: "number",
+              minimum: -999999,
+              maximum: 999999,
+              title: "Custo adicional",
+              description:
+                "Valor a adicionar (negativo para descontar) no frete calculado via Correios"
+            },
+            hide: false
+          },
+          shipping_rules: {
+            schema: {
+              title: "Regras de envio",
+              description:
+                "Aplicar descontos/adicionais condicionados ou desabilitar regiões",
+              type: "array",
+              maxItems: 300,
+              items: {
+                title: "Regra de envio",
+                type: "object",
+                minProperties: 1,
+                properties: {
+                  service_code: {
+                    type: "string",
+                    maxLength: 9,
+                    pattern: "^[0-9]+$",
+                    title: "Código do serviço"
+                  },
+                  zip_range: {
+                    title: "Faixa de CEP",
+                    type: "object",
+                    required: ["min", "max"],
+                    properties: {
+                      min: {
+                        type: "integer",
+                        minimum: 10000,
+                        maximum: 999999999,
+                        title: "CEP inicial"
+                      },
+                      max: {
+                        type: "integer",
+                        minimum: 10000,
+                        maximum: 999999999,
+                        title: "CEP final"
+                      }
+                    }
+                  },
+                  min_amount: {
+                    type: "number",
+                    minimum: 1,
+                    maximum: 999999999,
+                    title: "Valor mínimo da compra"
+                  },
+                  free_shipping: {
+                    type: "boolean",
+                    default: false,
+                    title: "Frete grátis"
+                  },
+                  discount: {
+                    title: "Desconto",
+                    type: "object",
+                    required: ["value"],
+                    properties: {
+                      percentage: {
+                        type: "boolean",
+                        default: false,
+                        title: "Desconto percentual"
+                      },
+                      value: {
+                        type: "number",
+                        minimum: -99999999,
+                        maximum: 99999999,
+                        title: "Valor do desconto",
+                        description:
+                          "Valor percentual/fixo do desconto ou acréscimo (negativo)"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            hide: false
+          },
+          unavailable_for: {
+            schema: {
+              type: "array",
+              title: "Desativar serviços",
+              description:
+                "É possível desabilitar determinados serviços de envio para determinadas faixas de cep ou para todo o Brasil.",
+              items: {
+                type: "object",
+                required: ["states", "services"],
+                properties: {
+                  states: {
+                    type: "array",
+                    title: "Faixa de Cep",
+                    description:
+                      "Faixa de códigos postais para qual serão desabalitados os serviços.",
+                    items: {
+                      type: "object",
+                      required: ["from", "to"],
+                      properties: {
+                        from: {
+                          type: "string",
+                          title: "Cep inicial",
+                          description:
+                            "Cep inicial para desabilitar determinado serviço de envio - ex: 31920-310"
+                        },
+                        to: {
+                          type: "string",
+                          title: "Cep final",
+                          description:
+                            "Cep final para desabilitar determinado serviço de envio - ex: 31920-310"
+                        }
+                      }
+                    }
+                  },
+                  services: {
+                    type: "array",
+                    title: "Serviços",
+                    description: "Serviços que podem ser desabilitados",
+                    items: {
+                      type: "string",
+                      description:
+                        "Caso algum serviço seja selecionado e nenhuma faixa de cep seja informada, o serviço estará indisponível para todo Brasil.",
+                      title: "Opções",
+                      enum: ["PAC", ".Package", "EXPRESSO", ".Com"]
+                    }
+                  }
+                }
+              }
+            },
+            hide: false
+          },
+          access_token: {
+            schema: {
+              title: "Melhor Envio Token",
+              type: "string",
+              description: "Token vinculado a sua conta no melhor envio."
+            },
+            hide: true
           }
         }
       }
-    }
+    };
   }
+};
 </script>

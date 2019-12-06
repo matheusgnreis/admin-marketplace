@@ -1,6 +1,7 @@
 import VueMarkdown from 'vue-markdown'
 import EcomApps from '@ecomplus/apps-manager'
 import EcAppCard from './../EcAppCard.vue'
+import EcDynamicForm from './../EcDynamicForm.vue'
 import { i18n } from '@ecomplus/utils'
 
 import {
@@ -31,7 +32,8 @@ export default {
 
   components: {
     VueMarkdown,
-    EcAppCard
+    EcAppCard,
+    EcDynamicForm
   },
 
   props: {
@@ -68,6 +70,12 @@ export default {
   },
 
   computed: {
+    adminSettings () {
+      return {
+        admin_settings: this.applicationBody.json_body
+      }
+    },
+
     appId () {
       return this.applicationBody.app_id
     },
@@ -202,12 +210,6 @@ export default {
 
     isInstalled () {
       return (this.applicationBody._id)
-    },
-
-    adminSettings () {
-      return {
-        admin_settings: this.applicationBody.json_body
-      }
     },
 
     localApplication: {
