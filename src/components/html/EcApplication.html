@@ -2,7 +2,7 @@
   <a-row :gutter="24">
     <div v-if="isLoaded">
       <a-col :md="24" :lg="7">
-        <a-card :bordered="false" >
+        <a-card>
           <div class="text-center">
             <a-avatar :src="icon" :size="170"  class="mb-3 img-fluid"/>
             <a-card-meta
@@ -62,7 +62,7 @@
       </a-col>
 
       <a-col :md="24" :lg="17">
-        <a-card class="w-100" :bordered="false" :tabList="tabListNoTitle" :activeTabKey="activeTabKey"
+        <a-card class="w-100" :tabList="tabListNoTitle" :activeTabKey="activeTabKey"
           @tabChange="key => handleTabChange(key, 'activeTabKey')" >
 
           <a-card :bordered="false" v-if="activeTabKey === 'description'" key="app-description">
