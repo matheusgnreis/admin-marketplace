@@ -276,24 +276,17 @@ export default {
     },
 
     installApp () {
-      if (this.applicationBody._id) {
-        this.$confirm({
-          title: this.i19appAlreadyInstalledMsg,
-          onOk: () => this.requestInstall()
+      this.ecomApps.fetchStoreApplications({ params: { app_id: this.appId } })
+        .then(resp => {
+          if (Array.isArray(resp) && resp.length) {
+            this.$confirm({
+              title: this.i19appAlreadyInstalledMsg,
+              onOk: () => this.requestInstall()
+            })
+          } else {
+            this.requestInstall()
+          }
         })
-      } else {
-        this.ecomApps.fetchStoreApplications({ params: { app_id: this.appId } })
-          .then(resp => {
-            if (Array.isArray(resp) && resp.length) {
-              this.$confirm({
-                title: this.i19appAlreadyInstalledMsg,
-                onOk: () => this.requestInstall()
-              })
-            } else {
-              this.requestInstall()
-            }
-          })
-      }
     },
 
     uninstallApp () {
