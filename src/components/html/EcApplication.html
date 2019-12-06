@@ -70,7 +70,7 @@
           </a-card>
 
           <article v-else-if="activeTabKey === 'configuration'" key="app-settings">
-            <ec-dynamic-form :application="adminSettings"></ec-dynamic-form>
+            <ec-dynamic-form :application="applicationBody"/>
           </article>
 
           <article v-else-if="activeTabKey === 'relatedApps'" key="app-related">

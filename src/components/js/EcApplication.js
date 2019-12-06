@@ -1,6 +1,7 @@
 import VueMarkdown from 'vue-markdown'
 import EcomApps from '@ecomplus/apps-manager'
 import EcAppCard from './../EcAppCard.vue'
+import EcDynamicForm from './../EcDynamicForm.vue'
 import { i18n } from '@ecomplus/utils'
 
 import {
@@ -22,8 +23,7 @@ import {
   i19unableToInstallAppMsg,
   i19installingApp,
   i19tryAgain,
-  i19loadDataErrorMsg,
-  i19appAlreadyInstalledMsg
+  i19loadDataErrorMsg
 } from '@ecomplus/i18n'
 
 export default {
@@ -31,7 +31,8 @@ export default {
 
   components: {
     VueMarkdown,
-    EcAppCard
+    EcAppCard,
+    EcDynamicForm
   },
 
   props: {
@@ -263,7 +264,7 @@ export default {
     requestInstall () {
       this.ecomApps.installApp(this.appId, true)
         .then(installed => {
-          this.$message.success(this.title + ' ' + this.i19installed , 2)
+          this.$message.success(this.title + ' ' + this.i19installed, 2)
           this.fetchStoreApplication(installed.result._id)
           this.$emit('click:install', installed.result, installed.app)
         })
