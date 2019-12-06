@@ -8,6 +8,7 @@ import {
   i19install,
   i19version,
   i19description,
+  i19errorMsg,
   i19relatedApps,
   i19configuration,
   i19free,
@@ -23,7 +24,8 @@ import {
   i19unableToInstallAppMsg,
   i19installingApp,
   i19tryAgain,
-  i19loadDataErrorMsg
+  i19loadDataErrorMsg,
+  i19saved
 } from '@ecomplus/i18n'
 
 export default {
@@ -121,6 +123,10 @@ export default {
       return i18n(i19description)
     },
 
+    i19errorMsg () {
+      return i18n(i19errorMsg)
+    },
+
     i19tryAgain () {
       return i18n(i19tryAgain)
     },
@@ -201,14 +207,12 @@ export default {
       return 'Aplicativo já instalado, deseja continuar?'
     },
 
-    isInstalled () {
-      return (this.applicationBody._id)
+    i19saved () {
+      return i18n(i19saved)
     },
 
-    adminSettings () {
-      return {
-        admin_settings: this.applicationBody.json_body
-      }
+    isInstalled () {
+      return (this.applicationBody._id)
     },
 
     localApplication: {
@@ -224,6 +228,17 @@ export default {
   },
 
   methods: {
+    editApp (obj) {
+      this.ecomApps.editApplication(this.applicationBody._id, obj)
+        .then(() => {
+          this.$message.success(this.title + ' ' + this.i19saved, 2)
+          this.localApplication = Object.assign({}, this.applicationBody, obj)
+        })
+        .catch(e => {
+          this.$message.error(this.i19errorMsg, 3)
+        })
+    },
+
     fetchMarketApplication () {
       this.ecomApps.findApp(this.appId).then(app => {
         // remove null
@@ -264,7 +279,7 @@ export default {
     requestInstall () {
       this.ecomApps.installApp(this.appId, true)
         .then(installed => {
-          this.$message.success(this.title + ' ' + this.i19installed, 2)
+          this.$message.success(this.title + ' ' + this.i19installed , 2)
           this.fetchStoreApplication(installed.result._id)
           this.$emit('click:install', installed.result, installed.app)
         })
@@ -275,24 +290,17 @@ export default {
     },
 
     installApp () {
-      if (this.applicationBody._id) {
-        this.$confirm({
-          title: this.i19appAlreadyInstalledMsg,
-          onOk: () => this.requestInstall()
+      this.ecomApps.fetchStoreApplications({ params: { app_id: this.appId } })
+        .then(resp => {
+          if (Array.isArray(resp) && resp.length) {
+            this.$confirm({
+              title: this.i19appAlreadyInstalledMsg,
+              onOk: this.requestInstall
+            })
+          } else {
+            this.requestInstall()
+          }
         })
-      } else {
-        this.ecomApps.fetchStoreApplications({ params: { app_id: this.appId } })
-          .then(resp => {
-            if (Array.isArray(resp) && resp.length) {
-              this.$confirm({
-                title: this.i19appAlreadyInstalledMsg,
-                onOk: () => this.requestInstall()
-              })
-            } else {
-              this.requestInstall()
-            }
-          })
-      }
     },
 
     uninstallApp () {
