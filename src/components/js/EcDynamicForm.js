@@ -1,4 +1,6 @@
 import EcDynamicField from './../EcDynamicField.vue'
+import { i18n } from '@ecomplus/utils'
+import { i19save } from '@ecomplus/i18n'
 
 export default {
   name: 'EcDynamicForm',
@@ -24,6 +26,9 @@ export default {
   computed: {
     adminSettings () {
       return this.application.admin_settings
+    },
+    i19save () {
+      return i18n(i19save)
     }
   },
 
