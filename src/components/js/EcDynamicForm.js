@@ -29,10 +29,14 @@ export default {
 
   methods: {
     submit () {
-      this.$emit('update:application', {
-        ...this.application,
+      const formData = {
         data: this.data,
         hidden_data: this.hiddenData
+      }
+      this.$emit('submit', formData)
+      this.$emit('update:application', {
+        ...this.application,
+        ...formData
       })
     }
   },
