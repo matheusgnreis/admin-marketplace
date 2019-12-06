@@ -24,7 +24,7 @@ export default {
     type () {
       return this.schema.properties.type
     },
-    value () {
+    discountValue () {
       return this.schema.properties.value
     },
     others () {

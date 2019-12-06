@@ -4,7 +4,8 @@
       :name="name"
       :placeholder="schema.description"
       :maxlength="schema.maxLength"
-      @change="localValue = $event.target.value"
+      :value="value"
+      @input="$emit('input', $event.target.value)"
     />
   </a-form-item>
 </template>

@@ -8,6 +8,7 @@ import {
   i19install,
   i19version,
   i19description,
+  i19errorMsg,
   i19relatedApps,
   i19configuration,
   i19free,
@@ -24,7 +25,7 @@ import {
   i19installingApp,
   i19tryAgain,
   i19loadDataErrorMsg,
-  i19appAlreadyInstalledMsg
+  i19saved
 } from '@ecomplus/i18n'
 
 export default {
@@ -70,12 +71,6 @@ export default {
   },
 
   computed: {
-    adminSettings () {
-      return {
-        admin_settings: this.applicationBody.json_body
-      }
-    },
-
     appId () {
       return this.applicationBody.app_id
     },
@@ -126,6 +121,10 @@ export default {
 
     i19description () {
       return i18n(i19description)
+    },
+
+    i19errorMsg () {
+      return i18n(i19errorMsg)
     },
 
     i19tryAgain () {
@@ -208,6 +207,10 @@ export default {
       return 'Aplicativo já instalado, deseja continuar?'
     },
 
+    i19saved () {
+      return i18n(i19saved)
+    },
+
     isInstalled () {
       return (this.applicationBody._id)
     },
@@ -225,6 +228,17 @@ export default {
   },
 
   methods: {
+    editApp (obj) {
+      this.ecomApps.editApplication(this.applicationBody._id, obj)
+        .then(() => {
+          this.$message.success(this.title + ' ' + this.i19saved, 2)
+          this.fetchStoreApplication(this.applicationBody._id)
+        })
+        .catch(e => {
+          this.$message.error(this.i19errorMsg, 3)
+        })
+    },
+
     fetchMarketApplication () {
       this.ecomApps.findApp(this.appId).then(app => {
         // remove null
