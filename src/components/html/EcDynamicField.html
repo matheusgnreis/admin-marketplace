@@ -1,9 +1,10 @@
 <div>
   <component
     v-for="dynamicField in dynamicFields"
-    v-bind="{name: field, schema: schema, value: value}"
+    v-bind="{name: field, schema: schema}"
     v-if="dynamicField"
-    v-model="localValue"
+    :value="value"
+    @input="$emit('input', $event)"
     :is="dynamicField"
   />
 </div>

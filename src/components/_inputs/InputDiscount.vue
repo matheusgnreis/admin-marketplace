@@ -10,7 +10,7 @@
         </a-select>
       </a-form-item>
       <a-form-item
-        :label="value.title"
+        :label="discountValue.title"
         v-if="localValue.type === 'percentage'">
           <a-input-number
             v-model="localValue.value"

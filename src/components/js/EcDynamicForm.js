@@ -15,5 +15,9 @@ export default {
     return {
       form: {}
     }
+  },
+  created () {
+    Object.assign(this.form, this.application.data)
+    Object.assign(this.form, this.application.hidden_data)
   }
 }

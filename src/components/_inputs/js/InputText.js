@@ -13,13 +13,13 @@ export default {
     }
   },
   computed: {
-    localValue: {
-      get () {
-        return this.value
-      },
-      set (val) {
-        this.$emit('input', val)
-      }
-    }
+    // localValue: {
+    //   get () {
+    //     return this.value
+    //   },
+    //   set (val) {
+    //     this.$emit('change', val)
+    //   }
+    // }
   }
 }
