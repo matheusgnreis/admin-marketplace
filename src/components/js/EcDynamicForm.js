@@ -1,23 +1,50 @@
-import EcDynamicField from '../EcDynamicField.vue'
+import EcDynamicField from './../EcDynamicField.vue'
 
 export default {
   name: 'EcDynamicForm',
+
   components: {
     EcDynamicField
   },
+
   props: {
     application: {
       type: Object,
-      default: {}
+      default: () => ({})
     }
   },
+
   data: () => {
     return {
-      form: {}
+      data: {},
+      hiddenData: {}
     }
   },
-  created () {
-    Object.assign(this.form, this.application.data)
-    Object.assign(this.form, this.application.hidden_data)
+
+  computed: {
+    adminSettings () {
+      return this.application.admin_settings
+    }
+  },
+
+  methods: {
+    submit () {
+      this.$emit('update:application', {
+        ...this.application,
+        data: this.data,
+        hidden_data: this.hiddenData
+      })
+    }
+  },
+
+  watch: {
+    application: {
+      handler () {
+        const { data, hiddenData, application } = this
+        this.data = Object.assign({}, data, application.data)
+        this.hiddenData = Object.assign({}, hiddenData, application.hidden_data)
+      },
+      immediate: true
+    }
   }
 }
