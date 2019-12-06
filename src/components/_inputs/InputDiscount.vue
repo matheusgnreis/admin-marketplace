@@ -4,7 +4,7 @@
     <a-input-group size="large">
       <a-form-item :label="type.title">
         <a-select v-model="localValue.type">
-          <a-select-option v-for="item in type.enum" :value="item">
+          <a-select-option v-for="item in type.enum" :key="item" :value="item">
             {{ item }}
           </a-select-option>
         </a-select>
