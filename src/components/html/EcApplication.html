@@ -69,17 +69,19 @@
             <vue-markdown>{{description}}</vue-markdown>
           </a-card>
 
-          <article v-else-if="activeTabKey === 'configuration'" key="app-settings"></article>
+          <article v-else-if="activeTabKey === 'configuration'" key="app-settings">
+            <ec-dynamic-form :application="adminSettings"></ec-dynamic-form>
+          </article>
 
           <article v-else-if="activeTabKey === 'relatedApps'" key="app-related">
-            <div v-if="quantityOfRelatedApps" class="row">
+            <div v-if="appsRelated.length" class="row">
               <div class="col-6 col-md-4" v-for="(app, i) in appsRelated" :key="`app-${i}`">
-                <ec-app-card v-if="quantityOfRelatedApps" :app.sync="appsRelated[i]" :ecomApps="ecomApps" @click="$emit('click:app', app)"
+                <ec-app-card :app.sync="appsRelated[i]" :ecomApps="ecomApps" @click="$emit('click:app', app)"
                   class="mb-4" />
               </div>
             </div>
             <div v-else class="row">
-              {{ noRelatedApps }}
+              {{ i19noAppsAvailable }}
             </div>
           </article>
         </a-card>
