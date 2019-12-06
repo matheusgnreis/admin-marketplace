@@ -232,7 +232,6 @@ export default {
       this.ecomApps.editApplication(this.applicationBody._id, obj)
         .then(() => {
           this.$message.success(this.title + ' ' + this.i19saved, 2)
-          this.fetchStoreApplication(this.applicationBody._id)
         })
         .catch(e => {
           this.$message.error(this.i19errorMsg, 3)
