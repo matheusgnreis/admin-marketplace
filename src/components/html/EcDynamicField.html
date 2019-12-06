@@ -4,8 +4,7 @@
     v-bind="{name: field, schema: schema}"
     v-if="dynamicField"
     :key="field"
-    :value="value"
-    @input="$emit('input', $event)"
+    v-model="localValue"
     :is="dynamicField"
   />
 </div>
