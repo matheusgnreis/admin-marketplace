@@ -35,6 +35,10 @@ const isText = (field, schema) => {
   return schema.type === 'string'
 }
 
+const isBoolean = (field, schema) => {
+  return schema.type === 'boolean'
+}
+
 const INPUTS = [
   { match: isDiscount, component: () => import(`../components/_inputs/InputDiscount.vue`) },
   { match: isObject, component: () => import(`../components/_inputs/InputObject.vue`) },
@@ -43,7 +47,8 @@ const INPUTS = [
   { match: isUpload, component: () => import(`../components/_inputs/Upload.vue`) },
   { match: isEnum, component: () => import(`../components/_inputs/InputEnum.vue`) },
   { match: isText, component: () => import(`../components/_inputs/InputText.vue`) },
-  { match: isNumber, component: () => import(`../components/_inputs/InputNumber.vue`) }
+  { match: isNumber, component: () => import(`../components/_inputs/InputNumber.vue`) },
+  { match: isBoolean, component: () => import(`../components/_inputs/InputBoolean.vue`) }
 ]
 
 export const discover = (field, schema) => {
