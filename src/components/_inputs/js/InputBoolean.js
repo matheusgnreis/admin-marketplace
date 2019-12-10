@@ -15,7 +15,7 @@ export default {
   computed: {
     localValue: {
       get () {
-        return this.value
+        return typeof this.value === 'boolean' ? this.value : Boolean(this.schema.default)
       },
       set (val) {
         this.$emit('input', val)
