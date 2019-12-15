@@ -8,8 +8,6 @@ Vue.use(Antd)
 
 Vue.config.productionTip = false
 
-Vue.component('teste-object', EcDynamicField)
-
 new Vue({
   router,
   render: h => h(App)
