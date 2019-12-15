@@ -1,7 +1,7 @@
 <template>
     <fieldset>
       <legend>{{ schema.title }}</legend>
-        <ec-dynamic-field
+        <teste-object
           v-for="field in Object.keys(others)"
           v-model="localValue[field]"
           :key="field"

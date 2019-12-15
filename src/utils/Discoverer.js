@@ -1,3 +1,13 @@
+import InputDiscount from '../components/_inputs/InputDiscount.vue'
+import InputObject from '../components/_inputs/InputObject.vue'
+import InputMoney from '../components/_inputs/InputMoney.vue'
+import InputZipCode from '../components/_inputs/InputZipCode.vue'
+import Upload from '../components/_inputs/Upload.vue'
+import InputEnum from '../components/_inputs/InputEnum.vue'
+import InputText from '../components/_inputs/InputText.vue'
+import InputNumber from '../components/_inputs/InputNumber.vue'
+import InputBoolean from '../components/_inputs/InputBoolean.vue'
+
 const isDiscount = (field, schema) => {
   if (field.includes('discount') && schema.type === 'object') {
     if (schema.properties.hasOwnProperty('value') && schema.properties.hasOwnProperty('type')) {
@@ -40,15 +50,15 @@ const isBoolean = (field, schema) => {
 }
 
 const INPUTS = [
-  { match: isDiscount, component: () => import(`../components/_inputs/InputDiscount.vue`) },
-  { match: isObject, component: () => import(`../components/_inputs/InputObject.vue`) },
-  { match: isMoney, component: () => import(`../components/_inputs/InputMoney.vue`) },
-  { match: isZipCode, component: () => import(`../components/_inputs/InputZipCode.vue`) },
-  { match: isUpload, component: () => import(`../components/_inputs/Upload.vue`) },
-  { match: isEnum, component: () => import(`../components/_inputs/InputEnum.vue`) },
-  { match: isText, component: () => import(`../components/_inputs/InputText.vue`) },
-  { match: isNumber, component: () => import(`../components/_inputs/InputNumber.vue`) },
-  { match: isBoolean, component: () => import(`../components/_inputs/InputBoolean.vue`) }
+  { match: isDiscount, component: InputDiscount },
+  { match: isObject, component: InputObject },
+  { match: isMoney, component: InputMoney },
+  { match: isZipCode, component: InputZipCode },
+  { match: isUpload, component: Upload },
+  { match: isEnum, component: InputEnum },
+  { match: isText, component: InputText },
+  { match: isNumber, component: InputNumber },
+  { match: isBoolean, component: InputBoolean }
 ]
 
 export const discover = (field, schema) => {
