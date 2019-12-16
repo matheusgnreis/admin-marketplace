@@ -65,6 +65,13 @@ export default {
       return fieldObjects
     },
 
+    getDescriptionHtml (description) {
+      return description.replace(
+        /(http(s)?:\/\/[^\s]+)/g,
+        '<a href="$1" target="_blank" rel="noopener">$1</a>'
+      )
+    },
+
     submit () {
       const formData = {
         data: this.data,
