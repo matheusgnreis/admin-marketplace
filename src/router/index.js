@@ -7,16 +7,12 @@ Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/',
-    redirect: '/market'
-  },
-  {
-    path: '/market',
+    path: '/apps',
     name: 'marketplace',
     component: Marketplace
   },
   {
-    path: '/market/edit/:appId/:objectId?',
+    path: '/apps/edit/:appId/:objectId?',
     name: 'application',
     component: Application
   }
