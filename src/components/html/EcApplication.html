@@ -17,26 +17,31 @@
 
           <div class="text-center mb-1 mt-4">
             <span>
-              <a-button type="primary" size="large" shape="round" @click="installApp" v-if="!isInstalled">
+              <a-button
+                type="primary"
+                size="large"
+                @click="installApp"
+                v-if="!isInstalled"
+              >
                 <i class="fas fa-plus mr-2"></i>
                 {{ i19install }}
               </a-button>
-                <a-popconfirm
-                  :title="i19areYouWantToDeleteAppMsg"
-                  @confirm="uninstallApp"
-                  :okText="i19yes"
-                  :cancelText="i19no"
-                  v-if="isInstalled"
+
+              <a-popconfirm
+                :title="i19areYouWantToDeleteAppMsg"
+                @confirm="uninstallApp"
+                :okText="i19yes"
+                :cancelText="i19no"
+                v-if="isInstalled"
+              >
+                <a-button
+                  type="danger"
+                  size="large"
                 >
-                  <a-button
-                    type="danger"
-                    shape="round"
-                    size="large"
-                  >
-                    <i class="fas fa-trash mr-2"></i>
-                    {{ i19uninstall }}
-                  </a-button>
-                </a-popconfirm>
+                  <i class="fas fa-trash mr-2"></i>
+                  {{ i19uninstall }}
+                </a-button>
+              </a-popconfirm>
             </span>
           </div>
 
@@ -62,9 +67,12 @@
       </a-col>
 
       <a-col :md="24" :lg="17">
-        <a-card class="w-100" :tabList="tabListNoTitle" :activeTabKey="activeTabKey"
-          @tabChange="key => handleTabChange(key, 'activeTabKey')" >
-
+        <a-card
+          class="w-100"
+          :tabList="tabListNoTitle"
+          :activeTabKey="activeTabKey"
+          @tabChange="key => handleTabChange(key, 'activeTabKey')"
+        >
           <a-card :bordered="false" v-if="activeTabKey === 'description'" key="app-description">
             <vue-markdown>{{description}}</vue-markdown>
           </a-card>
@@ -85,15 +93,15 @@
             </div>
           </article>
         </a-card>
+
         <a-button
           hoverable
           @click="$emit('click:back')"
           type="link"
-          size="large"
           class="mt-4 float-right"
           style="border: 1px solid #e8e8e8"
         >
-        <i class="fas fa-undo mr-3"></i>
+        <i class="fas fa-undo mr-2"></i>
           {{ i19back }}
         </a-button>
       </a-col>
