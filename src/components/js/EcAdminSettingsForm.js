@@ -1,6 +1,6 @@
 import { i18n } from '@ecomplus/utils'
 import { i19save } from '@ecomplus/i18n'
-import getSchemaInput from './../../utils/get-schema-input'
+import getSchemaInput from './../../lib/get-schema-input'
 
 export default {
   name: 'EcAdminSettingsForm',
@@ -32,12 +32,22 @@ export default {
       if (!data) {
         data = hide ? this.hiddenData : this.data
       }
-      if (schema.type === 'object') {
+      let fieldObjects = []
+      const { localSchema, component } = getSchemaInput(field, schema)
+      if (component) {
+        fieldObjects.push({
+          field,
+          schema,
+          data,
+          name: `${parent}.${field}`,
+          component
+        })
+      }
+      if (localSchema.type === 'object') {
         if (!data[field]) {
           data[field] = {}
         }
-        const { properties } = schema
-        let fieldObjects = []
+        const { properties } = localSchema
         for (const nestedField in properties) {
           const childSchema = properties[nestedField]
           if (childSchema) {
@@ -51,15 +61,8 @@ export default {
             )
           }
         }
-        return fieldObjects
       }
-      return [{
-        field,
-        schema,
-        data,
-        name: `${parent}.${field}`,
-        component: getSchemaInput(field, schema)
-      }]
+      return fieldObjects
     },
 
     submit () {
