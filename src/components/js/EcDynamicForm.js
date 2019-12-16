@@ -1,13 +1,9 @@
-import EcDynamicField from './../EcDynamicField.vue'
 import { i18n } from '@ecomplus/utils'
 import { i19save } from '@ecomplus/i18n'
+import getSchemaInput from './../../utils/get-schema-input'
 
 export default {
   name: 'EcDynamicForm',
-
-  components: {
-    EcDynamicField
-  },
 
   props: {
     application: {
@@ -16,7 +12,7 @@ export default {
     }
   },
 
-  data: () => {
+  data () {
     return {
       data: {},
       hiddenData: {}
@@ -24,15 +20,48 @@ export default {
   },
 
   computed: {
+    i19save: () => i18n(i19save),
+
     adminSettings () {
       return this.application.admin_settings
-    },
-    i19save () {
-      return i18n(i19save)
     }
   },
 
   methods: {
+    parseAdminSettingsField ({ field, schema, hide, data, parent = '' }) {
+      if (!data) {
+        data = hide ? this.hiddenData : this.data
+      }
+      if (schema.type === 'object') {
+        if (!data[field]) {
+          data[field] = {}
+        }
+        const { properties } = schema
+        let fieldObjects = []
+        for (const nestedField in properties) {
+          const childSchema = properties[nestedField]
+          if (childSchema) {
+            fieldObjects = fieldObjects.concat(
+              this.parseAdminSettingsField({
+                field: nestedField,
+                schema: childSchema,
+                data: data[field],
+                parent: `${parent}.${nestedField}`
+              })
+            )
+          }
+        }
+        return fieldObjects
+      }
+      return [{
+        field,
+        schema,
+        data,
+        name: `${parent}.${field}`,
+        component: getSchemaInput(field, schema)
+      }]
+    },
+
     submit () {
       const formData = {
         data: this.data,
@@ -53,7 +82,8 @@ export default {
         this.data = Object.assign({}, data, application.data)
         this.hiddenData = Object.assign({}, hiddenData, application.hidden_data)
       },
-      immediate: true
+      immediate: true,
+      deep: true
     }
   }
 }
