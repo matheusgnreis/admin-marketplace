@@ -21,7 +21,7 @@ import {
   i19unavailable,
   i19paid,
   i19installed,
-  i19unableToInstallAppMsg,
+  i19unableToInstallApp,
   i19installingApp,
   i19tryAgain,
   i19loadDataErrorMsg,
@@ -140,7 +140,7 @@ export default {
     },
 
     i19unableToInstallAppMsg () {
-      return i18n(i19unableToInstallAppMsg)
+      return i18n(i19unableToInstallApp)
     },
 
     i19unableToUninstallAppMsg () {
