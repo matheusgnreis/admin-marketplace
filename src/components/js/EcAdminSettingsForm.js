@@ -3,7 +3,7 @@ import { i19save } from '@ecomplus/i18n'
 import getSchemaInput from './../../utils/get-schema-input'
 
 export default {
-  name: 'EcDynamicForm',
+  name: 'EcAdminSettingsForm',
 
   props: {
     application: {

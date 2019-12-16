@@ -1,7 +1,7 @@
 import VueMarkdown from 'vue-markdown'
 import EcomApps from '@ecomplus/apps-manager'
 import EcAppCard from './../EcAppCard.vue'
-import EcDynamicForm from './../EcDynamicForm.vue'
+import EcAdminSettingsForm from './../EcAdminSettingsForm.vue'
 import { i18n } from '@ecomplus/utils'
 
 import {
@@ -34,7 +34,7 @@ export default {
   components: {
     VueMarkdown,
     EcAppCard,
-    EcDynamicForm
+    EcAdminSettingsForm
   },
 
   props: {
