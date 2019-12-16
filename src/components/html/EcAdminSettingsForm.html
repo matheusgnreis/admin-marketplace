@@ -1,42 +1,90 @@
 <div>
-  <a-form @submit="submit">
-    <div
+  <a-form layout="vertical">
+    <a-form-item
       v-for="({ schema, hide }, field) in adminSettings"
+      v-if="!checkComplexSchema(schema)"
       :key="`${hide.toString()}-${field}`"
+      :colon="false"
     >
+      <template #label>
+        <span class="h6">
+          {{ schema.title }}
+        </span>
+      </template>
+      <template v-if="schema.description" #extra>
+        <span v-html="getDescriptionHtml(schema.description)"></span>
+      </template>
+
+      <component
+        v-for="({
+          field,
+          name,
+          schema,
+          component,
+          data
+        }) in parseAdminSettingsField({ field, schema, hide })"
+        v-bind="{ name, schema }"
+        v-if="component"
+        :key="name"
+        v-model="data[field]"
+        :is="component"
+      />
+    </a-form-item>
+  </a-form>
+
+  <a-collapse
+    v-for="({ schema, hide }, field) in adminSettings"
+    v-if="checkComplexSchema(schema)"
+    :key="`${hide.toString()}-${field}`"
+    class="mb-4"
+  >
+    <a-collapse-panel :header="schema.title">
+      <a-alert
+        class="mb-4"
+        v-if="schema.description"
+        type="info"
+        banner
+      >
+        <span
+          slot="message"
+          v-html="getDescriptionHtml(schema.description)"
+        ></span>
+      </a-alert>
+
       <a-form-item
+        v-for="({
+          field,
+          name,
+          schema,
+          component,
+          data
+        }) in parseAdminSettingsField({ field, schema, hide })"
+        v-if="component"
+        :key="name"
         :label="schema.title"
-        :label-col="{ span: 6 }" :wrapper-col="{ span: 18 }"
+        :label-col="{ span: 9 }"
+        :wrapper-col="{ span: 15 }"
       >
         <template v-if="schema.description" #extra>
           <span v-html="getDescriptionHtml(schema.description)"></span>
         </template>
+
         <component
-          v-for="({
-            field,
-            name,
-            schema,
-            component,
-            data
-          }) in parseAdminSettingsField({ field, schema, hide })"
           v-bind="{ name, schema }"
-          v-if="component"
-          :key="name"
           v-model="data[field]"
           :is="component"
         />
       </a-form-item>
-    </div>
+    </a-collapse-panel>
+  </a-collapse>
 
-    <a-button
-      hoverable
-      @click="submit"
-      size="large"
-      class="mt-3 float-right"
-      type="primary"
-    >
-      <i class="fas fa-save mr-2"></i>
-      {{ i19save }}
-    </a-button>
-  </a-form>
+  <a-button
+    hoverable
+    @click="submit"
+    size="large"
+    type="primary"
+  >
+    <i class="fas fa-save mr-2"></i>
+    {{ i19save }}
+  </a-button>
 </div>

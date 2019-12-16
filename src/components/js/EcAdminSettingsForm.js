@@ -28,6 +28,17 @@ export default {
   },
 
   methods: {
+    checkComplexSchema (schema) {
+      return schema.type === 'object' || schema.type === 'array'
+    },
+
+    getDescriptionHtml (description) {
+      return description.replace(
+        /(http(s)?:\/\/[^\s]+)/g,
+        '<a href="$1" target="_blank" rel="noopener">$1</a>'
+      )
+    },
+
     parseAdminSettingsField ({ field, schema, hide, data, parent = '' }) {
       if (!data) {
         data = hide ? this.hiddenData : this.data
@@ -63,13 +74,6 @@ export default {
         }
       }
       return fieldObjects
-    },
-
-    getDescriptionHtml (description) {
-      return description.replace(
-        /(http(s)?:\/\/[^\s]+)/g,
-        '<a href="$1" target="_blank" rel="noopener">$1</a>'
-      )
     },
 
     submit () {
