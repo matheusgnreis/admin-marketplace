@@ -96,7 +96,8 @@ export default {
     },
 
     description () {
-      return this.applicationBody.description
+      return this.applicationBody.description ||
+        `# ${this.title}\nApp ID: \`${this.appId}\``
     },
 
     version () {
@@ -279,7 +280,7 @@ export default {
     requestInstall () {
       this.ecomApps.installApp(this.appId, true)
         .then(installed => {
-          this.$message.success(this.title + ' ' + this.i19installed , 2)
+          this.$message.success(this.title + ' ' + this.i19installed, 2)
           this.fetchStoreApplication(installed.result._id)
           this.$emit('click:install', installed.result, installed.app)
         })
