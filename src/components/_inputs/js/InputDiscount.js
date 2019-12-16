@@ -1,11 +1,9 @@
 import InputMoney from '../InputMoney.vue'
-import EcDynamicField from '../../EcDynamicField.vue'
 
 export default {
   name: 'InputDiscount',
   components: {
-    InputMoney,
-    EcDynamicField
+    InputMoney
   },
   props: {
     name: {
