@@ -1,6 +1,7 @@
 <template>
   <a-form-item :label="schema.title">
     <a-select
+      style="min-width: 120px"
       :defaultValue="schema.default"
       v-model="localValue">
         <a-select-option

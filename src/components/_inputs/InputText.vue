@@ -4,8 +4,7 @@
       :name="name"
       :placeholder="schema.description"
       :maxlength="schema.maxLength"
-      :value="value"
-      @input="$emit('input', $event.target.value)"
+      v-model="localValue"
     />
   </a-form-item>
 </template>

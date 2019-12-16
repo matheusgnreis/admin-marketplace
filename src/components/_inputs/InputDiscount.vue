@@ -3,10 +3,15 @@
     <legend>{{ schema.title }}</legend>
     <a-input-group size="large">
       <a-form-item :label="type.title">
-        <a-select v-model="localValue.type">
-          <a-select-option v-for="item in type.enum" :key="item" :value="item">
-            {{ item }}
-          </a-select-option>
+        <a-select
+          v-model="localValue.type"
+          style="min-width: 120px">
+            <a-select-option
+              v-for="item in type.enum"
+              :key="item"
+              :value="item">
+                {{ item }}
+            </a-select-option>
         </a-select>
       </a-form-item>
       <a-form-item

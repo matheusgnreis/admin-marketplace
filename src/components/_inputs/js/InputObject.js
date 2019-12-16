@@ -1,7 +1,7 @@
 import EcDynamicField from '../../EcDynamicField.vue'
 
 export default {
-  name: 'InputDiscount',
+  name: 'InputObject',
   components: {
     EcDynamicField
   },
