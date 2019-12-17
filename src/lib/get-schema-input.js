@@ -40,7 +40,7 @@ export default (field, schema) => {
   const { type } = schema
   const localSchema = (type === 'object' || type === 'array') ? cloneDeep(schema) : schema
   for (const match of getInputMatchersByType(type)) {
-    const component = match(field, localSchema)
+    const component = match(field.toString(), localSchema)
     if (component) {
       return { localSchema, component }
     }
