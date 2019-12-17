@@ -19,9 +19,64 @@
         </a-alert>
 
         <div
-          v-for="({ schema, hide, field }, i) in fields"
-          :key="`${hide.toString()}-${field}`"
+          v-for="(config, i) in fields"
+          :key="`${config.hide.toString()}-${config.field}`"
         >
+          <template v-if="checkNestedObjectsArray(config.schema)">
+            <div
+              v-for="({ dataList, lowerCaseTitle, field }) in [{
+                ...config,
+                dataList: config.hide ? hiddenData[config.field] : data[config.field],
+                lowerCaseTitle: (config.schema.items.title || '').toLowerCase()
+              }]"
+              key="nested"
+            >
+              <a-button
+                type="dashed"
+                class="mb-3"
+                html-type="button"
+                @click.prevent="dataList.push({})"
+              >
+                {{ `${i19add} ${lowerCaseTitle}` }}
+              </a-button>
+
+              <a-list
+                :dataSource="dataList"
+                class="mb-4"
+                bordered
+              >
+                <a-list-item slot="renderItem" slot-scope="item, index">
+                  <a-list-item-meta
+                    :description="getObjectValues(item)"
+                  >
+                    <a
+                      slot="title"
+                      href="#"
+                      @click.prevent="dataListsIndexes[field] = index"
+                    >
+                      <span
+                        v-if="dataListsIndexes[field] === index"
+                        key="editing"
+                      >
+                        <i class="fas fa-pen-square mr-1"></i>
+                        {{ `${i19editing} ${lowerCaseTitle}` }}
+                      </span>
+
+                      <span v-else key="edit">
+                        <i class="fas fa-pen mr-1"></i>
+                        {{ i19edit }}
+                      </span>
+
+                      <samp class="ml-1">
+                        #{{ (index + 1) }}
+                      </samp>
+                    </a>
+                  </a-list-item-meta>
+                </a-list-item>
+              </a-list>
+            </div>
+          </template>
+
           <a-form-item
             v-for="({
               field,
@@ -29,7 +84,7 @@
               schema,
               component,
               data
-            }) in parseAdminSettingsField({ field, schema, hide })"
+            }) in parseAdminSettingsField(config)"
             v-if="component"
             :key="name"
             :label="schema.title"
