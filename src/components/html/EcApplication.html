@@ -5,7 +5,15 @@
         <a-card>
           <div class="text-center">
             <a-avatar v-if="icon" :src="icon" :size="170"  class="mb-3 img-fluid"/>
-            <a-avatar v-else :size="170" :style="{background: randomColors, fontSize: fontSize + 'rem'}"  class="mb-3 img-fluid"> {{ firstLetter }} </a-avatar>
+            <a-avatar
+              v-else
+              :size="170"
+              :style="{ background: randomColors, fontSize: '4rem' }"
+              class="mb-3 img-fluid"
+            >
+              {{ title.charAt(0) }}
+            </a-avatar>
+
             <a-card-meta
               :title="title"
               class="overflow-hidden"
@@ -77,7 +85,7 @@
           @tabChange="key => handleTabChange(key, 'activeTabKey')"
         >
           <a-card :bordered="false" v-if="activeTabKey === 'description'" key="app-description">
-            <vue-markdown v-if="isLoaded">
+            <vue-markdown>
               {{ (description || `# ${title}\nApp ID: \`${appId}\``) }}
             </vue-markdown>
           </a-card>
