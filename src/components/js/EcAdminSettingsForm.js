@@ -1,6 +1,10 @@
 import { i18n } from '@ecomplus/utils'
-import { i19save } from '@ecomplus/i18n'
 import getSchemaInput from './../../lib/get-schema-input'
+
+import {
+  // i19general,
+  i19save
+} from '@ecomplus/i18n'
 
 export default {
   name: 'EcAdminSettingsForm',
@@ -20,10 +24,35 @@ export default {
   },
 
   computed: {
+    i19general: () => 'Geral',
     i19save: () => i18n(i19save),
 
     adminSettings () {
       return this.application.admin_settings
+    },
+
+    settingsFieldGroups () {
+      const baseFieldGroup = {
+        header: this.i19general,
+        fields: []
+      }
+      const fieldGroups = [baseFieldGroup]
+      for (const field in this.adminSettings) {
+        if (this.adminSettings[field]) {
+          const { schema, hide } = this.adminSettings[field]
+          const fieldObj = { schema, hide, field }
+          if (this.checkComplexSchema(schema)) {
+            fieldGroups.push({
+              header: schema.title,
+              description: schema.description,
+              fields: [fieldObj]
+            })
+          } else {
+            baseFieldGroup.fields.push(fieldObj)
+          }
+        }
+      }
+      return fieldGroups
     }
   },
 
@@ -76,7 +105,7 @@ export default {
       return fieldObjects
     },
 
-    submit () {
+    handleSubmit () {
       const formData = {
         data: this.data,
         hidden_data: this.hiddenData
