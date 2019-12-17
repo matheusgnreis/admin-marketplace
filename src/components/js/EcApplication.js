@@ -54,6 +54,7 @@ export default {
       isLoaded: false,
       loadError: false,
       applicationBody: this.application,
+      fontSize: 4,
       appsRelated: [],
       tabListNoTitle: [
         {
@@ -66,7 +67,7 @@ export default {
           key: 'relatedApps'
         }
       ],
-      activeTabKey: 'description'
+      activeTabKey: 'configuration'
     }
   },
 
@@ -106,6 +107,17 @@ export default {
 
     website () {
       return this.applicationBody.website
+    },
+    
+    firstLetter () {
+      if (this.applicationBody.title) {
+        let letters = this.applicationBody.title.split('')
+        return letters[0]
+      }
+    },
+
+    randomColors () {
+      return '#'+(Math.random()*0xFFFFFF<<0).toString(16)
     },
 
     price () {
