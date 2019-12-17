@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.2.2](https://github.com/ecomclub/admin-marketplace/compare/v0.2.1...v0.2.2) (2019-12-17)
+
+
+### Bug Fixes
+
+* **application:** avatar changes ([#46](https://github.com/ecomclub/admin-marketplace/issues/46)) ([8db2c63](https://github.com/ecomclub/admin-marketplace/commit/8db2c630076c4ca526b70a7d5d490d6835f44658))
+* **application:** changes into avatar and author's info ([#45](https://github.com/ecomclub/admin-marketplace/issues/45)) ([6a9cf78](https://github.com/ecomclub/admin-marketplace/commit/6a9cf78f6c708e6dca389d806c10b54353d87db2))
+* **application:** fetch app data correctly, is loaded on allSettled ([3354cbe](https://github.com/ecomclub/admin-marketplace/commit/3354cbe506748c2b809c52d9c407d1269f0d11a5))
+
 ### [0.2.1](https://github.com/ecomclub/admin-marketplace/compare/v0.2.0...v0.2.1) (2019-12-17)
 
 ## [0.2.0](https://github.com/ecomclub/admin-marketplace/compare/v0.1.1-0...v0.2.0) (2019-12-17)
