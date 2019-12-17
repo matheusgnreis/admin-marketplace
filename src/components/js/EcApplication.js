@@ -1,3 +1,4 @@
+import 'core-js/modules/es.promise.all-settled'
 import VueMarkdown from 'vue-markdown'
 import EcomApps from '@ecomplus/apps-manager'
 import EcAppCard from './../EcAppCard.vue'
