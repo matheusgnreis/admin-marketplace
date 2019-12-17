@@ -229,11 +229,14 @@ export default {
   },
 
   methods: {
-    editApp (obj) {
-      this.ecomApps.editApplication(this.applicationBody._id, obj)
+    editApp (data) {
+      this.ecomApps.editApplication(this.applicationBody._id, data)
         .then(() => {
           this.$message.success(this.title + ' ' + this.i19saved, 2)
-          this.localApplication = Object.assign({}, this.applicationBody, obj)
+          this.localApplication = {
+            ...this.applicationBody,
+            ...data
+          }
         })
         .catch(e => {
           this.$message.error(this.i19errorMsg, 3)

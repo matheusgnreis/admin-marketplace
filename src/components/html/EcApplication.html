@@ -76,7 +76,9 @@
           @tabChange="key => handleTabChange(key, 'activeTabKey')"
         >
           <a-card :bordered="false" v-if="activeTabKey === 'description'" key="app-description">
-            <vue-markdown>{{ description }}</vue-markdown>
+            <vue-markdown v-if="isLoaded">
+              {{ (description || `# ${title}\nApp ID: \`${appId}\``) }}
+            </vue-markdown>
           </a-card>
 
           <article v-else-if="activeTabKey === 'configuration'" key="app-settings">
