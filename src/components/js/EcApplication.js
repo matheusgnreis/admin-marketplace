@@ -67,7 +67,7 @@ export default {
           key: 'relatedApps'
         }
       ],
-      activeTabKey: 'configuration'
+      activeTabKey: 'description'
     }
   },
 
