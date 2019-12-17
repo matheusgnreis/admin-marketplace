@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.2.3](https://github.com/ecomclub/admin-marketplace/compare/v0.2.2...v0.2.3) (2019-12-17)
+
+
+### Bug Fixes
+
+* **polyfill:** manually add promise.all-settled not recognized by babel ([6f40347](https://github.com/ecomclub/admin-marketplace/commit/6f403471f86505e2ec4d11d9db83d179bbdac578))
+
 ### [0.2.2](https://github.com/ecomclub/admin-marketplace/compare/v0.2.1...v0.2.2) (2019-12-17)
 
 
