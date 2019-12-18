@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.2.4](https://github.com/ecomclub/admin-marketplace/compare/v0.2.3...v0.2.4) (2019-12-18)
+
+
+### Bug Fixes
+
+* **i18n:** update some i19 words ([#48](https://github.com/ecomclub/admin-marketplace/issues/48)) ([5d61011](https://github.com/ecomclub/admin-marketplace/commit/5d61011b6c81b80be19b0e8730a1145322923b63))
+* **zip-code:** removed pattner verification ([fc38340](https://github.com/ecomclub/admin-marketplace/commit/fc38340e4fe863752030e1c92612514a20a9114a))
+
 ### [0.2.3](https://github.com/ecomclub/admin-marketplace/compare/v0.2.2...v0.2.3) (2019-12-17)
 
 
