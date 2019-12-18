@@ -10,6 +10,9 @@ export default {
     },
     value: {
       type: String
+    },
+    i18nValues: {
+      type: Object
     }
   },
   computed: {

@@ -1,9 +1,12 @@
+import { i18n, _config } from '@ecomplus/utils'
+import { i19DiscountType, i19DiscountApplyAt } from '@ecomplus/i18n'
 import InputMoney from '../InputMoney.vue'
-
+import InputEnum from '../InputEnum.vue'
 export default {
   name: 'InputDiscount',
   components: {
-    InputMoney
+    InputMoney,
+    InputEnum
   },
   props: {
     name: {
@@ -25,17 +28,17 @@ export default {
     discountValue () {
       return this.schema.properties.value
     },
-    others () {
-      const others = {}
-      for (const prop of Object.keys(this.schema.properties)) {
-        if (!['value', 'type'].includes(prop)) {
-          others[prop] = this.schema.properties[prop]
-        }
-      }
-      return others
+    applyAt () {
+      return this.schema.properties.apply_at
     },
     localValue () {
       return this.value ? this.value : {}
+    },
+    typeOptions () {
+      return i18n(i19DiscountType)
+    },
+    applyAtOptions() {
+      return i18n(i19DiscountApplyAt)
     }
   },
   methods: {

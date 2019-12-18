@@ -77,7 +77,8 @@
             </div>
           </template>
 
-          <a-form-item
+          <component
+            :is="checkComplexSchema(schema) && field === config.field ? 'div' : 'a-form-item'"
             v-for="({
               field,
               name,
@@ -85,22 +86,20 @@
               component,
               data
             }) in parseAdminSettingsField(config)"
-            v-if="component"
             :key="name"
-            :label="schema.title"
+            :label="schema.title || field"
             :label-col="{ span: 8 }"
             :wrapper-col="{ span: 16 }"
-          >
-            <template v-if="schema.description" #extra>
-              <span v-html="getDescriptionHtml(schema.description)"></span>
-            </template>
-
-            <component
-              v-bind="{ name, schema }"
-              v-model="data[field]"
-              :is="component"
-            />
-          </a-form-item>
+            >
+              <template v-if="schema.description" #extra>
+                <span v-html="getDescriptionHtml(schema.description)"></span>
+              </template>
+              <component
+                v-bind="{ name, schema }"
+                v-model="data[field]"
+                :is="component"
+              />
+          </component>
         </div>
 
         <a-form-item :wrapper-col="{ span: 16, offset: 8 }" class="mb-1">
