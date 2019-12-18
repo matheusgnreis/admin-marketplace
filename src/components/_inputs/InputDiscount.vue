@@ -4,6 +4,7 @@
       :label="type.title"
       :label-col="{ span: 8 }"
       :wrapper-col="{ span: 16 }"
+      :extra="type.description"
     >
       <a-select
         v-model="localValue.type"
@@ -15,14 +16,12 @@
             {{ typeOptions[item] }}
           </a-select-option>
       </a-select>
-      <template v-if="schema.description" #extra>
-        <span v-html="type.description"></span>
-      </template>
     </a-form-item>
     <a-form-item
       :label="discountValue.title"
       :label-col="{ span: 8 }"
       :wrapper-col="{ span: 16 }"
+      :extra="discountValue.description"
     >
       <a-input-number
         v-if="localValue.type === 'percentage'"
@@ -40,14 +39,12 @@
         style="width: 100%"
         v-else
       />
-      <template v-if="discountValue.description" #extra>
-        <span v-html="discountValue.description"></span>
-      </template>
     </a-form-item>
     <a-form-item
-       :label="applyAt.title"
-       :label-col="{ span: 9 }"
-       :wrapper-col="{ span: 15 }"
+      :label="applyAt.title"
+      :label-col="{ span: 9 }"
+      :wrapper-col="{ span: 15 }"
+      :extra="applyAt.description"
     >
       <input-enum
         name="apply_at"
@@ -56,9 +53,6 @@
         style="width: 100%"
         :i18n-values="applyAtOptions"
       />
-      <template v-if="applyAt.description" #extra>
-        <span v-html="applyAt.description"></span>
-      </template>
     </a-form-item>
   </a-input-group>
 </template>
