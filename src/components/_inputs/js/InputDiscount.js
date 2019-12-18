@@ -1,3 +1,5 @@
+import { i18n, _config } from '@ecomplus/utils'
+import { i19DiscountType, i19DiscountApplyAt } from '@ecomplus/i18n'
 import InputMoney from '../InputMoney.vue'
 import InputEnum from '../InputEnum.vue'
 export default {
@@ -31,6 +33,12 @@ export default {
     },
     localValue () {
       return this.value ? this.value : {}
+    },
+    typeOptions () {
+      return i18n(i19DiscountType)
+    },
+    applyAtOptions() {
+      return i18n(i19DiscountApplyAt)
     }
   },
   methods: {

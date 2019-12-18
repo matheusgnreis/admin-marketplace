@@ -77,6 +77,21 @@
             </div>
           </template>
 
+          <component
+            v-for="({
+              field,
+              name,
+              schema,
+              component,
+              data
+            }) in parseAdminSettingsField(config)"
+            v-if="component && checkComplexSchema(schema) && field === config.field"
+            v-bind="{ name, schema }"
+            v-model="data[field]"
+            :key="name"
+            :is="component"
+          />
+
           <a-form-item
             v-for="({
               field,
@@ -85,9 +100,9 @@
               component,
               data
             }) in parseAdminSettingsField(config)"
-            v-if="component"
+            v-if="component && !checkComplexSchema(schema)"
             :key="name"
-            :label="checkComplexSchema(schema)? '' : schema.title"
+            :label="header !== schema.title ? schema.title || field: ''"
             :label-col="{ span: 8 }"
             :wrapper-col="{ span: 16 }"
           >

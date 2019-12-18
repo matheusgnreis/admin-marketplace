@@ -9,7 +9,7 @@
       :key="item"
       :value="item"
     >
-        {{ item }}
+      {{ i18nValues ? i18nValues[item] : item}}
     </a-select-option>
   </a-select>
 </template>
