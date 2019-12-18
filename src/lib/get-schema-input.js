@@ -13,7 +13,7 @@ const getInputMatchersByType = type => {
   switch (type) {
     case 'object':
       return [
-        matchGroupDiscount
+        matchGroupDiscount,
       ]
     case 'string':
       return [
@@ -25,6 +25,7 @@ const getInputMatchersByType = type => {
     case 'number':
       return [
         matchInputMoney,
+        matchInputZipCode,
         () => InputNumber
       ]
     case 'boolean':
