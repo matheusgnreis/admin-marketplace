@@ -18,15 +18,20 @@ import {
   i19yes,
   i19no,
   i19areYouWantToDeleteAppMsg,
+  i19appAlreadyInstalledMsg,
   i19back,
   i19unavailable,
   i19paid,
   i19installed,
   i19unableToInstallApp,
   i19installingApp,
+  i19unableToUninstallApp,
   i19tryAgain,
   i19loadDataErrorMsg,
-  i19saved
+  i19saved,
+  i19noAppsAvailable,
+  i19uninstallingApp,
+  i19uninstallingAppWithSuccess
 } from '@ecomplus/i18n'
 
 export default {
@@ -149,12 +154,12 @@ export default {
       return i18n(i19unableToInstallApp)
     },
 
-    i19unableToUninstallAppMsg () {
-      return 'Não foi possível desinstalar o aplicativo'
+    i19unableToUninstallApp () {
+      return i18n(i19unableToUninstallApp)
     },
 
     i19noAppsAvailable () {
-      return 'Não há aplicativos disponíveis'
+      return i18n(i19noAppsAvailable)
     },
 
     i19author () {
@@ -174,11 +179,11 @@ export default {
     },
 
     i19uninstallingApp () {
-      return 'Desinstalando aplicativo'
+      return i18n(i19uninstallingApp)
     },
 
-    i19uninstallingAppWithSuccessMsg () {
-      return 'Desinstalando aplicativo com sucesso'
+    i19uninstallingAppWithSuccess () {
+      return i18n(i19uninstallingAppWithSuccess)
     },
 
     i19yes () {
@@ -210,7 +215,7 @@ export default {
     },
 
     i19appAlreadyInstalledMsg () {
-      return 'Aplicativo já instalado, deseja continuar?'
+      return i18n(i19appAlreadyInstalledMsg)
     },
 
     i19saved () {
@@ -324,11 +329,11 @@ export default {
       this.ecomApps.removeApplication(this.applicationBody._id)
       this.$message.loading(this.i19uninstallingApp + ' ' + this.title, 1)
         .then(result => {
-          this.$message.success(this.i19uninstallingAppWithSuccessMsg, 2)
+          this.$message.success(this.i19uninstallingAppWithSuccess, 2)
           this.$emit('click:uninstall')
         })
         .catch(e => {
-          this.$message.error(this.i19unableToUninstallAppMsg, 3)
+          this.$message.error(this.i19unableToUninstallApp, 3)
           console.log(e)
         })
     },
