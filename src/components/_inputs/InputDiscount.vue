@@ -30,13 +30,11 @@
         :max="100"
         :formatter="value => `${value}%`"
         :parser="value => value.replace('%', '')"
-        style="width: 100%"
       />
       <input-money
         name="value"
         :schema="value"
         v-model="localValue.value"
-        style="width: 100%"
         v-else
       />
     </a-form-item>
