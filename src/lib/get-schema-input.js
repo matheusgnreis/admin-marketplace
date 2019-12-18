@@ -13,7 +13,7 @@ const getInputMatchersByType = type => {
   switch (type) {
     case 'object':
       return [
-        matchGroupDiscount
+        matchGroupDiscount,
       ]
     case 'string':
       return [
@@ -25,6 +25,7 @@ const getInputMatchersByType = type => {
     case 'number':
       return [
         matchInputMoney,
+        matchInputZipCode,
         () => InputNumber
       ]
     case 'boolean':
@@ -36,11 +37,11 @@ const getInputMatchersByType = type => {
   }
 }
 
-export default (field, schema) => {
+export default (field, schema, parentFields=false) => {
   const { type } = schema
   const localSchema = (type === 'object' || type === 'array') ? cloneDeep(schema) : schema
   for (const match of getInputMatchersByType(type)) {
-    const component = match(field.toString(), localSchema)
+    const component = match(field.toString(), localSchema, parentFields)
     if (component) {
       return { localSchema, component }
     }

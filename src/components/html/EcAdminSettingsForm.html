@@ -87,14 +87,13 @@
             }) in parseAdminSettingsField(config)"
             v-if="component"
             :key="name"
-            :label="schema.title"
+            :label="checkComplexSchema(schema)? '' : schema.title"
             :label-col="{ span: 8 }"
             :wrapper-col="{ span: 16 }"
           >
-            <template v-if="schema.description" #extra>
+            <template v-if="schema.description && !checkComplexSchema(schema)" #extra>
               <span v-html="getDescriptionHtml(schema.description)"></span>
             </template>
-
             <component
               v-bind="{ name, schema }"
               v-model="data[field]"
