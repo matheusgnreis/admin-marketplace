@@ -47,7 +47,7 @@ export default {
         header: this.i19general,
         fields: []
       }
-      const fieldGroups = [baseFieldGroup]
+      const fieldGroups = []
       for (const field in this.adminSettings) {
         if (this.adminSettings[field]) {
           const { schema, hide } = this.adminSettings[field]
@@ -62,6 +62,9 @@ export default {
             baseFieldGroup.fields.push(fieldObj)
           }
         }
+      }
+      if (baseFieldGroup.fields.length) {
+        fieldGroups.unshift(baseFieldGroup)
       }
       return fieldGroups
     }
