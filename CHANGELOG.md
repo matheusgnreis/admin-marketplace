@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.2.5](https://github.com/ecomclub/admin-marketplace/compare/v0.2.4...v0.2.5) (2019-12-19)
+
+
+### Features
+
+* **admin-settings-form:** allowing data list remove element ([a19a765](https://github.com/ecomclub/admin-marketplace/commit/a19a765478f76fbb24bde52d296eac28f4d4ed7b))
+
+
+### Bug Fixes
+
+* **admin-settings-form:** show base (general) field group if not empty ([e4db1f0](https://github.com/ecomclub/admin-marketplace/commit/e4db1f01f15ab40d20046fa6507f197f34d0050b))
+* **application:** remove not yet ready i19 word ([5b72a41](https://github.com/ecomclub/admin-marketplace/commit/5b72a413b3d3fe65d49ce54a8b209500bb325b65))
+
 ### [0.2.4](https://github.com/ecomclub/admin-marketplace/compare/v0.2.3...v0.2.4) (2019-12-18)
 
 
