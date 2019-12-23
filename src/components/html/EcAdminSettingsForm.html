@@ -46,9 +46,7 @@
                 bordered
               >
                 <a-list-item slot="renderItem" slot-scope="item, index">
-                  <a-list-item-meta
-                    :description="getObjectValues(item)"
-                  >
+                  <a-list-item-meta>
                     <a
                       slot="title"
                       href="#"
@@ -71,6 +69,20 @@
                         #{{ (index + 1) }}
                       </samp>
                     </a>
+
+                    <div slot="description">
+                      {{ getObjectValues(item) }}
+                      <div class="mt-2" v-if="dataListsIndexes[field] === index">
+                        <a-button
+                          type="danger"
+                          size="small"
+                          html-type="button"
+                          @click.prevent="removeDataListElement(dataList, index, field)"
+                        >
+                          {{ i19delete }}
+                        </a-button>
+                      </div>
+                    </div>
                   </a-list-item-meta>
                 </a-list-item>
               </a-list>

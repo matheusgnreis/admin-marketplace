@@ -18,7 +18,7 @@ import {
   i19yes,
   i19no,
   i19areYouWantToDeleteAppMsg,
-  i19appAlreadyInstalledMsg,
+  // i19appAlreadyInstalledMsg,
   i19back,
   i19unavailable,
   i19paid,
@@ -215,7 +215,7 @@ export default {
     },
 
     i19appAlreadyInstalledMsg () {
-      return i18n(i19appAlreadyInstalledMsg)
+      return 'Aplicativo já instalado, deseja continuar?'
     },
 
     i19saved () {

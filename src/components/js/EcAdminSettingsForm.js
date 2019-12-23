@@ -1,8 +1,10 @@
 import { i18n } from '@ecomplus/utils'
 import getSchemaInput from './../../lib/get-schema-input'
+import sanitize from './../../lib/sanitize'
 
 import {
   i19add,
+  i19delete,
   i19edit,
   // i19empty,
   // i19editing,
@@ -30,6 +32,7 @@ export default {
 
   computed: {
     i19add: () => i18n(i19add),
+    i19delete: () => i18n(i19delete),
     i19edit: () => i18n(i19edit),
     i19editing: () => 'Editando',
     i19empty: () => 'Vazio',
@@ -45,7 +48,7 @@ export default {
         header: this.i19general,
         fields: []
       }
-      const fieldGroups = [baseFieldGroup]
+      const fieldGroups = []
       for (const field in this.adminSettings) {
         if (this.adminSettings[field]) {
           const { schema, hide } = this.adminSettings[field]
@@ -60,6 +63,9 @@ export default {
             baseFieldGroup.fields.push(fieldObj)
           }
         }
+      }
+      if (baseFieldGroup.fields.length) {
+        fieldGroups.unshift(baseFieldGroup)
       }
       return fieldGroups
     }
@@ -103,12 +109,11 @@ export default {
       let refSchema
       if (this.checkNestedObjectsArray(schema)) {
         if (!data[field] || !data[field].length) {
-          if (parentFields === '') {
-            this.$set(data, field, [{}])
-            this.$set(this.dataListsIndexes, field, 0)
-          } else {
-            data[field] = [{}]
-          }
+          data[field] = [{}]
+        }
+        if (parentFields === '' && this.dataListsIndexes[field] === undefined) {
+          this.$set(data, field, data[field])
+          this.$set(this.dataListsIndexes, field, 0)
         }
         data = data[field]
         refSchema = schema.items
@@ -149,11 +154,19 @@ export default {
       return fieldObjects
     },
 
+    removeDataListElement (dataList, index, field) {
+      dataList.splice(index, 1)
+      if (!dataList.length) {
+        dataList.push({})
+      }
+      this.dataListsIndexes[field] = index > 0 ? index - 1 : 0
+    },
+
     handleSubmit () {
-      const formData = {
+      const formData = sanitize({
         data: this.data,
         hidden_data: this.hiddenData
-      }
+      })
       this.$emit('submit', formData)
       this.$emit('update:application', {
         ...this.application,
