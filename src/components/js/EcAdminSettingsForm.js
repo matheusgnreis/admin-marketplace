@@ -1,5 +1,6 @@
 import { i18n } from '@ecomplus/utils'
 import getSchemaInput from './../../lib/get-schema-input'
+import sanitize from './../../lib/sanitize'
 
 import {
   i19add,
@@ -162,10 +163,10 @@ export default {
     },
 
     handleSubmit () {
-      const formData = {
+      const formData = sanitize({
         data: this.data,
         hidden_data: this.hiddenData
-      }
+      })
       this.$emit('submit', formData)
       this.$emit('update:application', {
         ...this.application,
