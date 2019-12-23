@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.2.6](https://github.com/ecomclub/admin-marketplace/compare/v0.2.5...v0.2.6) (2019-12-23)
+
+
+### Features
+
+* implemented sanitize formData ([59e8889](https://github.com/ecomclub/admin-marketplace/commit/59e8889739d3e386d54d3ad7717dd5e0a0f88385))
+
 ### [0.2.5](https://github.com/ecomclub/admin-marketplace/compare/v0.2.4...v0.2.5) (2019-12-19)
 
 
