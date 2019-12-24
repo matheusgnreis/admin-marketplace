@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.2.7](https://github.com/ecomclub/admin-marketplace/compare/v0.2.6...v0.2.7) (2019-12-24)
+
+
+### Bug Fixes
+
+* **input-number:** acepting string value and parse to number ([38493ab](https://github.com/ecomclub/admin-marketplace/commit/38493abf544f747d7190866bb955ada613618145))
+* **sanitize:** fix checking object (escape null) ([4cd1dfc](https://github.com/ecomclub/admin-marketplace/commit/4cd1dfc49373a58c22ce33844773a591bf63f934))
+
 ### [0.2.6](https://github.com/ecomclub/admin-marketplace/compare/v0.2.5...v0.2.6) (2019-12-23)
 
 
