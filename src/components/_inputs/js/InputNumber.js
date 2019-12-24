@@ -12,7 +12,7 @@ export default {
       type: Object,
       default: () => ({})
     },
-    value: Number
+    value: [Number, String]
   },
 
   computed: {
@@ -20,7 +20,8 @@ export default {
 
     localValue: {
       get () {
-        return this.value
+        const num = parseFloat(this.value)
+        return isNaN(num) ? undefined : num
       },
       set (val) {
         this.$emit('input', val)
